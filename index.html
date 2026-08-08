@@ -440,7 +440,7 @@ footer{margin-top:80px;padding-top:26px;border-top:1px solid var(--border);color
 <aside id="sidebar">
   <div class="brand">
     <div class="logo">AI &amp; ML Course</div>
-    <div class="sub">Interactive Lessons · Week 1–3</div>
+    <div class="sub">Interactive Lessons · Week 1–6</div>
     <div class="overall">
       <div class="obar"><span id="overallBar"></span></div>
       <div class="otxt" id="overallTxt">อ่านแล้ว 0%</div>
@@ -458,9 +458,9 @@ footer{margin-top:80px;padding-top:26px;border-top:1px solid var(--border);color
 <header class="hero">
   <div class="badge">⚡ INTERACTIVE LEARNING · TH</div>
   <h1>Introduction to <span class="gd">AI & ML</span><br>+ Mathematics for Machine Learning</h1>
-  <p class="lead">บทเรียนฉบับละเอียดจากสไลด์ Week 1–2 เสริมด้วยเนื้อหาจาก GeeksforGeeks — อ่านทฤษฎี ลองเล่น animation แบบ interactive แล้วทดสอบตัวเองด้วย quiz ท้ายบท</p>
+  <p class="lead">บทเรียนฉบับละเอียดจากสไลด์ Week 1–6 (รวมสไลด์ .pptx ที่อาจารย์แนบเพิ่ม) เสริมด้วย GeeksforGeeks — อ่านทฤษฎี ลองเล่น animation แล้วทดสอบตัวเองด้วย quiz + โซนติวสอบ</p>
   <div class="chips">
-    <div class="chip">📘 <b>6 Weeks</b> · 40+ หัวข้อ</div>
+    <div class="chip">📘 <b>6 Weeks</b> · 55 หัวข้อ</div>
     <div class="chip">🎮 <b>21 Interactive Demos</b></div>
     <div class="chip">📝 <b>Quiz 45 ข้อ</b> + ข้อสอบเก็งพร้อมเฉลย</div>
     <div class="chip">⏱️ <b>โหมดจำลองสอบ</b> จับเวลา</div>
@@ -477,193 +477,314 @@ footer{margin-top:80px;padding-top:26px;border-top:1px solid var(--border);color
   <div class="sec-head">
     <div class="kicker">Exam · Start Here</div>
     <h3>ติวยังไงให้ทัน — และอาจารย์น่าจะออกอะไร</h3>
-    <p class="desc">อ่านหน้านี้ก่อน แล้วค่อยไล่ cram sheet ของแต่ละสัปดาห์ · ถ้ามีเวลาน้อย ให้เน้นหัวข้อที่ติดป้าย <span class="hot hot-3">🔥 ออกแน่</span></p>
+    <p class="desc">อ่านหน้านี้ก่อน แล้วไล่ <b>Cram แก่นคิด</b> ทั้ง 2 ชุด (Week 1–3 และ Week 4–6) · ถ้ามีเวลาน้อย ให้เน้นหัวข้อที่ติดป้าย <span class="hot hot-3">🔥 ออกแน่</span></p>
   </div>
 
   <div class="card tone-red">
-    <h4><span class="ic">🔍</span>อ่านโจทย์จากตัวสไลด์: อาจารย์ให้น้ำหนักตรงไหน</h4>
+    <h4><span class="ic">🗣️</span>ข้อมูลจากอาจารย์: ออกแนว "ความเข้าใจ" ไม่ใช่แนวคำนวณ</h4>
     <ul>
-      <li><b>Week 2 มี 30 สไลด์ ยาวที่สุดในช่วงต้นคอร์ส</b> และมีสไลด์ "worked example" แยกออกมาต่างหาก 3 จุด (Medical Test / Gradient Descent numeric / NumPy integrated practice) — สไลด์ที่อาจารย์อุตส่าห์ทำตัวอย่างคำนวณทีละขั้น มักกลายเป็นข้อสอบคำนวณ</li>
-      <li><b>Assignment #2 บังคับให้ทำ</b> Vector, Matrix, Eigen, Calculus/Gradient Descent, Descriptive Stats — <b>หัวข้อที่สั่งทำการบ้าน = หัวข้อที่จะวัดผล</b> เกือบทุกครั้ง</li>
-      <li>สไลด์ Week 2 จบด้วย checklist ว่า <i>"ฝึกตรวจ shape, คำนวณตัวอย่างเล็กด้วยมือ และยืนยันผลด้วย NumPy"</i> → เป็นคำใบ้ตรง ๆ ว่าจะมีข้อ <b>คำนวณมือ</b> และข้อ <b>ตรวจ shape</b></li>
-      <li>ทุกสไลด์คู่มี pattern เดียวกัน: <b>ฝั่งซ้าย = นิยาม/สูตร, ฝั่งขวา = ความหมายใน ML</b> → ข้อสอบมักถามสองแนวนี้สลับกัน ("สูตรคืออะไร" กับ "ใช้ทำอะไรใน ML")</li>
+      <li><b>อาจารย์บอกเองว่าออกแนวความเข้าใจ/วิเคราะห์เป็นหลัก</b> — คำนวณมีบ้างแต่<b>เป็นเลขสั้น ๆ</b> ไม่ใช่โจทย์ยาว → <b>ทุ่มเวลาไปที่ "ทำไม" และ "ต่างกันยังไง" ไม่ใช่ท่องสูตร</b></li>
+      <li><b>สิ่งที่ต้องฝึกให้คล่องที่สุดคือ "อธิบายเป็นคำพูด"</b> เช่น ทำไม accuracy ถึงหลอกเมื่อข้อมูลไม่สมดุล · ทำไม P(A|B) ≠ P(B|A) · ทำไม tree ไม่ต้อง scale — ถ้าพูดออกมาเป็นประโยคได้ แปลว่าตอบข้อสอบได้</li>
+      <li><b>คำถามที่เจอบ่อยสุดในแนวนี้คือ "A กับ B ต่างกันอย่างไร"</b> → cram ทั้งสองชุดจึงทำเป็น<b>ตารางเทียบ</b>ไว้ให้เยอะเป็นพิเศษ</li>
+      <li>ยังต้องจำ<b>ตัวเลขตัวอย่างในสไลด์</b>ไว้บ้าง (เช่น Bayes ได้ 16.1%, ‖[3,4]‖=5) เพราะโจทย์คำนวณสั้น ๆ มักหยิบมาจากตรงนั้น — ดูได้ที่หัวข้อ <b>"ตัวเลขจากสไลด์ที่ต้องจำ"</b></li>
     </ul>
   </div>
 
   <div style="margin-top:18px">
-    <div class="plan-step"><div class="pn">1</div><div><div class="pt">ไล่ Cram Sheet ของ Week 2 ให้จบก่อน (~20 นาที)</div><div class="pd">อยู่หัวข้อถัดไป — มีทุกสูตรที่ต้องจำ + ระดับความน่าออกสอบกำกับทุกอัน</div></div></div>
-    <div class="plan-step"><div class="pn">2</div><div><div class="pt">ทำ "ข้อสอบเก็ง" แบบเขียนมือจริง ๆ (~30 นาที)</div><div class="pd">อย่าเพิ่งดูเฉลย — คำนวณเองก่อน แล้วค่อยกดเฉลย จุดที่พลาดคือจุดที่ต้องกลับไปอ่าน</div></div></div>
-    <div class="plan-step"><div class="pn">3</div><div><div class="pt">เปิดโหมดจำลองสอบ จับเวลา (~15 นาที)</div><div class="pd">วัดว่าทำทันไหม และตรวจว่าจำสูตรได้จริงตอนกดดัน</div></div></div>
-    <div class="plan-step"><div class="pn">4</div><div><div class="pt">ก่อนเข้าห้องสอบ: เปิด "ตารางสรุปสูตร" อ่านรอบเดียว (~3 นาที)</div><div class="pd">ทุกสูตรของทั้งคอร์สอยู่ในตารางเดียว เลื่อนดูรอบสุดท้ายให้ขึ้นสมอง</div></div></div>
+    <div class="plan-step"><div class="pn">1</div><div><div class="pt">อ่าน "Cram แก่นคิด Week 1–3" แล้วต่อ "Week 4–6" (~40 นาที)</div><div class="pd">2 หัวข้อถัดไป — เรียงเป็น <b>คำถามที่ข้อสอบจะถาม → คำตอบที่ตอบได้เลย</b> · อ่านจบแล้วปิดจอ <b>ลองพูดคำตอบออกมาดัง ๆ</b> ข้อที่พูดไม่ออกคือข้อที่ยังไม่เข้าใจจริง</div></div></div>
+    <div class="plan-step"><div class="pn">2</div><div><div class="pt">ไล่ "กับดัก 12 ข้อ" + "ตัวเลขจากสไลด์" (~20 นาที)</div><div class="pd">กับดักคือที่มาของ<b>ตัวเลือกหลอก</b>ในข้อปรนัย · ส่วนตัวเลขไว้รับมือข้อคำนวณสั้น ๆ</div></div></div>
+    <div class="plan-step"><div class="pn">3</div><div><div class="pt">ทำ "ข้อสอบเก็ง" + "ชุดซ้อม 19 ข้อ" (~40 นาที)</div><div class="pd">อย่าเพิ่งดูเฉลย — ตอบเองก่อน จุดที่พลาดคือจุดที่ต้องกลับไปอ่าน</div></div></div>
+    <div class="plan-step"><div class="pn">4</div><div><div class="pt">ปิดท้ายด้วยโหมดจำลองสอบ + Checklist (~20 นาที)</div><div class="pd">วัดว่าตอบได้จริงตอนกดดัน แล้วติ๊ก checklist ให้ครบก่อนเข้าห้องสอบ</div></div></div>
   </div>
 
-  <div class="note">สิ่งที่<b>ไม่ควรเสียเวลาท่อง</b>: ชื่อ API ยาว ๆ ของ scikit-learn, ปีที่เกิดเหตุการณ์ทุกปีใน timeline, ค่าคงที่ทศนิยมยาว ๆ — ข้อสอบระดับนี้เน้น<b>ความเข้าใจ + คำนวณเลขเล็ก ๆ</b> มากกว่าความจำล้วน</div>
+  <div class="note">สิ่งที่<b>ไม่ควรเสียเวลาท่อง</b>: ชื่อ API ยาว ๆ ของ scikit-learn · ปีทุกปีใน timeline · สูตรยาว ๆ ที่ derive เอง — <b>ข้อสอบแนวนี้ให้คะแนนกับการอธิบายได้ ไม่ใช่การจำได้</b></div>
 </section>
 
 <!-- EXAM : W2 cram -->
-<section class="section reveal" id="ex-cram2" data-week="exam" data-nav="🔥 Cram Sheet: Week 2">
+<section class="section reveal" id="ex-cram2" data-week="exam" data-nav="🧠 Cram: แก่นคิด Week 1–3">
   <div class="sec-head">
-    <div class="kicker">Exam · Cram Sheet</div>
-    <h3>Cram Sheet — Week 2: Mathematics for ML</h3>
-    <p class="desc">ทุกสูตรที่ต้องจำจาก Week 2 พร้อมระดับความน่าออกสอบ · <span class="hot hot-3">🔥 ออกแน่</span> <span class="hot hot-2">⚡ น่าจะออก</span> <span class="hot hot-1">○ อ่านผ่าน</span></p>
+    <div class="kicker">Exam · Concept Cram</div>
+    <h3>Cram Sheet — Week 1–3 (เน้นแนวคิด ไม่เน้นคำนวณ)</h3>
+    <p class="desc">อาจารย์บอกว่าออก<b>แนวความเข้าใจ</b> คำนวณมีบ้างแต่น้อย — โซนนี้จึงเรียงเป็น <b>"คำถามที่ข้อสอบจะถาม → คำตอบที่ตอบได้เลย"</b> · อ่าน Week 1–6 มาแล้วมาอ่านตรงนี้ = ต่อจิ๊กซอว์ครบในรอบเดียว</p>
   </div>
 
-  <div class="cram">
-    <h4>📐 Linear Algebra</h4>
-    <div class="cram-sub">ส่วนที่คำนวณมือง่ายที่สุด → ออกสอบเยอะที่สุด</div>
-
-    <div class="cram-row">
-      <div class="ck">Dot Product <span class="hot hot-3">🔥 ออกแน่</span></div>
-      <div class="cv"><span class="f">x·w = Σ xᵢwᵢ = x₁w₁ + x₂w₂ + x₃w₃</span>
-        ผลลัพธ์เป็น <b>scalar</b> · ตัวอย่างจากสไลด์: <span class="math">[1,2,3]·[4,5,6] = 4+10+18 = 32</span> (จำเลข 32 ไว้เลย ออกบ่อย)</div>
-    </div>
-
-    <div class="cram-row">
-      <div class="ck">L2 Norm (Magnitude) <span class="hot hot-3">🔥 ออกแน่</span></div>
-      <div class="cv"><span class="f">‖x‖₂ = √(Σxᵢ²)</span>
-        ตัวอย่างในสไลด์: <span class="math">‖[3,4]‖ = 5</span> · ระวังโจทย์ 3 มิติ เช่น <span class="math">‖[1,2,2]‖ = √9 = 3</span></div>
-    </div>
-
-    <div class="cram-row">
-      <div class="ck">Cosine Similarity <span class="hot hot-3">🔥 ออกแน่</span></div>
-      <div class="cv"><span class="f">cos θ = (x·y) / (‖x‖·‖y‖)</span>
-        ค่าอยู่ใน <b>[−1, 1]</b> · จุดที่ชอบออก: <span class="math">query=[1,1], doc=[2,2] → cos = 1</span> เพราะทิศเดียวกัน <b>ขนาดไม่มีผล</b></div>
-    </div>
-
-    <div class="cram-row">
-      <div class="ck">Matrix Multiplication + Shape <span class="hot hot-3">🔥 ออกแน่</span></div>
-      <div class="cv"><span class="f">A(m×n) @ B(n×p) = C(m×p) ,  Cᵢⱼ = แถว i ของ A · คอลัมน์ j ของ B</span>
-        <b>inner dimension ต้องเท่ากัน</b> · <span class="math">AB ≠ BA</span> · สไลด์เน้นว่า "shape tracking ช่วยป้องกัน runtime errors" → มีข้อถาม shape แน่</div>
-    </div>
-
-    <div class="cram-row">
-      <div class="ck">Transpose <span class="hot hot-2">⚡ น่าจะออก</span></div>
-      <div class="cv"><span class="f">(Aᵀ)ᵢⱼ = Aⱼᵢ  ,  (AB)ᵀ = BᵀAᵀ</span>
-        ข้อที่ชอบหลอก: <span class="math">(AB)ᵀ</span> เท่ากับ <b>BᵀAᵀ ไม่ใช่ AᵀBᵀ</b> (ลำดับกลับ)</div>
-    </div>
-
-    <div class="cram-row">
-      <div class="ck">Determinant / Inverse <span class="hot hot-3">🔥 ออกแน่</span></div>
-      <div class="cv"><span class="f">det 2×2: |a b; c d| = ad − bc     A⁻¹A = I</span>
-        <b>det = 0 ⇒ singular ⇒ ไม่มี inverse</b> (ข้อนี้ออกชัวร์) · det บอกอัตราขยายพื้นที่ · สไลด์เตือน: ใช้ <code class="inline">solve(A,b)</code> เสถียรกว่า inverse</div>
-    </div>
-
-    <div class="cram-row">
-      <div class="ck">Rank <span class="hot hot-2">⚡ น่าจะออก</span></div>
-      <div class="cv"><span class="f">rank = จำนวนแถว/คอลัมน์ที่อิสระเชิงเส้น</span>
-        แถวหนึ่งเป็นผลคูณของอีกแถว → rank ลด → det = 0 → ไม่มี inverse (สามอย่างนี้เชื่อมกัน ชอบออกเป็นข้อเดียว)</div>
-    </div>
-
-    <div class="cram-row">
-      <div class="ck">Eigenvalue / Eigenvector <span class="hot hot-3">🔥 ออกแน่</span></div>
-      <div class="cv"><span class="f">Av = λv   ,   det(A − λI) = 0</span>
-        v = ทิศที่<b>ไม่หมุน</b>, λ = อัตรายืด/หด · เชื่อมกับ <b>PCA</b>: eigenvector ของ <b>covariance matrix</b> คือ principal directions, eigenvalue มาก = variance สูง<br>
-        เช็คคำตอบเร็ว: <span class="math">Σλ = trace(A)</span> และ <span class="math">Πλ = det(A)</span></div>
-    </div>
-
-    <div class="cram-row">
-      <div class="ck">Ax = b <span class="hot hot-1">○ อ่านผ่าน</span></div>
-      <div class="cv">ตัวอย่างสไลด์: <span class="math">2x+y=5, x−y=1 → x=2, y=1</span> · overdetermined ใช้ least squares</div>
-    </div>
+  <div class="card tone-red">
+    <h4><span class="ic">🎯</span>ข้อสอบแนวความเข้าใจ หน้าตาเป็นยังไง — และตอบยังไงให้ได้คะแนน</h4>
+    <ul>
+      <li><b>แบบที่ 1 — "อันไหนคือ / ข้อใดถูก"</b> วัดว่าจำนิยามแม่นไหม → ตอบด้วย<b>คำนิยามสั้น ๆ + ตัวอย่าง 1 อัน</b></li>
+      <li><b>แบบที่ 2 — "ต่างกันอย่างไร"</b> (A vs B) ← <b>ออกเยอะที่สุดในข้อสอบแนวนี้</b> → ตอบด้วย <b>"ต่างกันที่___ · A เหมาะเมื่อ___ · B เหมาะเมื่อ___"</b></li>
+      <li><b>แบบที่ 3 — สถานการณ์สมมติ</b> "ถ้าเจอกรณีนี้ ควรใช้อะไร เพราะอะไร" → ตอบ <b>เลือกอะไร + เหตุผลจากคุณสมบัติของมัน</b> (ไม่ใช่แค่ชื่อ)</li>
+      <li><b>แบบที่ 4 — "ทำไม"</b> วัดว่าเข้าใจจริงหรือท่องมา → ตอบด้วย<b>กลไก</b> เช่น "เพราะ mean ใช้ทุกค่ามาหาร ค่าสุดขั้วจึงลากได้"</li>
+      <li><b>แบบที่ 5 — จับผิด</b> "ข้อใด<b>ไม่</b>ถูกต้อง" → ระวังคำว่า <b>เสมอ / ทุกครั้ง / ไม่มีวัน</b> มักเป็นตัวเลือกผิด</li>
+    </ul>
+    <div class="cram-sub" style="margin-top:12px;margin-bottom:0">⚡ <b>เทคนิคทองของข้อเขียนแนวนี้:</b> ตอบ 3 ชั้นเสมอ → <b>(1) มันคืออะไร (2) ใช้ตอนไหน (3) ข้อควรระวัง/ข้อจำกัด</b> · ชั้นที่ 3 คือสิ่งที่แยกคนได้ A ออกจากคนได้ B</div>
   </div>
 
-  <div class="cram">
-    <h4>📉 Calculus &amp; Optimization</h4>
-    <div class="cram-sub">ส่วนที่ต่อยอดไป Week 4 (regression) และ Assignment #2 → น้ำหนักสูง</div>
+  <!-- ================= WEEK 1 ================= -->
+  <div class="cram" style="border-color:rgba(79,140,255,.35)">
+    <h4>📘 Week 1 — Introduction to AI &amp; ML</h4>
+    <div class="cram-sub">สัปดาห์นี้เป็น<b>คำนิยามล้วน</b> → ออกแนวความเข้าใจ 100% เก็บให้หมด เป็นคะแนนฟรี</div>
 
     <div class="cram-row">
-      <div class="ck">Derivative Rules <span class="hot hot-3">🔥 ออกแน่</span></div>
-      <div class="cv"><span class="f">d(c)/dx = 0 · d(xⁿ)/dx = n·xⁿ⁻¹ · d(eˣ)/dx = eˣ · d(af+bg) = af′+bg′</span>
-        ตัวอย่างในสไลด์: <span class="math">f(x)=3x²+2x+1 → f′(x)=6x+2 → f′(2)=14</span> (จำเลข 14 ไว้)</div>
+      <div class="ck">AI, ML, DL ต่างกันอย่างไร <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>ซ้อนกันเป็นชั้น: AI ⊃ ML ⊃ DL</b><br>
+        <b>AI</b> = การจำลองความฉลาดของมนุษย์ในเครื่องจักร (reason, learn, plan, perceive) — <b>รวมทุกเทคนิค</b> แม้แต่ระบบ if-then ที่คนเขียนกฎเอง<br>
+        <b>ML</b> = subset ของ AI ที่ <b>เรียนรู้จากข้อมูล</b> ไม่ต้องเขียนกฎเอง<br>
+        <b>DL</b> = subset ของ ML ที่ใช้ <b>neural network หลายชั้น</b> เลียนแบบสมอง</div>
     </div>
 
     <div class="cram-row">
-      <div class="ck">Partial Derivative + Gradient <span class="hot hot-3">🔥 ออกแน่</span></div>
-      <div class="cv"><span class="f">f(x,y)=x²+3y² → ∂f/∂x=2x, ∂f/∂y=6y → ∇f=[2x, 6y]</span>
-        ตัวอย่างสไลด์: ที่จุด <span class="math">(2,1) → ∇f = [4, 6]</span> · <b>∇f ชี้ทิศ steepest ascent</b>, <b>−∇f ชี้ทิศลดเร็วสุด</b></div>
+      <div class="ck">ML ต่างจากการเขียนโปรแกรมปกติยังไง <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><span class="f">Traditional:  Rules + Data → Answers        ML:  Data + Answers → Rules</span>
+        โปรแกรมปกติ<b>คนคิดกฎ</b>แล้วเครื่องทำตาม · ML <b>เครื่องหากฎเอง</b>จากตัวอย่างที่มีเฉลย<br>
+        <b>ตอบให้เต็ม:</b> "ML เหมาะกับปัญหาที่กฎซับซ้อนเกินกว่าคนจะเขียนครบ เช่น จำหน้าคน — เขียนกฎว่า 'หน้าคนคืออะไร' ไม่ไหว แต่ให้ตัวอย่างเป็นแสนรูปแล้วให้เครื่องหาเอง ทำได้"</div>
     </div>
 
     <div class="cram-row">
-      <div class="ck">Chain Rule → Backprop <span class="hot hot-3">🔥 ออกแน่</span></div>
-      <div class="cv"><span class="f">y=f(g(x)) → dy/dx = f′(g(x))·g′(x)</span>
-        ตัวอย่างสไลด์: <span class="math">y=(3x+1)² → dy/dx = 2(3x+1)·3 = 6(3x+1)</span><br>
-        backprop = เริ่ม gradient จาก loss แล้วย้อนกลับ แต่ละ layer คูณ local derivative</div>
+      <div class="ck">อะไรเป็น AI แต่ไม่ใช่ ML <span class="hot hot-2">⚡ ข้อดักคลาสสิก</span></div>
+      <div class="cv"><b>Expert system / rule-based system ยุค 1980s</b> — "ฉลาด" เพราะคน hardcode กฎเป็นหมื่นข้อ แต่<b>ไม่ได้เรียนรู้จากข้อมูลเลย</b><br>
+        ⚠️ ตัวเลือกที่บอกว่า "AI ทุกตัวคือ ML" = <b>ผิด</b></div>
     </div>
 
     <div class="cram-row">
-      <div class="ck">Loss Functions <span class="hot hot-3">🔥 ออกแน่</span></div>
-      <div class="cv"><span class="f">MSE = (1/n)Σ(y−ŷ)²  |  BCE = −y log p −(1−y)log(1−p)  |  CCE = −Σ_c y_c log p_c  |  +λ‖w‖²</span>
-        <b>Regression → MSE</b> · <b>2 คลาส → Binary CE</b> (คู่ sigmoid) · <b>หลายคลาส → Categorical CE</b> (คู่ softmax) · <b>กัน overfit → เติม λ‖w‖²</b></div>
+      <div class="ck">งานนี้เป็น ML ประเภทไหน <span class="hot hot-3">🔥 ออกแน่ (แนวสถานการณ์)</span></div>
+      <div class="cv"><b>ถามตัวเอง 2 คำถามตามลำดับ:</b><br>
+        1️⃣ <b>ข้อมูลมี "เฉลย" (label) ติดมาไหม?</b> → มี = <b>Supervised</b><br>
+        2️⃣ ถ้าไม่มี label → <b>มี reward/penalty จากการกระทำไหม?</b> → มี = <b>Reinforcement</b> · ไม่มี = <b>Unsupervised</b><br>
+        แล้วถ้าเป็น Supervised ถามต่อ: ทำนาย<b>ตัวเลขต่อเนื่อง</b> = Regression · ทำนาย<b>หมวด</b> = Classification</div>
     </div>
 
     <div class="cram-row">
-      <div class="ck">Backprop 4 ขั้น <span class="hot hot-2">⚡ น่าจะออก</span></div>
-      <div class="cv"><b>Forward Pass</b> (คำนวณ ŷ) → <b>Compute Loss</b> (วัด error) → <b>Backward Pass</b> (chain rule หา gradient) → <b>Update Weights</b> (θ ← θ − α∇L)</div>
+      <div class="ck">เทียบ 3 ประเภทให้เห็นภาพ <span class="hot hot-3">🔥</span></div>
+      <div class="cv">
+        <div class="ftable-wrap" style="margin-top:4px">
+          <table class="ftable">
+            <thead><tr><th>ประเภท</th><th>ข้อมูลที่ใช้</th><th>เป้าหมาย</th><th>งานย่อย</th><th>ตัวอย่าง</th></tr></thead>
+            <tbody>
+              <tr><td><b>Supervised</b></td><td>มี label (เฉลย)</td><td>ทำนาย label ของข้อมูลใหม่</td><td>Classification · Regression</td><td>กรอง spam · ทำนายราคาบ้าน</td></tr>
+              <tr><td><b>Unsupervised</b></td><td><b>ไม่มี</b> label</td><td>ค้นหา pattern/โครงสร้างเอง</td><td>Clustering · Dim. Reduction</td><td>แบ่งกลุ่มลูกค้า · PCA</td></tr>
+              <tr><td><b>Reinforcement</b></td><td>ไม่มี dataset ตายตัว — เกิดจากการลอง</td><td>หา policy ที่ได้ reward รวมสูงสุด</td><td>ควบคุม/ตัดสินใจต่อเนื่อง</td><td>เกม Atari · AlphaGo · หุ่นยนต์</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
     <div class="cram-row">
-      <div class="ck">Derivative Rules เพิ่ม <span class="hot hot-2">⚡</span></div>
-      <div class="cv"><span class="f">Product: d(fg)/dx = f′g + fg′     Log: d(ln x)/dx = 1/x     Exp: d(eˣ)/dx = eˣ</span></div>
+      <div class="ck">Application → ประเภทไหน <span class="hot hot-2">⚡ น่าจะออก</span></div>
+      <div class="cv"><b>Supervised:</b> Spam filter · OCR · Object detection · Face recognition<br>
+        <b>Reinforcement:</b> Atari (Deep Q-Learning) · AlphaGo · OpenAI Five<br>
+        <b>Generative:</b> LLM/ChatGPT · สร้างภาพ (สร้างของใหม่ ไม่ใช่แค่จำแนก)<br>
+        <b>จำ pattern:</b> เกม/ควบคุม → RL · รูป-ข้อความที่มีเฉลย → Supervised+DL · สร้างของใหม่ → Generative</div>
     </div>
 
     <div class="cram-row">
-      <div class="ck">Gradient Descent <span class="hot hot-3">🔥 ออกแน่</span></div>
-      <div class="cv"><span class="f">θ ← θ − α∇L(θ)</span>
-        α เล็กไป = ช้า · α ใหญ่ไป = overshoot/diverge<br>
-        <b>ตัวอย่าง numeric ในสไลด์ (ออกสอบง่ายมาก):</b> <span class="math">f(x)=(x−3)², f′(x)=2(x−3), x₀=0, α=0.1</span> → รอบแรกได้ <b>x = 0.6</b> แล้วเป็น 1.08, 1.464, ...</div>
+      <div class="ck">AI Agent ต่างจาก Chatbot ยังไง <span class="hot hot-2">⚡ หัวข้อใหม่ในสไลด์</span></div>
+      <div class="cv"><b>Chatbot</b> = ตอบคำถามแล้วจบ · <b>AI Agent</b> = <b>วางแผน → ลงมือทำเป็นขั้นตอน → ตรวจผล → วนซ้ำจนงานเสร็จ</b><br>
+        ความสามารถที่เพิ่ม: <b>ใช้เครื่องมือ (tools/API) · จำบริบท (memory) · แตกงานเป็นขั้น ๆ</b><br>
+        เชื่อมกับนิยาม AI: reason, learn, <b>plan</b>, perceive — ตัว <b>plan</b> นี่แหละคือหัวใจของ agent</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">AI Winter สอนอะไร <span class="hot hot-1">○ อ่านผ่าน</span></div>
+      <div class="cv">วงจรซ้ำ: <b>คาดหวังสูงเกินจริง → ทำไม่ได้ตามโฆษณา → เงินทุนหด (Winter) → เทคโนโลยีใหม่ปลดล็อก → บูมใหม่</b><br>
+        หมุดที่ควรจำ: <b>1950 Turing Test</b> · <b>1956 Dartmouth = กำเนิดคำว่า AI (John McCarthy)</b> · <b>2012 AlexNet</b> = จุดระเบิด Deep Learning · <b>2017 Transformer</b> = รากของ LLM</div>
     </div>
   </div>
 
-  <div class="cram">
-    <h4>🎲 Probability &amp; Statistics</h4>
-    <div class="cram-sub">Bayes เป็นสะพานไป Week 6 → มีสไลด์ worked example เต็มหน้า = สัญญาณว่าออกสอบ</div>
+  <!-- ================= WEEK 2 ================= -->
+  <div class="cram" style="border-color:rgba(139,92,246,.35)">
+    <h4>📐 Week 2 — Mathematics for ML</h4>
+    <div class="cram-sub">สัปดาห์คณิต แต่ข้อสอบแนวนี้จะถาม <b>"สิ่งนี้มีไว้ทำอะไร / ต่างกันยังไง"</b> มากกว่าให้คำนวณยาว ๆ — สูตรอยู่ท้ายกล่อง เผื่อโจทย์คำนวณสั้น ๆ</div>
 
     <div class="cram-row">
-      <div class="ck">Probability Rules <span class="hot hot-2">⚡ น่าจะออก</span></div>
-      <div class="cv"><span class="f">0 ≤ P(A) ≤ 1 · P(not A)=1−P(A) · P(A∪B)=P(A)+P(B)−P(A∩B)</span></div>
+      <div class="ck">คณิต 3 เสาใน ML มีไว้ทำอะไร <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>Linear Algebra</b> = <b>แทนข้อมูลและ model</b> (vector/matrix) → ตอบคำถาม "เก็บข้อมูลยังไง"<br>
+        <b>Calculus</b> = <b>เครื่องมือปรับจูน</b> (derivative/gradient) → ตอบ "ทำให้ดีขึ้นยังไง"<br>
+        <b>Probability &amp; Statistics</b> = <b>ภาษาของความไม่แน่นอน</b> → ตอบ "มั่นใจแค่ไหน / ข้อมูลหน้าตายังไง"</div>
     </div>
 
     <div class="cram-row">
-      <div class="ck">Conditional + Bayes <span class="hot hot-3">🔥 ออกแน่</span></div>
-      <div class="cv"><span class="f">P(A|B) = P(A∩B)/P(B)     P(A|B) = P(B|A)·P(A) / P(B)</span>
-        Prior = P(A) · Likelihood = P(B|A) · Posterior = P(A|B)<br>
-        <b>ตัวเลขจากสไลด์ที่ต้องจำ:</b> P(D)=0.01, P(+|D)=0.95, P(+|¬D)=0.05 → P(+)=0.059 → <b>P(D|+) ≈ 0.161 (16.1%)</b></div>
+      <div class="ck">ทำไม dot product ถึงสำคัญที่สุด <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv">เพราะ <b>neuron ทุกตัวคำนวณมัน</b> — linear model คือ <span class="math">z = w·x + b</span> ซึ่งก็คือ dot product ของ weight กับ input<br>
+        <b>ความหมายเชิงเรขาคณิต:</b> ค่ามาก = สอง vector ชี้ทิศใกล้กัน · <b>ค่า 0 = ตั้งฉาก (ไม่เกี่ยวกัน)</b> · ติดลบ = สวนทาง<br>
+        และ <b>matrix multiplication = dot product หลายชุดพร้อมกัน</b> → นี่คือเหตุผลที่ GPU (ซึ่งเก่งเรื่องคูณ matrix) ทำให้ ML เร็ว</div>
     </div>
 
     <div class="cram-row">
-      <div class="ck">Distributions <span class="hot hot-2">⚡ น่าจะออก</span></div>
-      <div class="cv"><b>Bernoulli</b> = ทดลอง 1 ครั้ง ผล 0/1 · <b>Binomial</b> = นับ success จาก n ครั้งอิสระ · <b>Normal</b> = ต่อเนื่อง รูประฆัง กำหนดด้วย μ, σ²</div>
+      <div class="ck">Cosine similarity ต่างจาก dot product ยังไง <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>ต่างกันที่ "ขนาดมีผลไหม"</b><br>
+        <b>Dot product</b> โตตามทั้ง<b>ทิศทางและขนาด</b> — vector ยาวขึ้นค่าก็มากขึ้น<br>
+        <b>Cosine</b> หารด้วย norm ทั้งสองตัว = <b>ตัดขนาดทิ้ง เหลือแต่ทิศ</b> ค่าอยู่ใน <b>[−1, 1]</b><br>
+        <b>ใช้ตอนไหน:</b> เทียบ <b>ความคล้ายของเอกสาร/embedding</b> — เพราะเอกสารยาวกว่าไม่ได้แปลว่าเกี่ยวข้องมากกว่า<br>
+        <b>ตัวอย่างที่ชอบออก:</b> query=[1,1] กับ doc=[2,2] → cosine = <b>1</b> (ทิศเดียวกันเป๊ะ แม้ขนาดต่าง 2 เท่า)</div>
     </div>
 
     <div class="cram-row">
-      <div class="ck">Expectation / Variance <span class="hot hot-3">🔥 ออกแน่</span></div>
-      <div class="cv"><span class="f">E[X] = Σ x·P(X=x) · E[aX+b] = aE[X]+b · Var(X) = E[(X−μ)²] · SD = √Var</span></div>
+      <div class="ck">det(A) = 0 แปลว่าอะไร <span class="hot hot-3">🔥 ออกแน่ (ลูกโซ่)</span></div>
+      <div class="cv"><b>จำเป็นลูกโซ่ ตอบได้ทั้งข้อ:</b><br>
+        <span class="f">det = 0  →  singular  →  ไม่มี inverse  →  rank ไม่เต็ม  →  มีแถว/คอลัมน์ซ้ำซ้อน</span>
+        <b>ความหมายเชิงภาพ:</b> det บอกว่าการแปลง<b>ขยาย/หดพื้นที่กี่เท่า</b> · det=0 คือ<b>บีบพื้นที่จนแบนเป็นเส้น</b> มิติหายไป จึง<b>ย้อนกลับไม่ได้</b> (ไม่มี inverse)<br>
+        เชื่อมกับข้อมูลจริง: feature ที่ correlate กันสูงมาก ทำให้ rank ลด → <b>multicollinearity</b> → coefficient ไม่เสถียร</div>
     </div>
 
     <div class="cram-row">
-      <div class="ck">Descriptive Stats <span class="hot hot-2">⚡ น่าจะออก</span></div>
-      <div class="cv"><b>Mean</b> ใช้ทุกจุด ไวต่อ outlier · <b>Median</b> = P50 robust · <b>Mode</b> = ค่าที่พบบ่อยสุด <b>เป็นตัวเดียวที่ใช้กับ categorical ได้</b> และมีได้หลายค่า (bimodal)<br>
-        Range = Max−Min (ไวสุด) · IQR = Q3−Q1 (กลาง 50%) · <b>Var หน่วยกำลังสอง / SD หน่วยเดียวกับข้อมูล</b><br>
-        <b>Covariance</b> บอกทิศ ขึ้นกับหน่วย · <b>Correlation ∈ [−1,1]</b> ไร้หน่วย · ⚠️ <b>correlation ≠ causation</b></div>
+      <div class="ck">Eigenvector คืออะไร เกี่ยวอะไรกับ PCA <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><span class="math">Av = λv</span> — <b>v คือทิศทางที่การแปลงไม่หมุน</b> แค่ยืดหรือหด · <b>λ คืออัตราการยืด/หด</b><br>
+        <b>เชื่อมกับ PCA:</b> eigenvector ของ <b>covariance matrix</b> = <b>แกนหลัก (principal directions) ของข้อมูล</b><br>
+        <b>eigenvalue มาก = ข้อมูลกระจายตัว (variance) มากตามทิศนั้น</b> → เลือก top-k แกน = <b>ลดมิติโดยเสียข้อมูลน้อยสุด</b></div>
     </div>
 
     <div class="cram-row">
-      <div class="ck">Empirical Rule <span class="hot hot-2">⚡ น่าจะออก</span></div>
-      <div class="cv"><span class="f">μ±σ → 68%   ·   μ±2σ → 95%   ·   μ±3σ → 99.7%</span>
-        z-score standardization แปลงเป็น <span class="math">N(0,1)</span> → <b>ช่วยให้ gradient descent ลู่เข้าเร็วขึ้น</b></div>
+      <div class="ck">Gradient ชี้ทางไหน ทำไม GD ต้องเดินสวน <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>∇f ชี้ทิศที่ค่าเพิ่มเร็วที่สุด (steepest ascent)</b> — ไม่ใช่ทิศต่ำสุด!<br>
+        เราอยาก<b>ลด</b> loss จึงเดิน<b>สวนทาง</b>: <span class="math">θ ← θ − α∇L(θ)</span><br>
+        <b>ทำไม gradient ถึงเป็น vector:</b> เพราะ model มี parameter หลายตัว ต้องรู้ว่า<b>แต่ละตัว</b>ควรขยับทางไหน — gradient คือการรวม partial derivative ของทุกตัวเข้าด้วยกัน</div>
     </div>
 
     <div class="cram-row">
-      <div class="ck">Naive Bayes <span class="hot hot-2">⚡ น่าจะออก</span></div>
-      <div class="cv"><span class="f">P(Spam | "Free") = P("Free"|Spam)·P(Spam) / P("Free")</span>
-        "Naive" = สมมติว่าทุก feature (คำ) <b>เป็นอิสระต่อกัน</b> — ไม่จริงแต่ใช้ได้ผลดี · ML notation: <span class="math">P(θ|D) = P(D|θ)P(θ)/P(D)</span></div>
+      <div class="ck">Learning rate ใหญ่/เล็ก เกิดอะไร <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>เล็กเกินไป</b> → ก้าวสั้น <b>ลู่เข้าช้ามาก</b> เปลืองเวลาเทรน (แต่ยังไปถึง)<br>
+        <b>ใหญ่เกินไป</b> → <b>ก้าวข้ามจุดต่ำสุด</b> เกิด overshoot แกว่งไปมา หรือหนักสุดคือ <b>diverge</b> (loss พุ่งขึ้นเรื่อย ๆ)<br>
+        ⚠️ กับดัก: ตัวเลือกที่บอก "α ใหญ่ = เรียนเร็วกว่าเสมอ" คือ<b>ผิด</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">4 ขั้นของ Backpropagation <span class="hot hot-2">⚡ น่าจะออก</span></div>
+      <div class="cv"><b>Forward Pass</b> (ไหลไปหน้าคำนวณ ŷ) → <b>Compute Loss</b> (วัดผิดเท่าไร) → <b>Backward Pass</b> (ใช้ <b>chain rule</b> ไล่ย้อนหา gradient ทุก weight) → <b>Update Weights</b><br>
+        <b>ทำไมต้อง chain rule:</b> เพราะ neural network คือ<b>ฟังก์ชันซ้อนกันหลายชั้น</b> ต้องส่งผลกระทบย้อนกลับผ่านทีละชั้น</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">เลือก Loss function ยังไง <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>ดูที่ชนิดของ target:</b><br>
+        <b>ทำนายตัวเลข (regression)</b> → <b>MSE</b> · ยกกำลังสองจึง<b>ลงโทษ error ใหญ่หนัก</b> และ smooth หา derivative ได้<br>
+        <b>2 คลาส</b> → <b>Binary Cross-Entropy</b> (คู่กับ sigmoid)<br>
+        <b>หลายคลาส</b> → <b>Categorical Cross-Entropy</b> (คู่กับ softmax)<br>
+        <b>กลัว overfit</b> → เติม <b>+ λ‖w‖²</b> ต่อท้าย loss อะไรก็ได้<br>
+        คุณสมบัติเด่นของ Cross-Entropy: <b>ลงโทษการ "มั่นใจแต่ผิด" อย่างรุนแรง</b> (p=0.01 แต่คำตอบคือ 1 → loss พุ่ง)</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">ทำไม P(A|B) ≠ P(B|A) <span class="hot hot-3">🔥 ออกแน่ที่สุดของ Week 2</span></div>
+      <div class="cv"><b>ตัวอย่างที่ตอบได้ทันที:</b> "ป่วยแล้วตรวจเจอ 95%" ≠ "ตรวจเจอแล้วป่วยจริง 95%"<br>
+        <b>เหตุผล (ต้องพูดคำนี้):</b> เพราะ <b>base rate / prior</b> ต่ำมาก — คนไม่ป่วยมีเยอะกว่ามาก ผลบวกส่วนใหญ่จึงมาจาก<b>คนไม่ป่วยที่ตรวจผิดพลาด (false positive)</b><br>
+        <b>ตัวเลขในสไลด์:</b> P(D)=1%, sensitivity 95%, FP 5% → <b>P(D|+) ≈ 16.1%</b> เท่านั้น<br>
+        สูตร: <span class="math">P(A|B) = P(B|A)·P(A) / P(B)</span> · <b>Prior</b>=ก่อนเห็นหลักฐาน · <b>Likelihood</b>=โอกาสเห็นหลักฐานถ้าจริง · <b>Posterior</b>=หลังอัปเดต</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Naive Bayes "Naive" ตรงไหน <span class="hot hot-2">⚡ น่าจะออก</span></div>
+      <div class="cv">สมมติว่า <b>ทุก feature เป็นอิสระต่อกัน</b> (เช่นทุกคำในอีเมลไม่เกี่ยวกันเลย) — <b>ไม่จริงในภาษามนุษย์</b> แต่ทำให้คำนวณง่ายมากและ<b>ใช้งานได้ผลดีจริง</b><br>
+        นี่คือเบื้องหลัง <b>spam filter</b> ใน Week 1</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Mean vs Median vs Mode เลือกยังไง <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>Mean</b> ใช้ข้อมูล<b>ทุกจุด</b> → <b>ไวต่อ outlier</b> (ค่าสุดขั้วตัวเดียวลากได้)<br>
+        <b>Median</b> = ค่ากลางเมื่อเรียง (P50) → <b>ทนต่อ outlier</b> เหมาะกับ<b>ข้อมูลเบ้</b><br>
+        <b>Mode</b> = ค่าที่พบบ่อยสุด → <b>ตัวเดียวที่ใช้กับข้อมูล categorical ได้</b> และมีได้หลายค่า (bimodal)<br>
+        <b>ข้อสอบชอบถาม:</b> "ข้อมูลรายได้เบ้ขวา ควรรายงานค่าไหน" → <b>Median</b> เพราะ mean โดนคนรายได้สูงลากขึ้น<br>
+        <b>สัญญาณเบ้:</b> mean &gt; median = <b>เบ้ขวา</b> (มีค่าสูงลาก) · mean &lt; median = เบ้ซ้าย</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Correlation ≠ Causation <span class="hot hot-3">🔥 ออกแน่ (ข้อคลาสสิก)</span></div>
+      <div class="cv"><b>ตัวอย่างมาตรฐาน:</b> ยอดขายไอศกรีม ↔ คนจมน้ำ — สัมพันธ์กันสูง แต่ไม่ได้เป็นเหตุของกัน · ตัวการจริงคือ <b>หน้าร้อน (confounder / ตัวแปรแฝง)</b><br>
+        <b>ข้อจำกัดอีกอันที่ต้องรู้:</b> Pearson จับได้แค่ความสัมพันธ์<b>เชิงเส้น</b> — ข้อมูลรูป U (y=x²) มีความสัมพันธ์ชัดเจนแต่ <b>r ≈ 0</b> → จึงต้อง<b>พล็อตดูเสมอ</b><br>
+        <b>Covariance vs Correlation:</b> covariance บอกทิศแต่<b>ขึ้นกับหน่วย</b>เทียบข้ามคู่ไม่ได้ · correlation <b>normalize แล้ว ∈ [−1,1] ไร้หน่วย</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">สูตรที่ต้องจำ (เผื่อโจทย์คำนวณสั้น) <span class="hot hot-2">⚡</span></div>
+      <div class="cv"><span class="f">x·w = Σxᵢwᵢ    ‖x‖ = √(Σxᵢ²)    cos θ = (x·y)/(‖x‖‖y‖)
+det₂ₓ₂ = ad − bc    Av = λv    θ ← θ − α∇L(θ)
+MSE = (1/n)Σ(y−ŷ)²    P(A|B) = P(B|A)P(A)/P(B)
+Var = E[X²] − (E[X])²    IQR = Q3 − Q1    z = (x−μ)/σ</span>
+        <b>ค่าที่ท่องไว้ตอบได้ทันที:</b> ‖[3,4]‖=5 · [1,2,3]·[4,5,6]=32 · f(x)=3x²+2x+1 → f′(2)=14 · GD จาก x=0, α=0.1 บน (x−3)² → 0.6 · Bayes medical → <b>16.1%</b><br>
+        <b>Empirical Rule:</b> μ±σ=<b>68%</b> · μ±2σ=<b>95%</b> · μ±3σ=<b>99.7%</b></div>
     </div>
   </div>
 
-  <div class="takeaway">ถ้าเหลือเวลาอ่านแค่ 5 นาที ให้จำ 5 อย่างนี้: <b>dot product · det=0 ⇒ ไม่มี inverse · Av=λv · θ←θ−α∇L · Bayes P(D|+)=16.1%</b></div>
+  <!-- ================= WEEK 3 ================= -->
+  <div class="cram" style="border-color:rgba(52,211,153,.35)">
+    <h4>🧹 Week 3 — Data Preprocessing &amp; EDA</h4>
+    <div class="cram-sub">สัปดาห์นี้เต็มไปด้วย <b>"ควรทำอะไรเมื่อเจอสถานการณ์นี้"</b> → เป็นอาหารจานโปรดของข้อสอบแนวความเข้าใจ</div>
+
+    <div class="cram-row">
+      <div class="ck">ทำไม preprocessing ถึงสำคัญ <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>"Garbage in → Garbage out"</b> — model เรียนรู้ pattern ที่<b>มีอยู่แล้ว</b>ในข้อมูล ถ้าข้อมูลมั่ว/ไม่ครบ/ทำให้เข้าใจผิด คำทำนายก็จะเป็นแบบนั้น<br>
+        <b>ประโยคที่ควรเขียนตอบ:</b> "preprocessing เป็น<b>ส่วนหนึ่งของการสร้าง model</b> ไม่ใช่งานทำความสะอาดที่จะข้ามก็ได้"<br>
+        <b>4 ขั้น:</b> <b>Inspect</b> (ดู type/unit/range) → <b>Clean</b> (missing/duplicate/error) → <b>Transform</b> (encode/scale) → <b>Validate</b> (เช็คว่าที่แก้ไปสมเหตุสมผล)</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Data Leakage คืออะไร เกิดตรงไหนบ้าง <span class="hot hot-3">🔥 ออกแน่ที่สุดของ Week 3</span></div>
+      <div class="cv"><b>นิยาม:</b> ข้อมูลจากฝั่ง test/อนาคต<b>รั่วเข้าไปมีอิทธิพลต่อการเทรน</b> ทำให้ผลประเมิน<b>ดีเกินจริง</b> แล้วพังตอนใช้งานจริง<br>
+        <b>กฎเหล็กที่ต้องท่องได้:</b> <span class="f">"Split first, fit on train only"</span>
+        <b>4 กรณีที่สไลด์ยกมา:</b> ① scale ด้วย mean ของ<b>ทั้ง dataset</b> ② เลือก feature จาก correlation กับ <b>test target</b> ③ เติม missing ด้วย<b>ข้อมูลอนาคต</b> ④ <b>entity เดียวกันอยู่ทั้ง train และ test</b><br>
+        <b>วิธีทำให้ถูก:</b> <code class="inline">fit_transform</code> บน train เท่านั้น · <code class="inline">transform</code> (ไม่ fit) บน test · ใน cross-validation ต้อง <b>fit ใหม่ในทุก fold</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Missing data 3 แบบ ต่างกันยังไง <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>MCAR</b> (Missing Completely At Random) — หายแบบสุ่มล้วน ไม่เกี่ยวกับอะไรเลย → ลบทิ้งได้ปลอดภัยสุด<br>
+        <b>MAR</b> (Missing At Random) — การหาย<b>สัมพันธ์กับตัวแปรอื่นที่เราสังเกตได้</b> (เช่น เด็กมักไม่กรอกช่องเงินเดือน)<br>
+        <b>MNAR</b> (Missing Not At Random) — การหาย<b>สัมพันธ์กับค่าที่หายไปเอง</b> (คนรายได้สูงไม่ยอมบอกรายได้) → <b>อันตรายสุด</b> เพราะเติมค่าง่าย ๆ จะสร้าง bias<br>
+        <b>3 ทางเลือกจัดการ:</b> <b>Remove</b> (หายน้อยมาก) · <b>Impute</b> (median/mode หรือค่าที่มีเหตุผล) · <b>Keep as 'unknown'</b> (เพราะ<b>การหายเองอาจมีข้อมูลอยู่</b>)<br>
+        <b>เกณฑ์จากสไลด์:</b> ขาด <b>2 จาก 5,000</b> → ลบได้ · ขาด <b>40%</b> → <b>ต้องสืบก่อนว่าทำไมหาย</b> อย่าเพิ่งเติม</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">เลือก Scaler ยังไง <span class="hot hot-3">🔥 ออกแน่ (แนวสถานการณ์)</span></div>
+      <div class="cv">
+        <div class="ftable-wrap" style="margin-top:4px">
+          <table class="ftable">
+            <thead><tr><th>Scaler</th><th>ใช้อะไรคำนวณ</th><th>ผลลัพธ์</th><th>เลือกเมื่อ</th><th>จุดอ่อน</th></tr></thead>
+            <tbody>
+              <tr><td><b>Min-Max</b></td><td>min, max</td><td>ช่วง [0,1]</td><td>ต้องการช่วงแน่นอน เช่นภาพ, neural net</td><td><b>ไวต่อ outlier มาก</b> (min/max โดนดึง)</td></tr>
+              <tr><td><b>Standard (z)</b></td><td>mean, std</td><td>mean 0, std 1</td><td>linear model, SVM, PCA</td><td>ยังโดน outlier กระทบผ่าน mean/std</td></tr>
+              <tr><td><b>Robust</b></td><td><b>median, IQR</b></td><td>กึ่งกลางที่ median</td><td><b>ข้อมูลเบ้/มี outlier เยอะ</b> เช่น income</td><td>ไม่ได้ช่วงตายตัว</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <b>เหตุผลที่ต้อง scale:</b> feature ที่หน่วยใหญ่ (income หลักหมื่น) จะ<b>ครอบงำการคำนวณระยะทาง</b>จน feature เล็ก (age หลักสิบ) แทบไม่มีผล</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Algorithm ไหนต้อง scale / ไม่ต้อง <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>ต้อง scale:</b> <b>KNN, K-Means</b> (ใช้ระยะทางตรง ๆ) · <b>SVM</b> (ขึ้นกับ geometry) · <b>Logistic/Linear + gradient descent</b> · <b>ก่อน regularization เสมอ</b> (penalty ไวต่อ scale)<br>
+        <b>ไม่ต้อง scale:</b> <b>Decision Tree, Random Forest</b><br>
+        <b>เหตุผลที่ต้องพูดให้ได้:</b> Tree ตัดสินด้วยเงื่อนไข <b>"feature &gt; ค่าเท่าไร"</b> ทีละแกน — การ scale <b>ไม่เปลี่ยนลำดับของข้อมูล</b> จึงไม่กระทบผลการ split</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Encoding: Nominal vs Ordinal <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>Nominal</b> = ไม่มีลำดับ (จังหวัด, สี) → <b>One-Hot</b> ปลอดภัยกว่า<br>
+        <b>Ordinal</b> = มีลำดับจริง (low &lt; medium &lt; high) → เข้ารหัสตามลำดับได้<br>
+        <b>ทำไมห้ามใส่ 1,2,3 มั่ว ๆ กับ nominal:</b> model จะเข้าใจว่า<b>ระยะห่างเท่ากันและมีลำดับ</b> เช่น "PhD(2) − Master(1) = Master(1) − Bachelor(0)" ซึ่ง<b>มักไม่จริง</b><br>
+        <b>ประโยคเด็ด:</b> "Encoding เปลี่ยน<b>วิธีแทนค่า</b> ไม่ใช่เปลี่ยน<b>ความหมาย</b>ของข้อมูล"<br>
+        <code class="inline">handle_unknown='ignore'</code> → ค่าที่ไม่เคยเห็นตอน test กลายเป็น 0 หมด <b>ไม่ error</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Outlier: ลบดีไหม + IQR vs Z-score <span class="hot hot-2">⚡ น่าจะออก</span></div>
+      <div class="cv"><b>อย่าลบเพียงเพราะ "ดูแปลก"</b> — outlier อาจเป็น <b>error จริง</b> (เซ็นเซอร์เพี้ยน, หน่วยผิด cm/m) หรือ <b>เหตุการณ์หายากที่เกิดจริง</b> (ลูกค้า VIP) → <b>ต้องตรวจแหล่งที่มาก่อน</b><br>
+        <span class="f">IQR fences = [Q1 − 1.5·IQR , Q3 + 1.5·IQR]</span>
+        <b>ทำไม IQR ทนกว่า Z-score:</b> IQR ใช้ <b>quartile</b> ซึ่งไม่ขยับตามค่าสุดขั้ว · ส่วน Z-score ใช้ <b>mean/std ที่โดน outlier ดึงเอง</b> → outlier ทำให้เกณฑ์ของตัวเองหลวมลง</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">EDA มีไว้ทำอะไร <span class="hot hot-2">⚡ น่าจะออก</span></div>
+      <div class="cv"><b>EDA ใช้ "ตั้งคำถามและตรวจคุณภาพข้อมูล" — ไม่ใช่ใช้ตัดสิน model</b> (การตัดสิน model เป็นหน้าที่ของ validation)<br>
+        4 มุมที่ต้องดู: <b>Distribution</b> (รูปร่าง/ค่าสุดขั้ว) · <b>Center &amp; spread</b> · <b>Relationships</b> (อะไรไปด้วยกัน) · <b>Groups &amp; gaps</b> (คลัสเตอร์/ความไม่สมดุล)<br>
+        <b>ตัวอย่างในสไลด์:</b> ค่าใช้จ่ายลูกค้า mean=$355 แต่ median=$260 → <b>median อธิบาย "ลูกค้าทั่วไป" ได้ดีกว่า</b> เพราะมีคนใช้จ่ายสูงไม่กี่คนลาก mean ขึ้น</div>
+    </div>
+  </div>
+
+  <div class="takeaway">3 สัปดาห์แรกสรุปเป็นเรื่องเดียว: <b>รู้ว่าปัญหาเป็นประเภทไหน (W1) → มีเครื่องมือคณิตอะไรรองรับ (W2) → เตรียมข้อมูลให้เชื่อถือได้ก่อนเทรน (W3)</b></div>
 </section>
 
-<!-- EXAM : numbers from slides -->
 <section class="section reveal" id="ex-numbers" data-week="exam" data-nav="🔢 ตัวเลขจากสไลด์ที่ต้องจำ">
   <div class="sec-head">
     <div class="kicker">Exam · Recall Table</div>
@@ -852,69 +973,309 @@ footer{margin-top:80px;padding-top:26px;border-top:1px solid var(--border);color
 </section>
 
 <!-- EXAM : cram other weeks -->
-<section class="section reveal" id="ex-cram-all" data-week="exam" data-nav="Cram Sheet: Week 1, 3–6">
+<section class="section reveal" id="ex-cram-all" data-week="exam" data-nav="🧠 Cram: แก่นคิด Week 4–6">
   <div class="sec-head">
-    <div class="kicker">Exam · Cram Sheet</div>
-    <h3>Cram Sheet — สัปดาห์อื่น ๆ (Week 1, 3, 4, 5, 6)</h3>
-    <p class="desc">ย่อแต่ละสัปดาห์เหลือเฉพาะสิ่งที่ต้องจำเข้าห้องสอบ</p>
+    <div class="kicker">Exam · Concept Cram</div>
+    <h3>Cram Sheet — Week 4–6 (เน้นแนวคิด)</h3>
+    <p class="desc">สามสัปดาห์นี้คือ <b>"เลือกอะไร เพราะอะไร"</b> ล้วน ๆ — Regression/Classification เลือก metric ตามต้นทุนความผิดพลาด · Bayesian Network อ่านความสัมพันธ์จากกราฟ</p>
   </div>
 
-  <div class="cram" style="border-color:rgba(79,140,255,.3)">
-    <h4>📘 Week 1 — Introduction to AI &amp; ML</h4>
-    <div class="cram-row"><div class="ck">ลำดับชั้น <span class="hot hot-3">🔥</span></div><div class="cv"><b>AI ⊃ ML ⊃ Deep Learning</b> · AI = จำลองความฉลาด (reason, learn, plan, perceive) · ML = เรียนจากข้อมูล · DL = neural network หลายชั้น</div></div>
-    <div class="cram-row"><div class="ck">ML vs Traditional <span class="hot hot-3">🔥</span></div><div class="cv">Traditional: <span class="math">Rules + Data → Answers</span> · ML: <span class="math">Data + Answers → Rules</span></div></div>
-    <div class="cram-row"><div class="ck">3 ประเภทของ ML <span class="hot hot-3">🔥</span></div><div class="cv"><b>Supervised</b> (มี label → Classification/Regression) · <b>Unsupervised</b> (ไม่มี label → Clustering/Dim. Reduction) · <b>Reinforcement</b> (เรียนจาก reward/penalty → Game AI, Robotics)</div></div>
-    <div class="cram-row"><div class="ck">Classification vs Regression <span class="hot hot-2">⚡</span></div><div class="cv">ทำนาย<b>หมวด</b> = Classification (spam/ไม่ spam) · ทำนาย<b>ตัวเลขต่อเนื่อง</b> = Regression (ราคาบ้าน)</div></div>
-    <div class="cram-row"><div class="ck">Timeline <span class="hot hot-1">○</span></div><div class="cv">1950 Turing Test · <b>1956 Dartmouth = กำเนิดคำว่า AI (John McCarthy)</b> · AI Winter = ยุคความคาดหวังเกินจริงจนเงินทุนหด · 2012 AlexNet · 2017 Transformer</div></div>
+  <!-- ================= WEEK 4 ================= -->
+  <div class="cram" style="border-color:rgba(34,211,238,.35)">
+    <h4>📈 Week 4 — Supervised Learning: Regression</h4>
+    <div class="cram-sub">ทำนาย<b>ตัวเลขต่อเนื่อง</b> · หัวใจของสัปดาห์นี้คือ <b>อ่าน residual เป็น</b> และ <b>เลือก metric ให้ตรงกับต้นทุน</b></div>
+
+    <div class="cram-row">
+      <div class="ck">Regression ต่างจาก Classification ยังไง <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>ดูที่ชนิดของ target อย่างเดียว</b><br>
+        <b>Regression</b> = ทำนาย<b>ค่าต่อเนื่อง</b> (ราคาบ้าน 4.3 ล้าน, คะแนน 72.5, เวลาส่งของ)<br>
+        <b>Classification</b> = ทำนาย<b>หมวด/label</b> (spam หรือไม่, โรคชนิดไหน)<br>
+        <b>ทดสอบเร็ว:</b> คำตอบเป็นตัวเลขที่บวกลบกันแล้วมีความหมายไหม → มี = regression</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Coefficient (β) แปลว่าอะไร <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>β₁ (slope)</b> = target เปลี่ยนเท่าไร<b>เมื่อ feature นั้นเพิ่ม 1 หน่วย โดยตรึง feature อื่นคงที่</b><br>
+        <b>β₀ (intercept)</b> = ค่าทำนายเมื่อ x ทุกตัว = 0 · <b>อาจไม่มีความหมาย</b>ถ้า x=0 อยู่นอกช่วงข้อมูล (เช่นบ้านขนาด 0 ตร.ม.)<br>
+        ⚠️ <b>ประโยคที่ต้องเขียนตอบ:</b> "coefficient บอก <b>association ไม่ใช่ causation</b>"<br>
+        <b>ตัวอย่างสไลด์:</b> ŷ = 0.8 + 0.035(area) → บ้าน 100 m² = <b>4.3 ล้าน</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Residual plot บอกอะไร <span class="hot hot-3">🔥 ออกแน่ (แนววิเคราะห์ภาพ)</span></div>
+      <div class="cv"><span class="math">residual eᵢ = yᵢ − ŷᵢ</span> · <b>บวก = ทำนายต่ำไป</b> · <b>ลบ = ทำนายสูงไป</b><br>
+        <div class="ftable-wrap" style="margin-top:8px">
+          <table class="ftable">
+            <thead><tr><th>รูปแบบที่เห็น</th><th>แปลว่า</th><th>ควรทำ</th></tr></thead>
+            <tbody>
+              <tr><td><b>กระจายสุ่มรอบศูนย์</b></td><td>สุขภาพดี ✓</td><td>ไม่ต้องแก้</td></tr>
+              <tr><td><b>เป็นเส้นโค้ง (curve)</b></td><td>model <b>ขาด nonlinear term</b></td><td>เพิ่ม polynomial / transform feature</td></tr>
+              <tr><td><b>เป็นกรวย (funnel)</b></td><td><b>variance ไม่คงที่</b> (heteroscedasticity)</td><td>log-transform target</td></tr>
+              <tr><td><b>แยกเป็นกลุ่ม (clusters)</b></td><td><b>ขาด feature หรือมี segment ซ่อนอยู่</b></td><td>เพิ่มตัวแปรที่แยกกลุ่ม</td></tr>
+              <tr><td><b>มีแนวโน้มตามเวลา</b></td><td><b>data drift หรือ leakage</b></td><td>ตรวจวิธี split</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">เลือก MAE / RMSE / R² ยังไง <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>MAE</b> = ค่าเฉลี่ยความผิดพลาดสัมบูรณ์ → <b>ตีความง่ายสุด ("พลาดเฉลี่ย x หน่วย") และทน outlier</b><br>
+        <b>RMSE</b> = รากของ MSE → <b>ลงโทษ error ใหญ่หนัก</b> อยู่ในหน่วยเดียวกับ target<br>
+        <b>R²</b> = เทียบกับ baseline ที่ทำนาย mean → บอกว่า model <b>ดีกว่าการเดาค่าเฉลี่ยแค่ไหน</b><br>
+        <b>เลือกยังไง:</b> อยากได้ค่าที่<b>อธิบายให้คนทั่วไปฟังง่าย</b> → MAE · <b>กลัวพลาดหนัก ๆ ครั้งเดียว</b> → RMSE · <b>อยากรู้ว่าคุ้มกว่าไม่ทำ model ไหม</b> → R²<br>
+        <b>MSE ใช้ตอนไหน:</b> เป็น <b>loss ตอน train</b> (เพราะ smooth หา derivative ได้) ไม่ใช่ตัวรายงาน</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">R² ติดลบ แปลว่าอะไร <span class="hot hot-3">🔥 ออกแน่ (ข้อดัก)</span></div>
+      <div class="cv"><span class="math">R² = 1 − SSE/SST</span><br>
+        <b>1</b> = fit สมบูรณ์ · <b>0 = เท่ากับ baseline ที่ทำนาย mean ทุกครั้ง</b> · <b>ติดลบ = แย่กว่าการเดา mean เฉย ๆ</b> (เกิดขึ้นได้จริงบน test set)<br>
+        <b>ข้อจำกัดที่ต้องรู้:</b> R² สูง<b>ไม่ได้แปลว่า error เล็กในหน่วยจริง</b> · เพิ่ม feature มักทำให้ <b>train R² ไม่ลดลง</b>แม้ feature นั้นไร้ประโยชน์ → <b>ห้ามใช้ R² ตัวเดียวตัดสิน</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Regularization มีไว้ทำอะไร <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>ปัญหา:</b> feature เยอะหรือ correlate กัน → coefficient <b>แกว่งรุนแรง</b> · model เริ่ม <b>fit noise</b> · เปลี่ยน sample นิดเดียวผลเปลี่ยนเยอะ = <b>variance สูง</b><br>
+        <b>ทางแก้:</b> เติม penalty ตามขนาด coefficient<br>
+        <b>ประโยคหัวใจ:</b> "<b>ยอมเพิ่ม bias เล็กน้อย เพื่อแลกกับการลด variance ลงมาก</b>" (bias–variance tradeoff)<br>
+        ⚠️ <b>ต้อง scale feature ก่อนเสมอ</b> เพราะ penalty ไวต่อขนาดหน่วย</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Ridge (L2) vs Lasso (L1) <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>Ridge</b> <span class="math">SSE + αΣβⱼ²</span> → <b>หดเข้าใกล้ศูนย์แต่ไม่เป็นศูนย์</b> · <b>เก่งเรื่อง feature ที่ correlate กัน</b><br>
+        <b>Lasso</b> <span class="math">SSE + αΣ|βⱼ|</span> → <b>ดันบางตัวเป็นศูนย์จริง</b> = <b>ทำ feature selection ในตัว</b> · แต่ไม่เสถียรเมื่อ feature correlate กันมาก<br>
+        <b>เลือกยังไง:</b> อยาก<b>คัด feature ทิ้ง</b> → Lasso · feature <b>สัมพันธ์กันเยอะ</b> → Ridge · เอาทั้งสองอย่าง → <b>Elastic Net</b><br>
+        <b>α:</b> 0 = OLS ธรรมดา · ใหญ่ขึ้น = เรียบขึ้น · <b>ใหญ่เกินไป = underfit</b> · เลือกด้วย <b>cross-validation</b> ไม่ใช่เดา</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">เลือก Cross-Validation splitter ยังไง <span class="hot hot-2">⚡ น่าจะออก (แนวสถานการณ์)</span></div>
+      <div class="cv"><b>K-Fold</b> → ข้อมูลทั่วไปที่แต่ละแถวอิสระกัน<br>
+        <b>Stratified K-Fold</b> → <b>classification ที่ class ไม่สมดุล</b> (รักษาสัดส่วน class ในทุก fold)<br>
+        <b>Group K-Fold</b> → <b>ผู้ป่วย/ผู้ใช้คนเดียวกันมีหลายแถว</b> (กันคนเดียวกันโผล่ทั้ง train และ test)<br>
+        <b>TimeSeriesSplit</b> → <b>ข้อมูลตามเวลา</b> (ห้ามสลับ ต้องเทรนอดีตทำนายอนาคต)<br>
+        <b>LOOCV</b> → ข้อมูลเล็กมาก<br>
+        ⚠️ preprocessing ต้อง <b>fit ใหม่ในทุก fold</b> ไม่ใช่ fit ครั้งเดียวก่อนแบ่ง</div>
+    </div>
   </div>
 
-  <div class="cram" style="border-color:rgba(52,211,153,.3)">
-    <h4>🧹 Week 3 — Data Preprocessing &amp; EDA</h4>
-    <div class="cram-row"><div class="ck">Data Leakage <span class="hot hot-3">🔥 ออกแน่</span></div><div class="cv"><b>"Split first, fit on train only"</b> — split ก่อน แล้วค่อย fit imputer/scaler/encoder บน train เท่านั้น จากนั้น <code class="inline">transform</code> (ไม่ fit) บน test<br>ตัวอย่าง leakage: scale ด้วย mean ของทั้ง dataset, เลือก feature จาก test target, เติม missing ด้วยข้อมูลอนาคต, entity ซ้ำทั้ง train/test</div></div>
-    <div class="cram-row"><div class="ck">Missing Data 3 แบบ <span class="hot hot-2">⚡</span></div><div class="cv"><b>MCAR</b> หายสุ่มล้วน · <b>MAR</b> หายสัมพันธ์กับตัวแปรที่<b>สังเกตได้</b> · <b>MNAR</b> หายสัมพันธ์กับ<b>ค่าที่หายเอง</b> (คนรวยไม่บอกรายได้)</div></div>
-    <div class="cram-row"><div class="ck">Imputation <span class="hot hot-2">⚡</span></div><div class="cv">Numeric → <b>median</b> (ทน outlier) หรือ mean (ข้อมูลสมมาตร) · Categorical → <b>most_frequent</b> หรือหมวด 'missing'</div></div>
-    <div class="cram-row"><div class="ck">Scaler 3 แบบ <span class="hot hot-3">🔥</span></div><div class="cv"><b>Min-Max</b> <span class="math">(x−min)/(max−min)</span> → [0,1] แต่ไวต่อ outlier<br><b>Standard</b> <span class="math">z=(x−μ)/σ</span> → mean 0, std 1<br><b>Robust</b> ใช้ <b>median/IQR</b> → ทน outlier ที่สุด<br>ไวต่อ scale: KNN, K-Means, SVM, gradient descent · ไม่ค่อยไว: <b>Decision Tree, Random Forest</b></div></div>
-    <div class="cram-row"><div class="ck">Encoding <span class="hot hot-2">⚡</span></div><div class="cv"><b>Nominal</b> (ไม่มีลำดับ เช่นจังหวัด) → One-Hot · <b>Ordinal</b> (low&lt;mid&lt;high) → เข้ารหัสตามลำดับ<br><code class="inline">handle_unknown='ignore'</code> ทำให้ค่าที่ไม่เคยเห็นกลายเป็น 0 หมด ไม่ error</div></div>
-    <div class="cram-row"><div class="ck">IQR &amp; Outlier <span class="hot hot-3">🔥</span></div><div class="cv"><span class="f">IQR = Q3 − Q1 ; ขอบเขต = [Q1 − 1.5·IQR , Q3 + 1.5·IQR]</span>IQR ทน outlier กว่า Z-score (เพราะ Z ใช้ mean/std ที่โดน outlier ดึงเอง)</div></div>
+  <!-- ================= WEEK 5 ================= -->
+  <div class="cram" style="border-color:rgba(139,92,246,.35)">
+    <h4>🎯 Week 5 — Supervised Learning: Classification</h4>
+    <div class="cram-sub">แก่นคือ <b>model ให้ "ความน่าจะเป็น" → threshold ต่างหากที่ทำให้เป็นการตัดสินใจ</b> · แล้วเลือก metric ตาม<b>ต้นทุนของความผิดพลาด</b></div>
+
+    <div class="cram-row">
+      <div class="ck">Classifier ทำงานยังไง (score → decision) <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>3 ขั้น:</b> คะแนนดิบ <span class="math">z = wᵀx + b</span> → บีบเป็นความน่าจะเป็นด้วย <b>sigmoid</b> <span class="math">p = 1/(1+e⁻ᶻ)</span> → เทียบกับ <b>threshold</b> ให้กลายเป็นคำตอบ<br>
+        <b>ค่าที่ควรจำ:</b> z=0 → p=<b>0.5</b> · z=2 → p≈0.88 · z=−2 → p≈0.12<br>
+        <b>ประเด็นที่ข้อสอบชอบ:</b> "model ไม่ได้ตัดสินใจเอง — <b>เราต่างหากที่เลือก threshold</b>" · การเปลี่ยน threshold <b>ไม่ต้องเทรนใหม่</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">ทำไม Accuracy ถึงหลอก <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>ตัวอย่างที่ตอบได้ทันที:</b> ข้อมูล fraud มี positive แค่ <b>1%</b> → ทายว่า "ไม่ fraud" ทุกเคส ได้ accuracy <b>99%</b> แต่<b>จับ fraud ไม่ได้เลย (recall = 0)</b><br>
+        <b>เหตุผล:</b> accuracy ให้น้ำหนักทุก error เท่ากัน จึง<b>ซ่อนความล้มเหลวกับ class ที่หายาก</b> และ<b>ไม่สะท้อนต้นทุนที่ไม่เท่ากัน</b><br>
+        <b>ทางแก้:</b> เทียบกับ <b>baseline (DummyClassifier ทายคลาสส่วนใหญ่)</b> เสมอ + ดู precision/recall/confusion matrix ควบ</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Precision vs Recall เลือกยังไง <span class="hot hot-3">🔥 ออกแน่ที่สุดของ Week 5</span></div>
+      <div class="cv"><span class="f">Precision = TP/(TP+FP)        Recall = TP/(TP+FN)</span>
+        <b>Precision</b> = "ในสิ่งที่<b>เราแจ้งเตือนไป</b> ถูกจริงกี่ %" → สำคัญเมื่อ <b>false alarm แพง</b> (ทีมตรวจสอบมีจำกัด, รบกวนผู้ใช้)<br>
+        <b>Recall</b> = "ของจริงทั้งหมด <b>เราจับได้กี่ %</b>" → สำคัญเมื่อ <b>พลาดแล้วเสียหายหนัก</b> (คัดกรองโรค, fraud)<br>
+        <b>วิธีจำ:</b> Precision = <b>แม่นไหม</b> · Recall = <b>ครบไหม</b> · ตัวเศษเหมือนกัน (TP) ต่างกันแค่ตัวหารบวก <b>FP</b> หรือ <b>FN</b><br>
+        <b>F1</b> = harmonic mean ของทั้งสอง → ใช้เมื่อ<b>ต้องการสมดุล</b>และข้อมูลไม่สมดุล · <b>ไม่ใช้ TN เลย</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">ตารางจับคู่ สถานการณ์ → metric <span class="hot hot-3">🔥 ออกแน่ (แนวสถานการณ์)</span></div>
+      <div class="cv">
+        <div class="ftable-wrap" style="margin-top:4px">
+          <table class="ftable">
+            <thead><tr><th>สถานการณ์</th><th>ผิดแบบไหนแพงกว่า</th><th>เน้น metric</th><th>ปรับ threshold</th></tr></thead>
+            <tbody>
+              <tr><td><b>คัดกรองมะเร็ง</b></td><td><b>FN</b> — พลาดคนป่วย อันตรายถึงชีวิต</td><td><b>Recall</b></td><td><b>ลด</b> threshold</td></tr>
+              <tr><td><b>กรอง Spam</b></td><td>พอ ๆ กัน (เมลจริงหายก็แย่)</td><td><b>F1</b> / สมดุล</td><td>ประมาณ 0.5</td></tr>
+              <tr><td><b>ตรวจจับ Fraud</b></td><td>FP เปลืองแรง · FN เสียเงิน</td><td><b>PR-AUC</b> + ดู cost</td><td>ตามกำลังคนตรวจ</td></tr>
+              <tr><td><b>ระบบแนะนำสินค้า</b></td><td>FP กวนผู้ใช้</td><td><b>Precision</b></td><td><b>เพิ่ม</b> threshold</td></tr>
+            </tbody>
+          </table>
+        </div>
+        ⚠️ <b>เลือก threshold บน validation set ไม่ใช่ test set</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">ลด/เพิ่ม threshold เกิดอะไร <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>ลด threshold</b> (เช่น 0.5 → 0.3) → ทายว่า positive ง่ายขึ้น → <b>Recall ↑ แต่ FP ↑ (Precision ↓)</b><br>
+        <b>เพิ่ม threshold</b> (0.5 → 0.7) → เลือกเฉพาะที่มั่นใจ → <b>Precision ↑ แต่ FN ↑ (Recall ↓)</b><br>
+        <b>นี่คือ trade-off ที่หนีไม่พ้น</b> — เลือกจุดที่ต้นทุนรวมต่ำสุดตาม use case</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">ROC-AUC vs PR-AUC ใช้ตอนไหน <span class="hot hot-2">⚡ น่าจะออก</span></div>
+      <div class="cv"><b>ROC</b> = plot TPR เทียบ FPR ทุก threshold · <b>AUC 0.5 = เดาสุ่ม, 1.0 = ranking สมบูรณ์</b><br>
+        <b>ปัญหาของ ROC:</b> เมื่อ <b>negative เยอะมาก</b> ค่า FPR จะดูต่ำเสมอ → <b>กราฟดูสวยเกินจริง</b><br>
+        <b>ใช้ PR curve เมื่อ positive หายากมาก</b> (fraud, anomaly) เพราะเน้นผลงานกับ positive class โดยตรง<br>
+        ⚠️ ROC-AUC วัด <b>ranking</b> เท่านั้น — <b>ไม่ได้เลือก threshold ให้ และซ่อนปัญหา calibration</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Calibration ต่างจาก Ranking ยังไง <span class="hot hot-1">○ อ่านผ่าน</span></div>
+      <div class="cv"><b>Calibrated ดี</b> = กลุ่มที่ model บอก p≈0.8 ต้องเป็น positive จริง<b>ราว 80%</b><br>
+        <b>Ranking ดี ≠ Calibrated</b> — model อาจเรียงลำดับถูกหมดแต่ตัวเลข probability เพี้ยน<br>
+        สำคัญเมื่อเอา probability ไป<b>คิดต่อเป็นตัวเงิน/ความเสี่ยง</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">KNN / Decision Tree / Random Forest <span class="hot hot-2">⚡ น่าจะออก</span></div>
+      <div class="cv"><b>KNN</b> — โหวตจากเพื่อนบ้าน k ตัวที่ใกล้สุด · <b>ต้อง scale</b> · k เล็ก = <b>variance สูง</b> (ไวต่อ noise) · k ใหญ่ = <b>bias สูง</b> (เรียบเกิน) · ไม่มีสมการเทรน แต่<b>ทำนายช้าเมื่อข้อมูลใหญ่</b><br>
+        <b>Decision Tree</b> — แบ่งด้วยกฎ if-then ที่<b>ลด impurity</b> · <b>ไม่ต้อง scale</b> · จับ nonlinear ได้ · <b>overfit ง่ายมาก</b> → คุมด้วย max_depth, min_samples_leaf, pruning<br>
+        <b>Random Forest</b> — เฉลี่ยหลาย tree จาก <b>bootstrap + สุ่ม feature ต่อ split</b> → <b>ลด variance</b> เป็น baseline ที่ดีมากกับข้อมูลตาราง · แลกด้วย<b>ตีความยากกว่า</b> และช้ากว่า</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Class Imbalance จัดการยังไง <span class="hot hot-2">⚡ น่าจะออก</span></div>
+      <div class="cv"><b>อาการ:</b> accuracy สูงแต่จับ positive ไม่ได้ · random split ทำให้ rare class กระจายไม่ดี<br>
+        <b>ทางแก้:</b> <b>stratified split</b> · <b>class_weight</b> / sample weight · <b>resampling เฉพาะใน training folds</b> · <b>ปรับ threshold</b> ตามต้นทุน<br>
+        ⚠️ ห้าม resample ก่อน split — นั่นคือ leakage</div>
+    </div>
   </div>
 
-  <div class="cram" style="border-color:rgba(34,211,238,.3)">
-    <h4>📈 Week 4 — Regression</h4>
-    <div class="cram-row"><div class="ck">Model <span class="hot hot-3">🔥</span></div><div class="cv"><span class="f">ŷ = β₀ + β₁x   |   ŷ = wᵀx + b   |   batch: ŷ = Xw + b</span>β₁ (slope) = target เปลี่ยนเท่าไรเมื่อ x เพิ่ม 1 หน่วย · β₀ (intercept) = ค่าทำนายเมื่อ x ทุกตัว = 0<br>ตัวอย่างสไลด์: <span class="math">ŷ = 0.8 + 0.035(area)</span> → บ้าน 100 m² ได้ <b>4.3 ล้านบาท</b></div></div>
-    <div class="cram-row"><div class="ck">Residual <span class="hot hot-3">🔥</span></div><div class="cv"><span class="f">eᵢ = yᵢ − ŷᵢ</span>บวก = ทำนาย<b>ต่ำ</b>ไป · ลบ = ทำนาย<b>สูง</b>ไป<br>อ่าน residual plot: <b>curve</b> = ขาด nonlinear term · <b>funnel</b> = variance ไม่คงที่ (heteroscedasticity) · <b>clusters</b> = ขาด feature/segment</div></div>
-    <div class="cram-row"><div class="ck">Metrics <span class="hot hot-3">🔥 ออกแน่</span></div><div class="cv"><span class="f">MSE = (1/n)Σ(y−ŷ)²  ·  RMSE = √MSE  ·  MAE = (1/n)Σ|y−ŷ|  ·  R² = 1 − SSE/SST</span><b>MAE</b> ทน outlier ตีความตรง · <b>RMSE</b> ลงโทษ error ใหญ่ หน่วยเดียวกับ target · <b>R²</b> เทียบกับ baseline ที่ทำนาย mean<br>ตัวอย่างสไลด์: errors = [1,−2,3] → squared = [1,4,9] → <b>MSE = 14/3 ≈ 4.67</b> → <b>RMSE ≈ 2.16</b></div></div>
-    <div class="cram-row"><div class="ck">R² ตีความ <span class="hot hot-3">🔥</span></div><div class="cv">R² = 1 fit สมบูรณ์ · <b>R² = 0 เท่ากับ baseline ที่ทำนาย mean</b> · <b>R² ติดลบ = แย่กว่าทำนาย mean เฉย ๆ</b> (ข้อนี้ชอบออก)</div></div>
-    <div class="cram-row"><div class="ck">Regularization <span class="hot hot-3">🔥</span></div><div class="cv"><b>Ridge (L2)</b>: <span class="math">min SSE + αΣβⱼ²</span> → หด coefficient เข้าหาศูนย์ แต่<b>ไม่เป็นศูนย์</b> ดีกับ feature ที่ correlate<br><b>Lasso (L1)</b>: <span class="math">min SSE + αΣ|βⱼ|</span> → ทำให้บาง coefficient <b>เป็นศูนย์จริง</b> = feature selection<br>α ใหญ่ → เรียบขึ้น เสี่ยง underfit · <b>ต้อง scale ก่อน regularize</b></div></div>
-    <div class="cram-row"><div class="ck">OLS <span class="hot hot-2">⚡</span></div><div class="cv">หา coefficient ที่ทำให้ <b>SSE ต่ำสุด</b> · objective เป็น convex · residual ตั้งฉากกับ fitted space · correlated columns ทำ coefficient ไม่เสถียร</div></div>
-  </div>
-
-  <div class="cram" style="border-color:rgba(139,92,246,.3)">
-    <h4>🎯 Week 5 — Classification</h4>
-    <div class="cram-row"><div class="ck">Logistic Regression <span class="hot hot-3">🔥 ออกแน่</span></div><div class="cv"><span class="f">z = wᵀx + b  →  p = σ(z) = 1/(1+e⁻ᶻ)</span><b>ค่าที่ต้องจำ:</b> z=0 → p=0.5 · z=2 → p≈0.88 · z=−2 → p≈0.12<br><span class="math">odds = p/(1−p)</span> · <span class="math">logit(p) = log odds = wᵀx+b</span> · <span class="math">e^β</span> = odds ratio ต่อ feature เพิ่ม 1 หน่วย</div></div>
-    <div class="cram-row"><div class="ck">Confusion Matrix <span class="hot hot-3">🔥 ออกแน่</span></div><div class="cv"><b>TP</b> จริงบวก-ทายบวก · <b>TN</b> จริงลบ-ทายลบ · <b>FP</b> false alarm · <b>FN</b> พลาด positive</div></div>
-    <div class="cram-row"><div class="ck">Metrics <span class="hot hot-3">🔥 ออกแน่</span></div><div class="cv"><span class="f">Accuracy = (TP+TN)/N   Precision = TP/(TP+FP)   Recall = TP/(TP+FN)   F1 = 2PR/(P+R)</span><b>Precision</b> = ในสิ่งที่แจ้งเตือน จริงกี่ตัว (สำคัญเมื่อ false alarm แพง)<br><b>Recall</b> = ของจริงทั้งหมด จับได้กี่ตัว (สำคัญเมื่อพลาดแล้วแพง เช่น fraud, โรค)<br><b>F1</b> = harmonic mean ไม่ใช้ TN เลย</div></div>
-    <div class="cram-row"><div class="ck">Accuracy หลอก <span class="hot hot-3">🔥</span></div><div class="cv">ตัวอย่างสไลด์: fraud 1% → ทายว่า "ไม่ fraud" ทุกเคส ได้ accuracy <b>99%</b> แต่จับ fraud ไม่ได้เลย → ต้องดู precision/recall</div></div>
-    <div class="cram-row"><div class="ck">Threshold <span class="hot hot-3">🔥</span></div><div class="cv"><b>ลด threshold</b> → recall ↑ แต่ FP ↑ (เหมาะ medical screening)<br><b>เพิ่ม threshold</b> → precision ↑ แต่ FN ↑ (เหมาะเมื่อ action แพง)<br>เลือกบน <b>validation set ไม่ใช่ test</b></div></div>
-    <div class="cram-row"><div class="ck">ROC vs PR <span class="hot hot-2">⚡</span></div><div class="cv"><b>ROC</b> = TPR เทียบ FPR ทุก threshold · AUC 0.5 = สุ่ม, 1.0 = perfect ranking<br><b>ใช้ PR curve เมื่อ positive หายากมาก</b> (ROC อาจดูดีเกินจริงเพราะ negative เยอะ)</div></div>
-    <div class="cram-row"><div class="ck">Log Loss <span class="hot hot-2">⚡</span></div><div class="cv"><span class="f">−y log p − (1−y) log(1−p)</span>ลงโทษ <b>confident wrong</b> หนักมาก (p=0.01 แต่ y=1 → loss พุ่ง)</div></div>
-    <div class="cram-row"><div class="ck">Algorithms <span class="hot hot-2">⚡</span></div><div class="cv"><b>KNN</b> vote จากเพื่อนบ้าน k ตัว — <b>ต้อง scale ก่อน</b> · k เล็ก variance สูง, k ใหญ่ bias สูง<br><b>Decision Tree</b> แบ่งด้วย if-then ลด impurity — <b>ไม่ต้อง scale</b> · คุมด้วย max_depth, min_samples_leaf<br><b>Random Forest</b> เฉลี่ยหลาย tree จาก bootstrap + สุ่ม feature → ลด variance</div></div>
-    <div class="cram-row"><div class="ck">Calibration <span class="hot hot-1">○</span></div><div class="cv">model ที่ calibrated ดี: กลุ่มที่ p≈0.8 ควรเป็น positive จริงราว 80% · <b>ranking ดี ≠ calibrated</b></div></div>
-  </div>
-
-  <div class="cram" style="border-color:rgba(251,191,36,.3)">
+  <!-- ================= WEEK 6 ================= -->
+  <div class="cram" style="border-color:rgba(251,191,36,.35)">
     <h4>🕸️ Week 6 — Bayesian Networks</h4>
-    <div class="cram-row"><div class="ck">Factorization <span class="hot hot-3">🔥 ออกแน่</span></div><div class="cv"><span class="f">P(X₁,...,Xₙ) = ∏ᵢ P(Xᵢ | Parents(Xᵢ))</span><b>ตัวอย่าง Sprinkler ที่ต้องเขียนได้:</b><br><span class="math">P(C,S,R,W) = P(C)·P(S|C)·P(R|C)·P(W|S,R)</span></div></div>
-    <div class="cram-row"><div class="ck">DAG <span class="hot hot-2">⚡</span></div><div class="cv"><b>Directed Acyclic Graph</b> — มีทิศทาง + <b>ห้ามมี cycle</b> · edge ไม่จำเป็นต้องเป็น causal · มี topological ordering เสมอ</div></div>
-    <div class="cram-row"><div class="ck">CPT <span class="hot hot-3">🔥</span></div><div class="cv">1 row ต่อ 1 parent configuration · probability ของ child states ต้องรวมเป็น <b>1</b><br><b>binary child ที่มี k parents ต้องมี 2ᵏ rows</b> (ข้อคำนวณที่ชอบออก)</div></div>
-    <div class="cram-row"><div class="ck">3 Patterns <span class="hot hot-3">🔥 ออกแน่</span></div><div class="cv"><b>Chain</b> X→Z→Y : conditioning on Z <b>บล็อก</b> path → X ⫫ Y | Z<br><b>Fork</b> X←Z→Y : common cause · conditioning on Z <b>บล็อก</b><br><b>Collider</b> X→Z←Y : path <b>ปิดอยู่แล้ว</b> จนกว่าจะ condition on Z (หรือ descendant) แล้วมัน<b>เปิด</b></div></div>
-    <div class="cram-row"><div class="ck">Explaining Away <span class="hot hot-3">🔥</span></div><div class="cv">Burglary → Alarm ← Earthquake · ก่อนรู้ Alarm ทั้งสองเป็นอิสระ · <b>พอรู้ว่า Alarm ดัง แล้วพบว่ามี Earthquake → ความเชื่อเรื่อง Burglary ลดลง</b> = explaining away</div></div>
-    <div class="cram-row"><div class="ck">D-Separation <span class="hot hot-3">🔥</span></div><div class="cv">ทุก path ถูก block ⇒ conditional independence<br><b>chain/fork</b> block เมื่อ middle node ถูก observe · <b>collider</b> เปิดเมื่อ collider หรือ descendant ถูก observe (กลับกันกับสองแบบแรก!)</div></div>
-    <div class="cram-row"><div class="ck">Inference <span class="hot hot-2">⚡</span></div><div class="cv"><b>Exact</b>: enumeration (โต exponential), <b>variable elimination</b> (คูณเฉพาะ factor ที่เกี่ยว แล้ว sum out ทีละตัว), junction tree<br><b>Approximate</b>: prior/rejection sampling, likelihood weighting, Gibbs sampling<br>Query: <b>Predictive</b> P(effect|cause) · <b>Diagnostic</b> P(cause|effect) · <b>MAP</b></div></div>
-    <div class="cram-row"><div class="ck">Causal <span class="hot hot-2">⚡</span></div><div class="cv"><span class="math">P(Y|X)</span> = association · <span class="math">P(Y|do(X))</span> = intervention (ตัด incoming edges เข้า X)<br><b>Bayesian Network ≠ causal network โดยอัตโนมัติ</b> · หลาย DAG ให้ observational distribution เดียวกันได้</div></div>
+    <div class="cram-sub">สัปดาห์ที่<b>เป็นแนวความเข้าใจล้วนที่สุด</b> — อ่านกราฟให้ออกว่าอะไรขึ้นกับอะไร และหลักฐานปิด/เปิดเส้นทางไหน</div>
+
+    <div class="cram-row">
+      <div class="ck">ทำไมต้อง model ความไม่แน่นอน <span class="hot hot-2">⚡ น่าจะออก</span></div>
+      <div class="cv"><b>โลกจริง:</b> เซ็นเซอร์มี noise/ค่าหาย · อาการหนึ่งมี<b>หลายสาเหตุที่เป็นไปได้</b> · หลักฐานใหม่ควร<b>อัปเดต</b>ความเชื่อ ไม่ใช่ล้างทิ้ง · การตัดสินใจต้องชั่งความเสี่ยง<br>
+        <b>สิ่งที่ BN ให้:</b> distribution ที่<b>ตีความได้</b> · รวม<b>ความรู้ผู้เชี่ยวชาญกับข้อมูล</b> · ตอบได้<b>ทั้งสองทิศ</b> (สาเหตุ→ผล และ ผล→สาเหตุ) · ตอบคำถาม what-if ภายใต้สมมติฐานที่<b>เขียนไว้ชัด</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Bayesian Network ประกอบด้วยอะไร <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>2 ส่วน:</b> <b>DAG</b> (กราฟมีทิศ ห้ามวนกลับ) + <b>CPT</b> (ตารางความน่าจะเป็นของแต่ละ node)<br>
+        <b>node</b> = ตัวแปรสุ่ม · <b>edge A→B</b> = A เป็น <b>parent</b> ของ B (ขึ้นต่อกันโดยตรง)<br>
+        <b>Acyclic</b> = ห้ามมีวงวนกลับจุดเดิม → จึงมี <b>topological order</b> เสมอ<br>
+        ⚠️ <b>edge ไม่จำเป็นต้องเป็นเหตุ-ผล (causal)</b> — เป็นแค่ลำดับการ factorize<br>
+        <b>CPT:</b> 1 แถวต่อ 1 ชุดค่าของ parent · <b>ความน่าจะเป็นในแถวต้องรวมเป็น 1</b> · <b>binary child ที่มี k parents → 2ᵏ แถว</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Factorization เขียนยังไง <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><span class="f">P(X₁,…,Xₙ) = ∏ᵢ P(Xᵢ | Parents(Xᵢ))</span>
+        <b>กฎเดียว:</b> แต่ละ node เขียน <b>P(ตัวเอง | parents ของตัวเอง)</b> แล้ว<b>คูณกันทั้งหมด</b><br>
+        <b>ตัวอย่าง Sprinkler ที่ต้องเขียนได้:</b> <span class="math">P(C,S,R,W) = P(C)·P(S|C)·P(R|C)·P(W|S,R)</span><br>
+        <b>ทำไมถึงประหยัด:</b> ไม่ต้องเก็บตาราง joint เต็ม (16 ช่อง) — กราฟยิ่ง <b>sparse</b> ยิ่งใช้พารามิเตอร์น้อย<br>
+        <b>Local Markov Property:</b> node เป็นอิสระจาก non-descendants <b>เมื่อรู้ parents ของมันแล้ว</b> → CPT จึงต้องดูแค่ parents ไม่ต้องดูทั้งกราฟ</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Chain / Fork / Collider ต่างกันยังไง <span class="hot hot-3">🔥 ออกแน่ที่สุดของ Week 6</span></div>
+      <div class="cv">
+        <div class="ftable-wrap" style="margin-top:4px">
+          <table class="ftable">
+            <thead><tr><th>รูปแบบ</th><th>หน้าตา</th><th>ตอนยังไม่รู้ตัวกลาง</th><th>พอ observe ตัวกลาง</th></tr></thead>
+            <tbody>
+              <tr><td><b>Chain</b></td><td class="fm">X → Z → Y</td><td>เชื่อมกัน (ข้อมูลไหลผ่าน)</td><td><b>บล็อก</b> → X ⫫ Y | Z</td></tr>
+              <tr><td><b>Fork</b><br>(สาเหตุร่วม)</td><td class="fm">X ← Z → Y</td><td>ดูเหมือนสัมพันธ์กัน (เพราะมีต้นเหตุร่วม)</td><td><b>บล็อก</b> → เป็นอิสระ</td></tr>
+              <tr><td><b>Collider</b><br>(กลับด้าน!)</td><td class="fm">X → Z ← Y</td><td><b>ปิดอยู่แล้ว</b> — X, Y เป็นอิสระ</td><td><b>เปิด!</b> → กลายเป็นสัมพันธ์กัน</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <b>ท่องประโยคเดียวพอ:</b> <b>"chain กับ fork — เห็นแล้วปิด · collider — เห็นแล้วเปิด"</b><br>
+        <b>ข้อสังเกตสำคัญ:</b> 3 รูปแบบนี้คือ<b>วิธีเดียว</b>ที่ node สองตัวจะเชื่อมกันบน path ได้ — path ยาว ๆ ก็แค่เอาสามอันนี้มาต่อกัน</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Explaining Away คืออะไร <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>ตัวอย่างมาตรฐาน:</b> Burglary → Alarm ← Earthquake (collider ที่ Alarm)<br>
+        <b>ก่อนรู้ว่า Alarm ดัง:</b> ขโมยกับแผ่นดินไหวเป็น<b>เหตุการณ์อิสระ</b>ต่อกัน<br>
+        <b>พอรู้ว่า Alarm ดัง แล้วมาทราบว่ามีแผ่นดินไหว:</b> <b>ความเชื่อว่าเป็นขโมยลดลง</b> เพราะ<b>มีคำอธิบายอื่นรองรับแล้ว</b><br>
+        <b>ทำไมสำคัญ:</b> เป็นที่มาของ <b>selection bias</b> — การ conditioning บน collider (หรือลูกหลานของมัน) <b>สร้างความสัมพันธ์ปลอม</b>ขึ้นมาได้</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">D-Separation กฎว่าอะไร <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>ทุก path ถูก block ⇒ conditional independence</b><br>
+        <b>chain / fork</b> → block เมื่อ<b>ตัวกลางถูก observe</b><br>
+        <b>collider</b> → block เมื่อ<b>ไม่</b> observe · <b>เปิดเมื่อ observe collider หรือ descendant ของมัน</b><br>
+        <b>ใช้ทำอะไร:</b> อ่านสมมติฐานจากกราฟได้เลย · รู้ว่า feature ไหน<b>เกี่ยวกับคำถามจริง ๆ</b> · <b>ป้องกันการ conditioning ที่สร้าง bias</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Inference มีแบบไหนบ้าง <span class="hot hot-2">⚡ น่าจะออก</span></div>
+      <div class="cv"><b>ประเภทคำถาม:</b> <b>Predictive</b> P(ผล|สาเหตุ) ตามทิศลูกศร · <b>Diagnostic</b> P(สาเหตุ|ผล) ย้อนทิศ ← จุดแข็งของ Bayes · <b>Intercausal</b> สาเหตุแย่งกันอธิบาย · <b>MAP</b> ชุดค่าที่น่าจะเป็นที่สุด<br>
+        <b>Exact:</b> <b>Enumeration</b> (ตรงไปตรงมาแต่<b>โต exponential</b> คำนวณซ้ำเยอะ) · <b>Variable Elimination</b> (คูณเฉพาะ factor ที่เกี่ยว แล้ว sum out ทีละตัว + <b>reuse</b> ผลลัพธ์กลาง)<br>
+        <b>ประเด็นสอบ:</b> ทั้งคู่ให้<b>คำตอบเดียวกัน (exact ทั้งคู่)</b> ต่างกันแค่<b>ปริมาณการคำนวณซ้ำ</b> · <b>ลำดับการ eliminate ไม่เปลี่ยนคำตอบ แต่เปลี่ยน runtime มาก</b><br>
+        <b>Approximate:</b> prior/rejection sampling, likelihood weighting, Gibbs — ใช้เมื่อกราฟใหญ่เกินคำนวณตรง ๆ</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">BN = causal network ไหม <span class="hot hot-3">🔥 ออกแน่ (ข้อดัก)</span></div>
+      <div class="cv"><b>ไม่ใช่โดยอัตโนมัติ</b><br>
+        <span class="math">P(Y|X)</span> = <b>association</b> (สังเกตเฉย ๆ) · <span class="math">P(Y|do(X))</span> = <b>intervention</b> (เข้าไปแทรกแซง — ตัด edge ที่เข้าสู่ X ทิ้งก่อน)<br>
+        <b>เหตุผล:</b> <b>หลาย DAG ให้ observational distribution เดียวกันได้</b> · ทิศลูกศรอย่างเดียวไม่พิสูจน์เหตุ-ผล · <b>confounder ที่ไม่ได้วัดทำให้ผลเบี้ยว</b><br>
+        จะตีความเชิงสาเหตุได้ ต้องมี<b>สมมติฐานเชิงสาเหตุหรือการทดลองจริง</b> มารองรับ</div>
+    </div>
   </div>
+
+  <!-- ================= เชื่อมโยงข้ามสัปดาห์ ================= -->
+  <div class="cram" style="border-color:rgba(79,140,255,.45)">
+    <h4>🔗 เชื่อมโยงข้ามสัปดาห์ — ข้อสอบแนวเข้าใจชอบถามตรงนี้</h4>
+    <div class="cram-sub">ถ้าตอบส่วนนี้ได้ แปลว่าเห็นภาพรวมทั้งวิชา ไม่ได้ท่องแยกเป็นสัปดาห์</div>
+
+    <div class="cram-row">
+      <div class="ck">เรื่องราวทั้งวิชาในย่อหน้าเดียว <span class="hot hot-3">🔥</span></div>
+      <div class="cv">รู้ว่าปัญหาเป็นประเภทไหน <b>(W1)</b> → มีคณิตอะไรใช้แทนข้อมูลและปรับ model <b>(W2)</b> → เตรียมข้อมูลให้เชื่อถือได้และไม่รั่ว <b>(W3)</b> → ถ้า target เป็นตัวเลขใช้ regression <b>(W4)</b> ถ้าเป็นหมวดใช้ classification <b>(W5)</b> → ถ้าต้องการ<b>เหตุผลที่อธิบายได้ภายใต้ความไม่แน่นอน</b> ใช้ Bayesian Network <b>(W6)</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">4 ธีมที่วนซ้ำทุกสัปดาห์ <span class="hot hot-3">🔥 ตอบข้อไหนก็ได้แต้ม</span></div>
+      <div class="cv"><b>① ประเมินบนข้อมูลที่ model ไม่เคยเห็น</b> — generalization ไม่ใช่การจำ (W1 → W6)<br>
+        <b>② อย่าให้ข้อมูลรั่ว</b> — leakage โผล่ทั้งตอน preprocess (W3), cross-validation (W4), tuning (W5)<br>
+        <b>③ ตัดสินใจจากต้นทุนจริง</b> — เลือก metric/threshold ตามว่าพลาดแบบไหนแพงกว่า (W4, W5)<br>
+        <b>④ correlation ≠ causation</b> — พูดตั้งแต่ W2 (สถิติ), ย้ำที่ W4 (coefficient), จบที่ W6 (do-operator)</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">ตารางจับคู่ งาน → ทุกอย่าง <span class="hot hot-3">🔥 ออกแน่ (แนวสถานการณ์)</span></div>
+      <div class="cv">
+        <div class="ftable-wrap" style="margin-top:4px">
+          <table class="ftable">
+            <thead><tr><th>โจทย์</th><th>ประเภท</th><th>Model ตั้งต้น</th><th>Loss</th><th>Metric</th></tr></thead>
+            <tbody>
+              <tr><td>ทำนายราคาบ้าน</td><td>Supervised · <b>Regression</b></td><td>Linear/Ridge</td><td>MSE</td><td>MAE, RMSE, R²</td></tr>
+              <tr><td>กรอง spam</td><td>Supervised · <b>Classification</b></td><td>Logistic / Naive Bayes</td><td>Binary CE</td><td>Precision, Recall, F1</td></tr>
+              <tr><td>จำแนกดอกไม้ 3 ชนิด</td><td>Supervised · <b>Multiclass</b></td><td>Logistic (softmax)</td><td><b>Categorical CE</b></td><td>Accuracy, macro-F1</td></tr>
+              <tr><td>แบ่งกลุ่มลูกค้า</td><td><b>Unsupervised</b></td><td>K-Means</td><td>—</td><td>ดู cluster เชิงคุณภาพ</td></tr>
+              <tr><td>AI เล่นเกม</td><td><b>Reinforcement</b></td><td>Q-Learning</td><td>—</td><td>reward สะสม</td></tr>
+              <tr><td>วินิจฉัยจากอาการ</td><td><b>Bayesian Network</b></td><td>DAG + CPT</td><td>—</td><td>posterior, calibration</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Bayes โผล่ 2 ที่ ต่างกันยังไง <span class="hot hot-2">⚡</span></div>
+      <div class="cv"><b>W2</b> — Bayes เป็น<b>สูตรเดี่ยว</b> สำหรับอัปเดตความเชื่อ 1 เหตุการณ์ (medical test) และเป็นฐานของ <b>Naive Bayes classifier</b><br>
+        <b>W6</b> — เอาแนวคิดเดียวกันมา<b>ขยายเป็นกราฟหลายตัวแปร</b> ที่บอกได้ว่าอะไรขึ้นกับอะไร แล้วอัปเดตความเชื่อทั้งเครือข่ายพร้อมกัน</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Overfitting โผล่ทุกสัปดาห์ยังไง <span class="hot hot-2">⚡</span></div>
+      <div class="cv"><b>W2</b> เติม <span class="math">λ‖w‖²</span> ใน loss · <b>W3</b> split ให้ถูกเพื่อวัดได้จริง · <b>W4</b> Ridge/Lasso + cross-validation · <b>W5</b> คุม max_depth ของ tree, ใช้ Random Forest ลด variance<br>
+        <b>นิยามที่ตอบได้:</b> "model <b>จำ noise ใน training data</b> จนทำงานกับข้อมูลใหม่ได้แย่ลง — สังเกตจาก train ดีมากแต่ test แย่"</div>
+    </div>
+  </div>
+
+  <div class="takeaway">ถ้าจะจำ <b>5 ประโยค</b> เข้าห้องสอบ: <b>① AI ⊃ ML ⊃ DL และ ML เรียน rule จากข้อมูล ② ∇f ชี้ขึ้น เราเดินสวน ③ Split first, fit on train only ④ เลือก metric จากว่าพลาดแบบไหนแพงกว่า ⑤ chain/fork เห็นแล้วปิด · collider เห็นแล้วเปิด</b></div>
 </section>
 
-<!-- EXAM : numpy reading + latex -->
 <section class="section reveal" id="ex-code" data-week="exam" data-nav="💻 อ่านโค้ด NumPy + LaTeX">
   <div class="sec-head">
     <div class="kicker">Exam · Code &amp; Notation</div>
