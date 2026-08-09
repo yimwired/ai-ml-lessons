@@ -380,6 +380,169 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
 #qrModal .qclose{margin-top:16px}
 @media(max-width:560px){#qrBtn{display:none}}
 
+/* ============ Export / PDF modal ============ */
+#pdfBtn{position:fixed;right:22px;bottom:126px;width:44px;height:44px;border-radius:13px;background:var(--card2);
+  border:1px solid var(--border2);color:var(--text);font-size:18px;cursor:pointer;z-index:80;transition:.25s}
+#pdfBtn:hover{border-color:var(--green)}
+#pdfModal{position:fixed;inset:0;z-index:220;display:none;align-items:center;justify-content:center;
+  background:rgba(3,7,18,.84);backdrop-filter:blur(6px);padding:18px;overflow-y:auto}
+#pdfModal.show{display:flex}
+#pdfModal .pm{background:var(--panel);border:1px solid var(--border2);border-radius:20px;padding:24px;max-width:560px;width:100%;margin:auto}
+#pdfModal h4{font-size:19px;font-weight:700;margin-bottom:4px}
+#pdfModal .pm-sub{font-size:13.5px;color:var(--muted);margin-bottom:18px}
+#pdfModal .pm-lab{font-size:12.5px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin:16px 0 8px}
+.pm-opts{display:flex;flex-wrap:wrap;gap:8px}
+.pm-opt{font-family:'Sarabun',sans-serif;font-size:13.5px;font-weight:600;color:var(--muted);background:var(--card);
+  border:1px solid var(--border);border-radius:10px;padding:9px 15px;cursor:pointer;transition:.15s}
+.pm-opt:hover{border-color:var(--border2);color:var(--text)}
+.pm-opt.on{background:rgba(52,211,153,.16);border-color:var(--green);color:#fff}
+.pm-tip{margin-top:16px;font-size:13px;color:var(--muted);background:rgba(79,140,255,.07);
+  border:1px solid rgba(79,140,255,.2);border-radius:11px;padding:11px 14px;line-height:1.6}
+.pm-go{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+.pm-go .btn{flex:1;min-width:130px;justify-content:center;text-align:center;padding:11px 18px;font-size:14.5px}
+
+/* ============ PRINT / PDF ============ */
+@media print{
+  /* --- สลับเป็นธีมสว่างสำหรับกระดาษ --- */
+  :root{
+    --bg:#fff; --bg2:#fff; --panel:#fff; --card:#fff; --card2:#f2f5fa;
+    --border:#c5ccdd; --border2:#9aa4bd;
+    --text:#000; --muted:#3a4356; --dim:#5b6478;
+    --blue:#14459b; --purple:#54329c; --green:#0f6b48; --red:#a81f17;
+    --yellow:#7a5600; --cyan:#0d5f6e; --pink:#a3306b; --orange:#9a4a00;
+  }
+  @page{ size:A4 portrait; margin:14mm 12mm 16mm 12mm; }
+
+  html,body{background:#fff !important;color:#000 !important;font-size:10.5pt;line-height:1.62}
+  body::before{display:none !important}
+
+  /* --- ซ่อนทุกอย่างที่เป็นของหน้าจอ --- */
+  #sidebar,#weekbar,#topbar,#toTop,#qrBtn,#pdfBtn,#menuBtn,#scrim,
+  #upToast,#qrModal,#pdfModal,.demo,.tabs,.tabpanes,
+  .q-opts,.q-foot,.q-progress,.q-result,.examsim,.hint,.buildstamp,
+  .print-hide{ display:none !important }
+
+  #main{margin-left:0 !important}
+  .wrap{max-width:none;padding:0 !important}
+  .reveal{opacity:1 !important;transform:none !important}
+
+  /* --- ปกหน้าแรก --- */
+  .print-cover{display:block !important;text-align:center;padding:52mm 0 0;break-after:page}
+  .print-cover .pc-t{font-size:30pt;font-weight:700;line-height:1.25}
+  .print-cover .pc-s{font-size:14pt;color:#333;margin-top:10mm}
+  .print-cover .pc-m{font-size:10pt;color:#555;margin-top:22mm;line-height:2}
+  .print-cover .pc-line{width:60mm;height:2px;background:#14459b;margin:8mm auto}
+
+  /* --- หัวเรื่อง / การแบ่งหน้า --- */
+  .hero{display:none !important}
+  .week-divider{break-before:page;margin:0 0 8mm;padding-bottom:3mm;border-bottom:2.5px solid #14459b;
+    display:block;page-break-after:avoid;break-after:avoid}
+  .week-divider .num{display:inline-block;font-size:9.5pt;border:1px solid #14459b;color:#14459b;
+    background:none;padding:2px 9px;border-radius:4px}
+  .week-divider h2{font-size:20pt;font-weight:700;margin-top:3mm;color:#000}
+  .week-divider .line{display:none}
+  .section{margin-top:9mm;break-inside:auto}
+  .sec-head{break-after:avoid;page-break-after:avoid}
+  .sec-head h3{font-size:14.5pt;color:#000;border-left:4px solid #14459b;padding-left:3mm}
+  .sec-head .kicker{font-size:8.5pt;color:#666}
+  .sec-head .kicker::before{background:#14459b}
+  .sec-head p.desc{font-size:10pt;color:#333;max-width:none}
+  h4{break-after:avoid;page-break-after:avoid}
+
+  /* --- การ์ด / ตาราง --- */
+  .grid2,.grid3{display:block}
+  .card{background:#fff !important;border:1px solid #c5ccdd;border-radius:6px;padding:4mm 5mm;
+    margin-bottom:4mm;break-inside:avoid;page-break-inside:avoid}
+  .card h4{font-size:11.5pt;margin-bottom:2mm}
+  .card ul li{font-size:10pt;color:#111;padding:1.1mm 0 1.1mm 5mm}
+  .card ul li::before{color:#14459b}
+  .tone-blue,.tone-purple,.tone-green,.tone-red,.tone-yellow,.tone-cyan{border-top-width:2.5px}
+  .card .tag{color:#0d5f6e;border-color:#9fc7cf;background:none}
+  .takeaway,.note{background:#f4f7fb !important;border:1px solid #b9c4d8;color:#000;
+    border-left:4px solid #0f6b48;padding:3mm 4mm;font-size:10pt;break-inside:avoid}
+  .note{border-left-color:#7a5600}
+  .takeaway b,.note b{color:#000}
+  .ftable-wrap{border-color:#c5ccdd;break-inside:avoid;page-break-inside:avoid;overflow:visible}
+  .ftable{font-size:9.3pt}
+  .ftable th{background:#eef2f8 !important;color:#14459b;padding:2mm 2.5mm;border-bottom:1px solid #9aa4bd;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .ftable td{padding:1.8mm 2.5mm;color:#111;border-bottom:1px solid #dde3ee}
+  .ftable td.fm{white-space:normal;color:#54329c}
+  code.inline{background:#f0f2f7 !important;border-color:#ccd3e2;color:#14459b;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .math{background:#f6f2fc !important;border-color:#d5c9ee;color:#3f2472;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+  /* --- โค้ด --- */
+  .codebox{border:1px solid #c5ccdd;background:#fafbfe !important;break-inside:avoid;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .codebox .cb-head{background:#eef2f8 !important;border-bottom:1px solid #c5ccdd}
+  .codebox .cb-head .lang{color:#333}
+  .codebox .cb-head .copy{display:none}
+  .codebox pre{font-size:8.6pt;color:#111;overflow:visible;white-space:pre-wrap;word-break:break-word}
+  .c-kw{color:#7126a8}.c-fn{color:#12459b}.c-str{color:#116b33}.c-num{color:#a8480d}.c-cm{color:#666}
+
+  /* --- cram / worked / timeline --- */
+  .cram{background:#fff !important;border:1px solid #b9c4d8;border-left:4px solid #a81f17;
+    border-radius:6px;padding:4mm 5mm;break-inside:auto}
+  .cram > h4{font-size:12.5pt}
+  .cram-row{grid-template-columns:52mm 1fr;gap:4mm;padding:2.6mm 0;break-inside:avoid;page-break-inside:avoid}
+  .cram-row .ck{font-size:10pt;color:#000}
+  .cram-row .cv{font-size:9.7pt;color:#111}
+  .cram-row .cv .f{background:#f6f2fc !important;border-color:#d5c9ee;color:#3f2472;font-size:9pt;
+    white-space:pre-wrap;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .hot{border-width:1px;font-size:8pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .hot-3{color:#a81f17;background:#fdecea !important;border-color:#e0a49f}
+  .hot-2{color:#7a5600;background:#fdf6e3 !important;border-color:#dcc998}
+  .hot-1{color:#555;background:#f2f4f8 !important;border-color:#ccd3e2}
+  .worked{border:1px solid #c5ccdd;background:#fff !important;padding:4mm;break-inside:avoid;page-break-inside:avoid}
+  .worked .wq{font-size:10.5pt}
+  .worked .wtoggle{display:none}
+  .worked .wans{display:block !important;border-top:1px dashed #b9c4d8}
+  .worked .wans .step{background:#f3faf6 !important;border-color:#b3d9c6;color:#0b2f22;font-size:9.7pt;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .worked .wans .final{background:#e7f5ee !important;border-color:#8cc4a9;color:#08301f;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .worked .wtip{color:#444;font-size:9.5pt}
+  .timeline::before{background:#14459b}
+  .tl-item::before{background:#fff;border-color:#14459b}
+  .tl-item{break-inside:avoid;padding-bottom:4mm}
+  .tl-item .yr{color:#14459b}
+  .tl-item .tx{color:#222;font-size:9.7pt}
+  .step,.plan-step{background:#fafbfe !important;border-color:#c5ccdd;break-inside:avoid;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .step::before,.plan-step .pn{background:#14459b !important;color:#fff !important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .step .s-x,.plan-step .pd{color:#333}
+  .venn{display:none}
+  .es-src{color:#666}
+
+  /* --- quiz แบบสถิต (สร้างตอนสั่งพิมพ์) --- */
+  .print-quiz{display:block !important;margin-top:5mm}
+  .print-quiz .pq-h{font-size:12.5pt;font-weight:700;border-left:4px solid #54329c;padding-left:3mm;margin-bottom:3mm}
+  .print-quiz .pq-i{break-inside:avoid;page-break-inside:avoid;margin-bottom:3.5mm;padding-bottom:2.5mm;
+    border-bottom:1px dotted #c5ccdd}
+  .print-quiz .pq-q{font-size:10.2pt;font-weight:600}
+  .print-quiz .pq-o{font-size:9.7pt;color:#222;padding-left:5mm}
+  .print-quiz .pq-o.ok{font-weight:700;color:#0f6b48}
+  .print-quiz .pq-x{font-size:9.4pt;color:#333;background:#f4f7fb !important;border-left:3px solid #0d5f6e;
+    padding:2mm 3mm;margin-top:1.5mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+  /* --- ตัวเลือกผู้ใช้ --- */
+  body.pn-side .wrap{padding-right:34% !important}
+  body.pn-side .week-divider,body.pn-side .print-cover{padding-right:0}
+  .print-blank{display:block !important;break-before:page;height:0}
+  .print-blank .pb-t{font-size:11pt;color:#666;border-bottom:1px solid #c5ccdd;padding-bottom:2mm}
+  body.pf-s{font-size:9.5pt} body.pf-l{font-size:11.5pt}
+  body.no-ans .worked .wans,body.no-ans .print-quiz .pq-x{display:none !important}
+  body.no-ans .print-quiz .pq-o.ok{font-weight:400;color:#222}
+
+  footer{margin-top:8mm;padding-top:3mm;border-top:1px solid #c5ccdd;color:#555;font-size:8.5pt}
+  a{color:#14459b;text-decoration:none}
+  a[href^="http"]::after{content:"";}
+}
+.print-cover,.print-blank,.print-quiz{display:none}
+
 /* footer */
 footer{margin-top:80px;padding-top:26px;border-top:1px solid var(--border);color:var(--dim);font-size:13.5px}
 .buildstamp{margin-top:10px;font-family:var(--mono);font-size:11.5px;color:#46527a}
@@ -464,6 +627,7 @@ footer{margin-top:80px;padding-top:26px;border-top:1px solid var(--border);color
     <div class="chip">🎮 <b>21 Interactive Demos</b></div>
     <div class="chip">📝 <b>Quiz 45 ข้อ</b> + ข้อสอบเก็งพร้อมเฉลย</div>
     <div class="chip">⏱️ <b>โหมดจำลองสอบ</b> จับเวลา</div>
+    <div class="chip">📄 <b>Export PDF</b> ไว้จดโน้ตใน iPad</div>
   </div>
 </header>
 
@@ -3838,6 +4002,56 @@ model.<span class="c-fn">fit</span>(X_train, y_train)     <span class="c-cm"># f
 </div><!-- /main -->
 <button id="toTop">↑</button>
 <button id="qrBtn" title="เปิดบนมือถือ">📱</button>
+<button id="pdfBtn" title="บันทึกเป็น PDF สำหรับจดโน้ต">📄</button>
+<div id="pdfModal">
+  <div class="pm">
+    <h4>📄 บันทึกเป็น PDF (สำหรับจดโน้ตใน iPad)</h4>
+    <div class="pm-sub">เลือกช่วงและรูปแบบ แล้วกดสร้าง — หน้าต่างพิมพ์จะเปิดขึ้น ให้เลือกปลายทางเป็น <b>Save as PDF</b></div>
+
+    <div class="pm-lab">1 · เลือกช่วงเนื้อหา</div>
+    <div class="pm-opts" id="pmScope">
+      <button class="pm-opt on" data-v="all">📚 ทั้งหมด (Week 1–6 + ติวสอบ)</button>
+      <button class="pm-opt" data-v="lessons">📖 เฉพาะบทเรียน Week 1–6</button>
+      <button class="pm-opt" data-v="exam">🎯 เฉพาะโซนติวสอบ</button>
+      <button class="pm-opt" data-v="1">W1</button>
+      <button class="pm-opt" data-v="2">W2</button>
+      <button class="pm-opt" data-v="3">W3</button>
+      <button class="pm-opt" data-v="4">W4</button>
+      <button class="pm-opt" data-v="5">W5</button>
+      <button class="pm-opt" data-v="6">W6</button>
+    </div>
+
+    <div class="pm-lab">2 · พื้นที่จดโน้ต</div>
+    <div class="pm-opts" id="pmNote">
+      <button class="pm-opt on" data-v="none">เต็มหน้า (เนื้อหาเยอะสุด)</button>
+      <button class="pm-opt" data-v="side">เว้นขอบขวา ~⅓ ไว้จด</button>
+      <button class="pm-opt" data-v="blank">แทรกหน้าว่างท้ายแต่ละบท</button>
+    </div>
+
+    <div class="pm-lab">3 · ขนาดตัวอักษร</div>
+    <div class="pm-opts" id="pmFont">
+      <button class="pm-opt" data-v="s">เล็ก (ประหยัดหน้า)</button>
+      <button class="pm-opt on" data-v="m">กลาง</button>
+      <button class="pm-opt" data-v="l">ใหญ่ (อ่านสบาย)</button>
+    </div>
+
+    <div class="pm-lab">4 · เฉลย quiz &amp; ข้อสอบเก็ง</div>
+    <div class="pm-opts" id="pmAns">
+      <button class="pm-opt on" data-v="yes">รวมเฉลย</button>
+      <button class="pm-opt" data-v="no">ซ่อนเฉลย (ไว้ทำเอง)</button>
+    </div>
+
+    <div class="pm-tip">
+      <b>บน iPad:</b> เปิดลิงก์ใน Safari → กดปุ่มนี้ → เลือกช่วง → กดสร้าง → ในหน้าต่างพิมพ์ <b>บีบนิ้วออกบนภาพตัวอย่าง</b> หรือกดแชร์ → <b>บันทึกลงไฟล์ / เปิดใน GoodNotes · Notability</b><br>
+      <b>บนคอม:</b> ปลายทางเลือก <b>Save as PDF</b> · แนะนำเปิด <b>Background graphics</b> เพื่อให้ตารางและกล่องสีติดไปด้วย
+    </div>
+
+    <div class="pm-go">
+      <button class="btn primary" id="pmGo">🖨️ สร้าง PDF</button>
+      <button class="btn" id="pmClose">ปิด</button>
+    </div>
+  </div>
+</div>
 <div id="qrModal">
   <div class="qm">
     <h4>📱 เปิดบนมือถือ</h4>
@@ -5591,6 +5805,144 @@ w456:{title:'Quiz Week 4–6 · Regression, Classification & Bayesian Networks',
     document.getElementById('esAgain').onclick=renderStart;
   }
   renderStart();
+})();
+
+/* ================================================================
+   EXPORT เป็น PDF — เลือกช่วง / ขอบจดโน้ต / ขนาดตัวอักษร / เฉลย
+   จัดลำดับใหม่ตอนพิมพ์: Week 1–6 ก่อน แล้วโซนติวสอบไว้ท้ายสุด
+================================================================ */
+(function(){
+  const btn=document.getElementById('pdfBtn'), modal=document.getElementById('pdfModal');
+  if(!btn||!modal) return;
+  const wrap=document.querySelector('.wrap');
+  const cfg={scope:'all', note:'none', font:'m', ans:'yes'};
+
+  /* ติด data-week ให้ตัวคั่นสัปดาห์ เพื่อกรอง/ย้ายได้ */
+  document.querySelectorAll('.week-divider').forEach(d=>{
+    const m=(d.id||'').match(/^week(\d+)$/);
+    d.dataset.week = m ? m[1] : (d.id==='exam' ? 'exam' : '');
+  });
+
+  const allBlocks=()=>[...wrap.querySelectorAll('.week-divider, .section[data-week]')];
+  const isExam=el=>el.dataset.week==='exam';
+
+  function inScope(el){
+    const w=el.dataset.week;
+    if(cfg.scope==='all')     return true;
+    if(cfg.scope==='lessons') return w!=='exam';
+    if(cfg.scope==='exam')    return w==='exam';
+    return w===cfg.scope;              // '1'..'6'
+  }
+
+  const SCOPE_LABEL={all:'Week 1–6 + โซนติวสอบ', lessons:'บทเรียน Week 1–6', exam:'โซนติวสอบ',
+    '1':'Week 1 — Introduction to AI & ML', '2':'Week 2 — Mathematics for ML',
+    '3':'Week 3 — Data Preprocessing & EDA', '4':'Week 4 — Regression',
+    '5':'Week 5 — Classification', '6':'Week 6 — Bayesian Networks'};
+
+  let saved=null;   // เก็บสภาพเดิมไว้คืนค่าหลังพิมพ์
+
+  function buildCover(){
+    const d=document.createElement('div');
+    d.className='print-cover'; d.dataset.gen='1';
+    const now=new Date().toLocaleDateString('th-TH',{year:'numeric',month:'long',day:'numeric'});
+    d.innerHTML=`<div class="pc-t">AI &amp; ML<br>Interactive Lessons</div>
+      <div class="pc-line"></div>
+      <div class="pc-s">${SCOPE_LABEL[cfg.scope]||''}</div>
+      <div class="pc-m">เอกสารประกอบการเรียน · สร้างจากบทเรียนออนไลน์<br>${now}</div>`;
+    return d;
+  }
+
+  /* สร้าง quiz แบบสถิต (โจทย์+ตัวเลือก+เฉลย) ให้อ่านบนกระดาษได้ */
+  function buildQuizzes(){
+    if(typeof QUIZ_DATA==='undefined') return;
+    document.querySelectorAll('[data-quiz]').forEach(box=>{
+      const data=QUIZ_DATA[box.dataset.quiz]; if(!data) return;
+      const d=document.createElement('div');
+      d.className='print-quiz'; d.dataset.gen='1';
+      d.innerHTML=`<div class="pq-h">📝 ${data.title}</div>`+
+        data.qs.map((q,i)=>`<div class="pq-i">
+            <div class="pq-q">${i+1}. ${q.q}</div>
+            ${q.o.map((o,k)=>`<div class="pq-o ${k===q.a?'ok':''}">${'ABCD'[k]}. ${o}${k===q.a?'  ✓':''}</div>`).join('')}
+            <div class="pq-x"><b>อธิบาย:</b> ${q.x}</div>
+          </div>`).join('');
+      box.parentNode.insertBefore(d, box.nextSibling);
+    });
+  }
+
+  /* แทรกหน้าว่างท้ายแต่ละสัปดาห์ */
+  function buildBlanks(blocks){
+    const lastOf={};
+    blocks.forEach(b=>{ if(b.classList.contains('section')) lastOf[b.dataset.week]=b; });
+    Object.entries(lastOf).forEach(([wk,sec])=>{
+      const d=document.createElement('div');
+      d.className='print-blank'; d.dataset.gen='1';
+      d.innerHTML=`<div class="pb-t">📝 โน้ตเพิ่มเติม — ${SCOPE_LABEL[wk]||('Week '+wk)}</div>`;
+      sec.parentNode.insertBefore(d, sec.nextSibling);
+    });
+  }
+
+  function prepare(){
+    if(saved) restore();                       // กันกดซ้ำแล้วซ้อนกัน
+    const blocks=allBlocks();
+    /* เก็บลำดับลูกทั้งหมดของ .wrap ไว้ คืนค่าได้ตรงเป๊ะแน่นอน */
+    saved={ kids:[...wrap.childNodes], cls:document.body.className };
+
+    /* 1. กรองตามช่วงที่เลือก */
+    blocks.forEach(el=>{ if(!inScope(el)) el.classList.add('print-hide'); });
+
+    /* 2. ย้ายโซนติวสอบไปท้ายสุด (ก่อน footer) */
+    const foot=wrap.querySelector('footer');
+    blocks.filter(isExam).forEach(el=>{ if(!el.classList.contains('print-hide')) wrap.insertBefore(el, foot); });
+
+    /* 3. ปกหน้าแรก */
+    wrap.insertBefore(buildCover(), wrap.firstChild);
+
+    /* 4. quiz แบบสถิต + หน้าว่าง */
+    buildQuizzes();
+    if(cfg.note==='blank') buildBlanks(blocks.filter(el=>inScope(el)));
+
+    /* 5. ตัวเลือกรูปแบบ */
+    document.body.classList.toggle('pn-side', cfg.note==='side');
+    document.body.classList.toggle('pf-s', cfg.font==='s');
+    document.body.classList.toggle('pf-l', cfg.font==='l');
+    document.body.classList.toggle('no-ans', cfg.ans==='no');
+  }
+
+  function restore(){
+    if(!saved) return;
+    document.querySelectorAll('[data-gen="1"]').forEach(el=>el.remove());
+    document.querySelectorAll('.print-hide').forEach(el=>el.classList.remove('print-hide'));
+    /* ต่อลูกกลับตามลำดับเดิม (appendChild = ย้าย ไม่ใช่ก๊อป) */
+    saved.kids.forEach(n=>wrap.appendChild(n));
+    document.body.className=saved.cls;
+    saved=null;
+  }
+
+  /* ปุ่มเลือกตัวเลือก */
+  function bindGroup(id,key){
+    const box=document.getElementById(id); if(!box) return;
+    box.querySelectorAll('.pm-opt').forEach(b=>b.onclick=()=>{
+      box.querySelectorAll('.pm-opt').forEach(x=>x.classList.toggle('on',x===b));
+      cfg[key]=b.dataset.v;
+    });
+  }
+  bindGroup('pmScope','scope'); bindGroup('pmNote','note');
+  bindGroup('pmFont','font');   bindGroup('pmAns','ans');
+
+  btn.onclick=()=>modal.classList.add('show');
+  document.getElementById('pmClose').onclick=()=>modal.classList.remove('show');
+  modal.onclick=e=>{ if(e.target===modal) modal.classList.remove('show'); };
+  addEventListener('keydown',e=>{ if(e.key==='Escape') modal.classList.remove('show'); });
+
+  document.getElementById('pmGo').onclick=()=>{
+    modal.classList.remove('show');
+    prepare();
+    setTimeout(()=>{ window.print(); }, 120);
+  };
+  addEventListener('afterprint', restore);
+  /* Safari/iOS บางรุ่นไม่ยิง afterprint — กันค้างด้วย fallback */
+  addEventListener('focus', ()=>{ if(saved) setTimeout(restore, 400); });
+  window.__pdfExport={prepare, restore, cfg};   // ไว้ทดสอบ
 })();
 
 /* ================================================================
