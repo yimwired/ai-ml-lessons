@@ -5884,20 +5884,22 @@ w456:{title:'Quiz Week 4–6 · Regression, Classification & Bayesian Networks',
   function prepare(){
     if(saved) restore();                       // กันกดซ้ำแล้วซ้อนกัน
     const blocks=allBlocks();
-    /* เก็บลำดับลูกทั้งหมดของ .wrap ไว้ คืนค่าได้ตรงเป๊ะแน่นอน */
+    /* เก็บลำดับลูกทั้งหมดของ .wrap ไว้ก่อนแตะอะไร — คืนค่าได้ตรงเป๊ะ */
     saved={ kids:[...wrap.childNodes], cls:document.body.className };
 
-    /* 1. กรองตามช่วงที่เลือก */
-    blocks.forEach(el=>{ if(!inScope(el)) el.classList.add('print-hide'); });
+    /* 1. กรองตามช่วง — "ถอดออกจาก DOM" ไปเลย ไม่พึ่ง CSS ซ่อน
+          (เดิมใช้ display:none ผ่าน @media print ซึ่งพลาดได้ในบางเบราว์เซอร์) */
+    blocks.forEach(el=>{ if(!inScope(el)) el.remove(); });
 
     /* 2. ย้ายโซนติวสอบไปท้ายสุด (ก่อน footer) */
     const foot=wrap.querySelector('footer');
-    blocks.filter(isExam).forEach(el=>{ if(!el.classList.contains('print-hide')) wrap.insertBefore(el, foot); });
+    blocks.filter(el=>isExam(el) && inScope(el))
+          .forEach(el=>{ foot ? wrap.insertBefore(el, foot) : wrap.appendChild(el); });
 
     /* 3. ปกหน้าแรก */
     wrap.insertBefore(buildCover(), wrap.firstChild);
 
-    /* 4. quiz แบบสถิต + หน้าว่าง */
+    /* 4. quiz แบบสถิต + หน้าว่าง (เฉพาะที่ยังอยู่ใน DOM) */
     buildQuizzes();
     if(cfg.note==='blank') buildBlanks(blocks.filter(el=>inScope(el)));
 
@@ -5911,11 +5913,17 @@ w456:{title:'Quiz Week 4–6 · Regression, Classification & Bayesian Networks',
   function restore(){
     if(!saved) return;
     document.querySelectorAll('[data-gen="1"]').forEach(el=>el.remove());
-    document.querySelectorAll('.print-hide').forEach(el=>el.classList.remove('print-hide'));
-    /* ต่อลูกกลับตามลำดับเดิม (appendChild = ย้าย ไม่ใช่ก๊อป) */
+    /* ต่อลูกกลับตามลำดับเดิม — appendChild ย้าย/เอาโหนดที่ถอดไว้กลับมาด้วย */
     saved.kids.forEach(n=>wrap.appendChild(n));
     document.body.className=saved.cls;
     saved=null;
+  }
+
+  /* นับว่าจะได้กี่หัวข้อ แสดงบนปุ่มสร้าง เพื่อให้เห็นก่อนกดว่าเลือกถูกไหม */
+  function updateCount(){
+    const n=allBlocks().filter(el=>el.classList.contains('section') && inScope(el)).length;
+    const go=document.getElementById('pmGo');
+    if(go) go.textContent=`🖨️ สร้าง PDF (${n} หัวข้อ)`;
   }
 
   /* ปุ่มเลือกตัวเลือก */
@@ -5924,12 +5932,13 @@ w456:{title:'Quiz Week 4–6 · Regression, Classification & Bayesian Networks',
     box.querySelectorAll('.pm-opt').forEach(b=>b.onclick=()=>{
       box.querySelectorAll('.pm-opt').forEach(x=>x.classList.toggle('on',x===b));
       cfg[key]=b.dataset.v;
+      updateCount();
     });
   }
   bindGroup('pmScope','scope'); bindGroup('pmNote','note');
   bindGroup('pmFont','font');   bindGroup('pmAns','ans');
 
-  btn.onclick=()=>modal.classList.add('show');
+  btn.onclick=()=>{ updateCount(); modal.classList.add('show'); };
   document.getElementById('pmClose').onclick=()=>modal.classList.remove('show');
   modal.onclick=e=>{ if(e.target===modal) modal.classList.remove('show'); };
   addEventListener('keydown',e=>{ if(e.key==='Escape') modal.classList.remove('show'); });
@@ -5940,9 +5949,15 @@ w456:{title:'Quiz Week 4–6 · Regression, Classification & Bayesian Networks',
     setTimeout(()=>{ window.print(); }, 120);
   };
   addEventListener('afterprint', restore);
-  /* Safari/iOS บางรุ่นไม่ยิง afterprint — กันค้างด้วย fallback */
-  addEventListener('focus', ()=>{ if(saved) setTimeout(restore, 400); });
-  window.__pdfExport={prepare, restore, cfg};   // ไว้ทดสอบ
+  /* ตัวสำรอง: ตรวจว่าออกจากโหมดพิมพ์แล้วด้วย matchMedia
+     (ห้ามใช้ event 'focus' เด็ดขาด — Chrome ยิง focus ตอนเปิด print preview
+      ทำให้ restore ทำงานทั้งที่ preview ยังเปิดอยู่ → เนื้อหากลับมาครบทุกอัน) */
+  try{
+    const mq=matchMedia('print');
+    const onMQ=e=>{ if(!e.matches) restore(); };
+    mq.addEventListener ? mq.addEventListener('change', onMQ) : mq.addListener(onMQ);
+  }catch(e){}
+  window.__pdfExport={prepare, restore, cfg, updateCount};   // ไว้ทดสอบ
 })();
 
 /* ================================================================
