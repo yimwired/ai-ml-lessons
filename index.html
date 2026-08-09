@@ -400,6 +400,20 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
   border:1px solid rgba(79,140,255,.2);border-radius:11px;padding:11px 14px;line-height:1.6}
 .pm-go{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
 .pm-go .btn{flex:1;min-width:130px;justify-content:center;text-align:center;padding:11px 18px;font-size:14.5px}
+.pm-warn{margin-top:14px;font-size:13px;color:#f4e8c8;background:rgba(251,191,36,.1);
+  border:1px solid rgba(251,191,36,.3);border-radius:11px;padding:11px 14px;line-height:1.6;display:none}
+.pm-warn.show{display:block}
+
+/* แถบ "โหมด PDF" — ค้างไว้จนกดออกเอง ไม่พึ่ง event จบการพิมพ์ของเบราว์เซอร์ */
+#printBar{position:fixed;left:0;right:0;bottom:0;z-index:215;display:none;
+  align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;
+  background:rgba(9,15,31,.97);backdrop-filter:blur(12px);border-top:2px solid var(--green);
+  padding:12px 16px;box-shadow:0 -8px 30px rgba(0,0,0,.5)}
+#printBar.show{display:flex}
+#printBar .pb-i{font-size:14px;color:var(--text);font-weight:600}
+#printBar .pb-i b{color:var(--green)}
+#printBar .pb-s{font-size:12.5px;color:var(--muted);width:100%;text-align:center;line-height:1.5}
+#printBar .btn{padding:9px 18px;font-size:14px}
 
 /* ============ PRINT / PDF ============ */
 @media print{
@@ -418,7 +432,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
 
   /* --- ซ่อนทุกอย่างที่เป็นของหน้าจอ --- */
   #sidebar,#weekbar,#topbar,#toTop,#qrBtn,#pdfBtn,#menuBtn,#scrim,
-  #upToast,#qrModal,#pdfModal,.demo,.tabs,.tabpanes,
+  #upToast,#qrModal,#pdfModal,#printBar,.demo,.tabs,.tabpanes,
   .q-opts,.q-foot,.q-progress,.q-result,.examsim,.hint,.buildstamp,
   .print-hide{ display:none !important }
 
@@ -4046,11 +4060,19 @@ model.<span class="c-fn">fit</span>(X_train, y_train)     <span class="c-cm"># f
       <b>บนคอม:</b> ปลายทางเลือก <b>Save as PDF</b> · แนะนำเปิด <b>Background graphics</b> เพื่อให้ตารางและกล่องสีติดไปด้วย
     </div>
 
+    <div class="pm-warn" id="pmWarn"></div>
+
     <div class="pm-go">
       <button class="btn primary" id="pmGo">🖨️ สร้าง PDF</button>
       <button class="btn" id="pmClose">ปิด</button>
     </div>
   </div>
+</div>
+<div id="printBar">
+  <span class="pb-i">📄 โหมด PDF: <b id="pbScope">—</b></span>
+  <button class="btn primary" id="pbPrint">🖨️ สั่งพิมพ์ / บันทึก PDF</button>
+  <button class="btn" id="pbExit">✕ ออกจากโหมด PDF</button>
+  <span class="pb-s" id="pbHint"></span>
 </div>
 <div id="qrModal">
   <div class="qm">
@@ -5938,26 +5960,57 @@ w456:{title:'Quiz Week 4–6 · Regression, Classification & Bayesian Networks',
   bindGroup('pmScope','scope'); bindGroup('pmNote','note');
   bindGroup('pmFont','font');   bindGroup('pmAns','ans');
 
-  btn.onclick=()=>{ updateCount(); modal.classList.add('show'); };
+  /* ---- ตรวจสภาพแวดล้อม ---- */
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent||'') ||
+                (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+  /* ต้องเรียกผ่าน window และกัน throw — ถ้า matchMedia ไม่มี การอ้างชื่อเปล่า ๆ
+     จะโยน ReferenceError ทำให้ทั้งฟีเจอร์ export ตายทั้งก้อน */
+  function mm(q){ try{ return !!(window.matchMedia && window.matchMedia(q).matches); }catch(e){ return false; } }
+  const isStandalone = navigator.standalone===true || mm('(display-mode: standalone)');
+
+  function showWarn(){
+    const w=document.getElementById('pmWarn'); if(!w) return;
+    if(isIOS && isStandalone){
+      w.className='pm-warn show';
+      w.innerHTML='⚠️ ตอนนี้เปิดจาก<b>ไอคอนหน้าจอโฮม</b> ซึ่ง iOS <b>ไม่มีปุ่มแชร์/พิมพ์</b> — ให้เปิดลิงก์ใน <b>Safari</b> แทน แล้วค่อยกดสร้าง PDF';
+    } else w.className='pm-warn';
+  }
+
+  const bar=document.getElementById('printBar');
+  let safety=null;
+  function enterMode(){
+    prepare();
+    clearTimeout(safety); safety=setTimeout(exitMode, 600000);   // กันลืมออกจากโหมด
+    const n=document.querySelectorAll('.wrap .section[data-week]').length;
+    document.getElementById('pbScope').textContent=`${SCOPE_LABEL[cfg.scope]||cfg.scope} · ${n} หัวข้อ`;
+    document.getElementById('pbHint').innerHTML = isIOS
+      ? 'บน iPad/iPhone: กด <b>สั่งพิมพ์</b> ด้านบน หรือใช้ปุ่มแชร์ของ Safari → <b>Print</b> → บีบนิ้วออกบนภาพตัวอย่าง → แชร์เป็น PDF'
+      : 'เลือกปลายทางเป็น <b>Save as PDF</b> · แนะนำติ๊ก <b>Background graphics</b>';
+    bar.classList.add('show');
+    scrollTo({top:0});
+  }
+  function exitMode(){ clearTimeout(safety); restore(); bar.classList.remove('show'); }
+
+  btn.onclick=()=>{ updateCount(); showWarn(); modal.classList.add('show'); };
   document.getElementById('pmClose').onclick=()=>modal.classList.remove('show');
   modal.onclick=e=>{ if(e.target===modal) modal.classList.remove('show'); };
-  addEventListener('keydown',e=>{ if(e.key==='Escape') modal.classList.remove('show'); });
+  addEventListener('keydown',e=>{ if(e.key==='Escape'){ modal.classList.remove('show'); } });
 
   document.getElementById('pmGo').onclick=()=>{
     modal.classList.remove('show');
-    prepare();
-    setTimeout(()=>{ window.print(); }, 120);
+    enterMode();
+    /* คอมเรียก print ให้เลย · iOS ให้ผู้ใช้กดเองจากแถบ (print() ใน iOS มักถูกบล็อก) */
+    if(!isIOS) setTimeout(()=>{ try{ window.print(); }catch(e){} }, 150);
   };
-  addEventListener('afterprint', restore);
-  /* ตัวสำรอง: ตรวจว่าออกจากโหมดพิมพ์แล้วด้วย matchMedia
-     (ห้ามใช้ event 'focus' เด็ดขาด — Chrome ยิง focus ตอนเปิด print preview
-      ทำให้ restore ทำงานทั้งที่ preview ยังเปิดอยู่ → เนื้อหากลับมาครบทุกอัน) */
-  try{
-    const mq=matchMedia('print');
-    const onMQ=e=>{ if(!e.matches) restore(); };
-    mq.addEventListener ? mq.addEventListener('change', onMQ) : mq.addListener(onMQ);
-  }catch(e){}
-  window.__pdfExport={prepare, restore, cfg, updateCount};   // ไว้ทดสอบ
+  document.getElementById('pbPrint').onclick=()=>{ try{ window.print(); }catch(e){} };
+  document.getElementById('pbExit').onclick=exitMode;
+
+  /* ‼️ ไม่ auto-restore จาก event ใด ๆ ทั้งสิ้น
+     — 'focus'  : Chrome ยิงตอนเปิด print preview
+     — 'afterprint' / matchMedia('print') : iOS Safari ยิงเร็วเกินไปตั้งแต่ยังไม่ได้เซฟ
+     ทั้งสองกรณีทำให้เนื้อหาที่กรองไว้กลับมาครบก่อนถูกพิมพ์
+     จึงให้ผู้ใช้กด "ออกจากโหมด PDF" เองเท่านั้น (มี safety timeout 10 นาที) */
+  window.__pdfExport={prepare, restore, cfg, updateCount, enterMode, exitMode, isIOS};
 })();
 
 /* ================================================================
