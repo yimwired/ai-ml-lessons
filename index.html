@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>AI & ML Interactive Lessons — Week 1-6</title>
-<meta name="description" content="บทเรียน AI &amp; ML แบบ interactive Week 1-6 พร้อมติวสอบ">
+<title>AI & ML Interactive Lessons — Week 1-8</title>
+<meta name="description" content="บทเรียน AI &amp; ML แบบ interactive Week 1-8 พร้อมติวสอบ">
 <meta name="theme-color" content="#060b1a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1452,6 +1452,222 @@ Var = E[X²] − (E[X])²    IQR = Q3 − Q1    z = (x−μ)/σ</span>
   </div>
 
   <div class="takeaway">ถ้าจะจำ <b>5 ประโยค</b> เข้าห้องสอบ: <b>① AI ⊃ ML ⊃ DL และ ML เรียน rule จากข้อมูล ② ∇f ชี้ขึ้น เราเดินสวน ③ Split first, fit on train only ④ เลือก metric จากว่าพลาดแบบไหนแพงกว่า ⑤ chain/fork เห็นแล้วปิด · collider เห็นแล้วเปิด</b></div>
+</section>
+
+<section class="section reveal" id="ex-cram-w7" data-week="exam" data-nav="🧠 Cram: Week 7 Clustering 🔥">
+  <div class="sec-head">
+    <div class="kicker">โซนติวสอบ · Week 7</div>
+    <h3>Cram Sheet — Unsupervised Learning &amp; Clustering</h3>
+    <p class="desc">อาจารย์<b>เน้นหัวข้อนี้เป็นพิเศษ</b> · ถ้าเวลาเหลือน้อย อ่านแค่หน้านี้ให้จบก็พอสอบผ่านส่วนของ Week 7 ได้</p>
+  </div>
+
+  <div class="cram" style="border-color:rgba(139,92,246,.35)">
+    <h4>🔮 Week 7 — Unsupervised Learning &amp; Clustering</h4>
+    <div class="cram-sub">แนวข้อสอบคือ <b>"งานแบบนี้ควรใช้อัลกอริทึมไหน"</b> และ <b>"อัลกอริทึม A ต่างจาก B ยังไง"</b> → ตารางเปรียบเทียบคือหัวใจ</div>
+
+    <div class="cram-row">
+      <div class="ck">Supervised vs Unsupervised vs RL <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>Supervised</b> = มี <span class="math">(X, y)</span> ที่ label แล้ว → ทำนาย <span class="math">y</span><br>
+        <b>Unsupervised</b> = มีแค่ <span class="math">X</span> ไม่มีเฉลย → หา hidden structure<br>
+        <b>Reinforcement</b> = agent + reward → หา policy ที่ reward สูงสุด<br>
+        <b>วิธีแยกเร็ว:</b> ถามว่า "ข้อมูลมี label ติดมาไหม" ถ้าไม่มี = unsupervised · ถ้ามี reward กับการลองผิดลองถูก = RL</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">4 ตระกูลของ Unsupervised <span class="hot hot-2">⚡</span></div>
+      <div class="cv"><b>Clustering</b> (จัดกลุ่ม) · <b>Dimensionality Reduction</b> (PCA, t-SNE) · <b>Anomaly Detection</b> (หาจุดผิดปกติ) · <b>Association Rules</b> (market basket "ซื้อ A มักซื้อ B")</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">K-means 4 ขั้นตอน <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><span class="f">① วาง centroid k ตัว (k-means++ กระจายให้ห่าง)  ② Assign จุดเข้า centroid ที่ใกล้สุด  ③ Update ย้าย centroid ไปค่าเฉลี่ยกลุ่ม  ④ วนซ้ำ ②–③ จน centroid หยุดขยับ</span>
+        <b>พารามิเตอร์ตัวเดียว: <span class="math">k</span></b> ต้องบอกก่อนรัน</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Inertia / WCSS คืออะไร และทำไมใช้เลือก k ตรง ๆ ไม่ได้ <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><span class="math">J = Σ ‖xᵢ − c₍ᵢ₎‖²</span> = ผลรวมระยะยกกำลังสองจากจุดไป centroid ของตัวเอง<br>
+        <b>ทำไมค่าเฉลี่ยถึงถูกต้อง:</b> ค่าเฉลี่ยคือจุดที่ทำให้ผลรวมระยะยกกำลังสองน้อยที่สุด<br>
+        <b>ทำไมใช้เลือก k ไม่ได้:</b> <b>เพิ่ม k แล้ว J ลดเสมอ</b> — สุดโต่งคือ <span class="math">k = n</span> ได้ <span class="math">J = 0</span> จึงต้องใช้ elbow / silhouette มาช่วย</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Elbow vs Silhouette <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>Elbow</b> — พล็อต J เทียบ k เลือกจุดที่ J <b>เลิกลดเร็ว</b> · ข้อเสีย: บางทีไม่มีข้อศอกชัด ตัดสินด้วยตา<br>
+        <b>Silhouette</b> — เลือก k ที่<b>คะแนนสูงสุด</b> · ให้ตัวเลขชัด และ<b>ใช้ได้กับทุกอัลกอริทึม</b> ไม่ใช่แค่ K-means · ข้อเสีย: ช้ากว่า<br>
+        <b>คำตอบที่อาจารย์อยากได้: ใช้คู่กันเสมอ ห้ามเชื่ออย่างเดียว</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">สูตร Silhouette + การตีความ <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><span class="math">a(i)</span> = ระยะเฉลี่ยไป<b>จุดอื่นในกลุ่มเดียวกัน</b> (ไม่นับตัวเอง) → น้อยดี<br>
+        <span class="math">b(i)</span> = ระยะเฉลี่ยไป<b>กลุ่มอื่นที่ใกล้ที่สุด</b> → มากดี<br>
+        <span class="math">s(i) = (b − a) / max(a, b)</span> · <span class="math">s ∈ [−1, +1]</span><br>
+        <b>+1</b> อยู่ลึกในกลุ่มถูก · <b>0</b> อยู่บนเส้นแบ่ง · <b>−1</b> อยู่ผิดกลุ่ม<br>
+        <b>กับดัก:</b> ตัวส่วนคือ <b><span class="math">max(a,b)</span> ไม่ใช่ b</b> · ใช้กับ DBSCAN ต้อง<b>ตัด noise (−1) และ cluster ที่มีจุดเดียวออกก่อน</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Linkage 5 แบบ + อ่าน Dendrogram <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>Single</b> = ระยะ<b>น้อยสุด</b> (เกิด chaining ง่าย) · <b>Complete</b> = <b>มากสุด</b> · <b>Average</b> = เฉลี่ยทุกคู่ · <b>Centroid</b> = ระยะ centroid · <b>Ward</b> = ความแปรปรวนที่เพิ่ม<b>น้อยสุด</b><br>
+        <b>Dendrogram:</b> ความสูงแท่ง = <b>ระยะตอนรวมกัน</b> · แท่งสูง = ห่างกันมาก = จุดที่ควรตัด · <b>จำนวนเส้นที่เส้นตัดพาดผ่าน = จำนวน cluster</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">DBSCAN — Core / Border / Noise <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv">พารามิเตอร์: <span class="math">eps</span> (รัศมี) + <span class="math">min_samples</span> (เกณฑ์ความหนาแน่น)<br>
+        <b>Core</b> = เพื่อนบ้านในรัศมี eps <b>≥ min_samples</b> (<b>นับตัวเองด้วย</b>) · <b>Border</b> = ไม่ถึงเกณฑ์ แต่อยู่ในรัศมีของ core · <b>Noise</b> = ไม่ใช่ทั้งคู่ (label = <span class="math">−1</span>)<br>
+        <b>eps เล็กไป</b> → กลุ่มจิ๋วเต็มไปหมด + noise ท่วม · <b>eps ใหญ่ไป</b> → ก้อนเดียว · หา eps ด้วย <b>k-distance plot</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">⭐ ตารางเปรียบเทียบ — ข้อที่สำคัญที่สุดของ Week 7 <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><span class="f">Algorithm      k?      Shape       Noise   Speed
+K-means        ต้อง     ทรงกลม       ✗      เร็วสุด
+Hierarchical   ไม่ต้อง   อะไรก็ได้     ✗      ช้า
+DBSCAN         ไม่ต้อง   อะไรก็ได้     ✓      ปานกลาง
+Mean Shift     ไม่ต้อง   อะไรก็ได้     บางส่วน  ช้า
+GMM            ต้อง     วงรี         ✗      ปานกลาง
+Spectral       ต้อง     อะไรก็ได้     ✗      ปานกลาง
+OPTICS         ไม่ต้อง   อะไรก็ได้     ✓      ปานกลาง</span>
+        <b>ประโยคสรุปที่อาจารย์เน้น:</b> K-means เร็วที่สุด · GMM เพิ่มความน่าจะเป็น (soft assignment) · <b>DBSCAN กับ OPTICS เป็นสองตัวเดียวที่ label noise ได้</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">อีก 4 ตัวที่ผ่านเร็ว ๆ แต่ต้องรู้ว่าคืออะไร <span class="hot hot-2">⚡</span></div>
+      <div class="cv"><b>Mean Shift</b> — จุดไต่ขึ้นเนินหา mode · ตั้ง <b>bandwidth</b> แทน k · ใช้กับ image segmentation, tracking<br>
+        <b>GMM</b> — แต่ละกลุ่มเป็น Gaussian · <b>ตัวเดียวที่ให้ความน่าจะเป็น</b> · ต้องบอก k · ได้ทรงวงรี<br>
+        <b>Spectral</b> — สร้างกราฟความคล้ายแล้วตัด · เก่ง<b>วงแหวนซ้อน</b> · ต้องบอก k<br>
+        <b>OPTICS</b> — DBSCAN ที่<b>ไม่ต้องเดา eps</b> · รับความหนาแน่นไม่เท่ากันได้</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">ทำไม K-means พังกับ Two Moons <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv">K-means สมมติกลุ่ม<b>ทรงกลมขนาดใกล้เคียงกัน</b> จึงแบ่งด้วยเส้นตรง (Voronoi) — เจอรูปเสี้ยวโค้งจะ <b>label ข้ามช่องว่าง</b> ทำให้กลุ่มผิด<br>
+        <b>นี่คือเหตุผลที่ต้องมี density-based อย่าง DBSCAN</b> ซึ่งดูความหนาแน่นแทนระยะจากจุดศูนย์กลาง</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Golden Rules 5 ข้อ <span class="hot hot-2">⚡</span></div>
+      <div class="cv">① <b>Scale ก่อนเสมอ</b> สำหรับทุกอัลกอริทึมที่ใช้ระยะทาง<br>
+        ② เลือก k ด้วย <b>elbow + silhouette คู่กัน</b><br>
+        ③ สงสัยว่ามี noise หรือรูปทรงแปลก → <b>ใช้ DBSCAN</b><br>
+        ④ <b>อย่าเชื่อการรันครั้งเดียว</b> — K-means ต้อง restart หลายรอบ (n_init)<br>
+        ⑤ <b>วาดกราฟดูเสมอ</b> — clustering มีไว้ให้ดูด้วยตา</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">3 กับดักที่พลาดกันมากที่สุด <span class="hot hot-3">🔥</span></div>
+      <div class="cv">① <b><span class="math">min_samples</span> ของ DBSCAN นับตัวเองด้วย</b> — ลืมนับแล้วสรุปว่าไม่มี core เลย<br>
+        ② <b>ตัวส่วนของ silhouette คือ <span class="math">max(a,b)</span></b> ไม่ใช่ <span class="math">b</span><br>
+        ③ <b>ไม่ scale ก่อน</b> — feature หน่วยใหญ่กลบหน่วยเล็กจนกลุ่มไม่มีความหมาย</div>
+    </div>
+
+    <div class="cram-sub" style="margin-top:12px;margin-bottom:0">⚡ <b>ถ้าเจอข้อสอบแนว "งานนี้ควรใช้อะไร" ให้ไล่ 3 คำถามนี้:</b> <b>(1) รู้ k ไหม</b> → ไม่รู้ตัด K-means/GMM/Spectral ทิ้ง · <b>(2) รูปทรงกลมไหม</b> → ไม่กลมตัด K-means ทิ้ง · <b>(3) มี noise ที่ไม่อยากให้เข้ากลุ่มไหม</b> → มี เหลือแค่ DBSCAN กับ OPTICS</div>
+  </div>
+
+  <div class="takeaway">3 ประโยคที่ต้องเข้าห้องสอบ: <b>① Unsupervised = ไม่มี label ต้องหาโครงสร้างเอง ② K-means เร็วแต่ต้องบอก k และได้แต่ทรงกลม ③ DBSCAN ตัวเดียวที่ครบ ไม่ต้องบอก k + รูปอิสระ + บอก noise ได้</b></div>
+</section>
+
+<section class="section reveal" id="ex-cram-w8" data-week="exam" data-nav="🧠 Cram: Week 8 PCA 🔥">
+  <div class="sec-head">
+    <div class="kicker">โซนติวสอบ · Week 8</div>
+    <h3>Cram Sheet — Dimensionality Reduction</h3>
+    <p class="desc">Week 8 ผูกกับ Week 2 (eigen) และ Week 3 (leakage) โดยตรง — <b>ถ้าเข้าใจสองอันนั้นแล้ว Week 8 คือของแถม</b></p>
+  </div>
+
+  <div class="cram" style="border-color:rgba(34,211,238,.35)">
+    <h4>📐 Week 8 — Dimensionality Reduction</h4>
+    <div class="cram-sub">แนวข้อสอบ: <b>PCA ทำงานยังไง</b> · <b>เลือก k ยังไง</b> · <b>ทำไมต้อง scale</b> · <b>t-SNE ตีความยังไงถึงจะไม่ผิด</b></div>
+
+    <div class="cram-row">
+      <div class="ck">Curse of Dimensionality คืออะไร <span class="hot hot-2">⚡</span></div>
+      <div class="cv">มิติยิ่งสูง <b>ระยะทางระหว่างจุดยิ่งแยกใกล้-ไกลไม่ออก</b> — ทุกจุดดูห่างเท่ากันหมด<br>
+        <b>ใครพังก่อน:</b> KNN กับ clustering เพราะทั้งคู่ยืนบนระยะทาง (เชื่อมกับ Week 7 ตรง ๆ)<br>
+        ผลอื่น: ต้องใช้ข้อมูลมากขึ้นแบบทวีคูณ · เสี่ยง overfitting · เทรนช้า กิน memory</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Feature Selection vs Feature Extraction <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>Selection = เลือกของเดิม</b> (variance threshold, correlation, mutual information, Lasso, SelectFromModel) → <b>ตีความง่าย ชื่อ feature ยังอยู่</b><br>
+        <b>Extraction = สร้างของใหม่</b> (PCA, TruncatedSVD, t-SNE, UMAP) → <b>บีบข้อมูลได้ดีกว่า แต่ตีความยาก</b><br>
+        <b>เลือกยังไง:</b> ต้องอธิบายให้คนฟัง → Selection · feature ซ้ำซ้อนเยอะอยากบีบ → Extraction</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">PCA ทำงานยังไง — 4 ขั้น <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><span class="f">① Center (ลบ mean)  ② Scale ถ้าหน่วยต่างกัน  ③ คำนวณ covariance matrix  ④ หา eigenvector/eigenvalue แล้วเก็บ top-k</span>
+        <b>eigenvector = ทิศทางหลัก · eigenvalue = variance ตามทิศนั้น</b><br>
+        PC1 เก็บ variance มากสุด · PC2 รองลงมาและ<b>ตั้งฉากกับ PC1</b> ⇒ ไม่เก็บข้อมูลซ้ำกัน<br>
+        ทางปฏิบัติใช้ <b>SVD</b> คำนวณเพราะเสถียรและเร็วกว่า</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">🔗 เชื่อมกับ Week 2 — ทริกคำนวณเร็ว <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv">covariance รูป <span class="math">[[a, b], [b, a]]</span> → <b><span class="math">λ = a+b</span> และ <span class="math">a−b</span></b> · eigenvector <span class="math">[1,1]</span> กับ <span class="math">[1,−1]</span> <b>เสมอ</b> ไม่ต้องแก้สมการ<br>
+        <b>ตัวอย่างที่ต้องทำได้:</b> จุด (1,1),(2,3),(3,2),(4,4) → mean (2.5,2.5) → <span class="math">C = [[5/3, 4/3],[4/3, 5/3]]</span><br>
+        → <span class="math">λ₁ = 3, λ₂ = 1/3</span> → <b>PC1 อธิบาย <span class="math">3/(10/3) = 90%</span></b><br>
+        <b>กับดัก: ลืม center ก่อน</b> → covariance ผิดทั้งหมด</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Explained Variance + เลือก k <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><code class="inline">explained_variance_ratio_</code> = สัดส่วน variance ต่อ component · <b>cumulative</b> = สะสม<br>
+        เลือก k จาก <b>elbow ของเส้น cumulative</b> หรือ threshold <b>90/95/99%</b> · visualization บังคับ k=2 หรือ 3<br>
+        <b>ทางลัด:</b> <code class="inline">PCA(n_components=0.95)</code> ใส่ทศนิยม sklearn เลือก k ให้เอง<br>
+        <b>เตือน:</b> เป็นแค่ heuristic <b>ต้องตรวจ metric ปลายทางด้วย</b> · eigenvalue เรียงมากไปน้อยเสมอ scree plot จึงลาดลงตลอด</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">ทำไมต้อง Scale ก่อน PCA <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>PCA มองที่ variance จึงไวต่อหน่วยวัด</b> — feature ที่ scale ใหญ่ครอบงำ component ทั้งหมด<br>
+        <b>ตัวอย่างที่ต้องยกได้:</b> income (หลักหมื่น) กลบ age (หลักสิบ) จน PC1 กลายเป็น income เพียว ๆ ทั้งที่ไม่ได้สำคัญกว่าจริง<br>
+        ใช้ <code class="inline">StandardScaler</code> เป็น baseline · <b>ไม่ต้อง scale เมื่อทุก feature หน่วยเดียวกันและ variance มีความหมายจริง</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">PCA vs TruncatedSVD <span class="hot hot-2">⚡</span></div>
+      <div class="cv"><b>ข้อมูลหนาแน่น (dense) → PCA</b><br>
+        <b>ข้อมูลเบาบาง (sparse) เช่น TF-IDF → TruncatedSVD</b><br>
+        <b>เหตุผล:</b> PCA ต้อง center ซึ่งทำให้ sparse matrix กลายเป็น dense → memory ระเบิด · TruncatedSVD ไม่ต้อง center จึงรับ sparse ได้ตรง ๆ (เป็นหัวใจของ LSA)</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">PCA vs t-SNE vs UMAP <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><span class="f">          linear?  ใช้ production?  รักษาอะไร            ต้องระวัง
+PCA       linear    ได้ ✓          variance รวม        ต้อง scale ก่อน
+t-SNE     nonlinear ไม่ได้ ✗       local neighborhood  global distance หลอก
+UMAP      nonlinear ไม่ได้ ✗       local + บาง global  ไม่อยู่ใน sklearn</span>
+        <b>ประโยคที่ตอบได้เต็ม:</b> PCA เรียน mapping ไว้ transform ข้อมูลใหม่ได้ · t-SNE/UMAP จัดวางจุดเฉพาะชุดนั้น ไม่มี transform สำหรับข้อมูลใหม่ <b>จึงใช้ดูอย่างเดียว</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">t-SNE — พารามิเตอร์และกับดักการตีความ <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>perplexity</b> = ขนาด neighborhood · ค่าทั่วไป <b>5–50</b> · <b>ต้องน้อยกว่าจำนวน sample</b><br>
+        <b>init='pca'</b> ทำให้เสถียรกว่าสุ่ม · <b>random_state</b> ต้องตั้งเพื่อ reproduce<br>
+        <b>ห้ามตีความ:</b> ระยะห่างระดับ global · ขนาดของ cluster บนภาพ — ทั้งสองอย่างหลอกได้<br>
+        <b>ท่ามาตรฐาน:</b> scale → PCA เหลือ ~50 มิติ → t-SNE</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Data Leakage ใน Dimensionality Reduction <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>รั่ว:</b> fit scaler/PCA บนข้อมูลทั้งหมดก่อน split · เลือก feature โดยดู correlation กับ target ทั้ง dataset · fit t-SNE รวม test<br>
+        <b>ปลอดภัย:</b> <b>split ก่อน → fit บน train เท่านั้น → test แค่ transform</b> · ใช้ <code class="inline">Pipeline</code><br>
+        <b>เหตุผลที่ Pipeline สำคัญ:</b> <code class="inline">cross_val_score</code> จะ fit transformer ใหม่ทุก fold ให้เอง — ถ้า fit ข้างนอกก่อน คะแนนจะสูงเกินจริง<b>โดยไม่มี error ฟ้อง</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">กับดักด้านการสื่อสาร <span class="hot hot-2">⚡</span></div>
+      <div class="cv">❌ <b>"PC1 คือรายได้"</b> — ผิด เพราะ PC1 เป็น<b>ผลรวมถ่วงน้ำหนักของทุก feature</b><br>
+        ❌ เอา plot 2D ไปใช้เป็นหลักฐานตัดสินเด็ดขาด<br>
+        ❌ ไม่บอก random seed หรือพารามิเตอร์ที่ใช้<br>
+        ❌ ไม่อธิบายว่าตัดข้อมูลอะไรทิ้งไปบ้าง</div>
+    </div>
+
+    <div class="cram-sub" style="margin-top:12px;margin-bottom:0">⚡ <b>ถ้าเจอโจทย์ "ควรใช้วิธีไหน" ให้ไล่:</b> <b>(1) เอาไปเข้า model จริงไหม</b> → ใช่ ตัด t-SNE/UMAP ทิ้ง · <b>(2) ข้อมูล sparse ไหม</b> → ใช่ ใช้ TruncatedSVD · <b>(3) ต้องอธิบายชื่อ feature ไหม</b> → ใช่ ใช้ Feature Selection ไม่ใช่ PCA</div>
+  </div>
+
+  <div class="takeaway">3 ประโยคเข้าห้องสอบ: <b>① PCA = eigenvector ของ covariance · eigenvalue = variance ② ต้อง scale ก่อน และ fit บน train เท่านั้น ③ t-SNE/UMAP ใช้ดูอย่างเดียว ห้ามตีความระยะห่างกับขนาดกลุ่ม</b></div>
 </section>
 
 <section class="section reveal" id="ex-code" data-week="exam" data-nav="💻 อ่านโค้ด NumPy + LaTeX">
@@ -4007,8 +4223,1122 @@ model.<span class="c-fn">fit</span>(X_train, y_train)     <span class="c-cm"># f
   <div class="quiz" id="quiz-w456" data-quiz="w456"></div>
 </section>
 
+<!-- ══════════════════════ WEEK 7 · UNSUPERVISED LEARNING & CLUSTERING ══════════════════════ -->
+
+<!-- W7 : Unsupervised Learning คืออะไร -->
+<section class="section reveal" id="w7-intro" data-week="7" data-nav="Unsupervised Learning คืออะไร">
+  <div class="sec-head">
+    <div class="kicker">W7 · Part 1</div>
+    <h3>Unsupervised Learning — เรียนรู้โดยไม่มีเฉลย</h3>
+    <p class="desc">Week 4–6 ทั้งหมดมี <span class="math">y</span> (เฉลย) ให้เรียน แต่ Week 7 <b>มีแค่ <span class="math">X</span></b> — คำถามเปลี่ยนจาก "อะไรทำนาย y ได้" เป็น <b>"ข้อมูลชุดนี้หน้าตาเป็นยังไง"</b></p>
+  </div>
+
+  <div class="grid2">
+    <div class="card tone-purple">
+      <h4><span class="ic">🔍</span>นิยาม</h4>
+      <ul>
+        <li><b>Input:</b> <span class="math">X</span> อย่างเดียว — มีแต่ feature ไม่มี label <span class="math">y</span></li>
+        <li><b>เป้าหมาย:</b> หา hidden structure / กลุ่ม / รูปแบบ ที่ซ่อนอยู่ในข้อมูล</li>
+        <li><b>ไม่มี "คำตอบที่ถูก" ให้เทียบ</b> → วิธีวัดผลจึงต่างจาก supervised โดยสิ้นเชิง</li>
+        <li>ถามว่า <i>"what does the data look like?"</i> ไม่ใช่ <i>"what predicts y?"</i></li>
+      </ul>
+    </div>
+    <div class="card tone-blue">
+      <h4><span class="ic">🧭</span>เทียบ 3 กระบวนทัศน์</h4>
+      <ul>
+        <li><b>Supervised</b> — มี <span class="math">(X, y)</span> ที่ label แล้ว → ทำนาย <span class="math">y</span></li>
+        <li><b>Unsupervised</b> — มีแค่ <span class="math">X</span> ไม่มี label → หาโครงสร้าง</li>
+        <li><b>Reinforcement</b> — agent + reward → หา policy ที่ทำ reward สูงสุด</li>
+        <li>ข้อสอบชอบถามแบบ "งานนี้จัดเป็นประเภทไหน" — <b>ดูที่ว่ามี label ติดมาไหมเป็นหลัก</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <h4 style="margin:20px 0 10px;font-size:16.5px">4 ตระกูลของ Unsupervised Learning</h4>
+  <div class="steps">
+    <div class="step"><div class="s-t">Clustering</div><div class="s-x">จับสิ่งที่คล้ายกันมารวมกลุ่ม — <b>หัวข้อหลักของ Week 7</b> เช่น K-means, Hierarchical, DBSCAN</div></div>
+    <div class="step"><div class="s-t">Dimensionality Reduction</div><div class="s-x">ลดจำนวนมิติแต่เก็บสาระไว้ — PCA, t-SNE ใช้ทั้งบีบข้อมูลและวาดกราฟให้คนดูรู้เรื่อง</div></div>
+    <div class="step"><div class="s-t">Anomaly Detection</div><div class="s-x">หาจุดที่ผิดปกติจากส่วนใหญ่ — ตรวจจับการฉ้อโกง เซ็นเซอร์เสีย</div></div>
+    <div class="step"><div class="s-t">Association Rules</div><div class="s-x">หาของที่มักเกิดร่วมกัน — market basket analysis "ซื้อ A แล้วมักซื้อ B"</div></div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card tone-green">
+      <h4><span class="ic">🏢</span>ใช้จริงที่ไหนบ้าง</h4>
+      <ul>
+        <li><b>Customer segmentation</b> → ทำการตลาดแยกกลุ่ม</li>
+        <li><b>จัดกลุ่มเอกสาร/ข่าว</b> → ระบบแนะนำเนื้อหา</li>
+        <li><b>Image compression</b> → color quantization ลดจำนวนสีด้วย K-means</li>
+        <li><b>Bioinformatics</b> → จัดกลุ่ม gene expression หาชนิดย่อยของโรค</li>
+      </ul>
+    </div>
+    <div class="card tone-yellow">
+      <h4><span class="ic">⚠️</span>กับดักความคิดที่ต้องระวัง</h4>
+      <ul>
+        <li>ไม่มี label <b>ไม่ได้แปลว่าไม่ต้องประเมินผล</b> — แค่ใช้ตัววัดคนละแบบ (เช่น silhouette)</li>
+        <li>Clustering <b>หากลุ่มได้เสมอ</b> แม้ข้อมูลจะไม่มีกลุ่มจริง — ต้องดูคะแนนประกอบ ไม่ใช่เชื่อผลลอย ๆ</li>
+        <li>ผลลัพธ์ขึ้นกับ <b>การ scale</b> และ <b>ตัววัดระยะ</b> ที่เลือก เปลี่ยนสองอย่างนี้ผลเปลี่ยนหมด</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="takeaway">แกนที่ต้องจำ: <b>Supervised = มีเฉลย · Unsupervised = ไม่มีเฉลย ต้องหาโครงสร้างเอง</b> — และเพราะไม่มีเฉลย การประเมินผลจึงเป็นเรื่องที่ต้องคิดเป็นพิเศษ</div>
+</section>
+
+<!-- W7 : Clustering Fundamentals -->
+<section class="section reveal" id="w7-basics" data-week="7" data-nav="พื้นฐาน Clustering & ระยะทาง 🔥">
+  <div class="sec-head">
+    <div class="kicker">W7 · Part 2</div>
+    <h3>Clustering Fundamentals &amp; Distance Metrics</h3>
+    <p class="desc">Clustering คือการแบ่งจุด <span class="math">n</span> จุดที่ไม่มี label ออกเป็นกลุ่ม โดย <b>"ระยะทาง" เป็นตัวตัดสินว่าอะไรคล้ายกัน</b> — เปลี่ยนตัววัดระยะ ขอบเขตกลุ่มเปลี่ยนทันที</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card tone-blue">
+      <h4><span class="ic">🎯</span>Cluster ที่ดีเป็นยังไง</h4>
+      <ul>
+        <li>จุดใน cluster เดียวกัน = <b>คล้ายกัน</b> · คนละ cluster = <b>ต่างกัน</b></li>
+        <li><b>แน่นภายใน (tight within)</b> และ <b>แยกจากกันชัดเจน (separated between)</b></li>
+        <li>สองเงื่อนไขนี้แหละคือสิ่งที่ <b>silhouette score</b> วัด — จำคู่นี้ไว้</li>
+      </ul>
+    </div>
+    <div class="card tone-cyan">
+      <h4><span class="ic">📐</span>ตัววัดระยะที่ต้องรู้</h4>
+      <ul>
+        <li><b>Euclidean (L2)</b> — <span class="math">√Σ(xᵢ−yᵢ)²</span> เส้นตรง เป็นค่าเริ่มต้น</li>
+        <li><b>Manhattan (L1)</b> — <span class="math">Σ|xᵢ−yᵢ|</span> เดินตามตารางถนน</li>
+        <li><b>Cosine</b> — วัด<b>มุม</b>ระหว่างเวกเตอร์ ไม่สนขนาด เหมาะกับข้อความ</li>
+        <li>เอกสารยาวกับสั้นที่พูดเรื่องเดียวกัน: Euclidean บอกว่าไกล แต่ <b>Cosine บอกว่าใกล้</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="demo">
+    <div class="demo-title">📐 ตัววัดระยะเปลี่ยน → กลุ่มเปลี่ยน <span class="live">INTERACTIVE</span></div>
+    <div class="demo-sub">ลากจุดสีขาว แล้วสลับตัววัดระยะ — ดูว่าจุดนั้นถูกจัดเข้ากลุ่มไหน และเส้นแบ่งเขตขยับยังไง</div>
+    <canvas id="cvDist" height="330"></canvas>
+    <div class="ctrl">
+      <button class="btn primary" data-dist="l2">Euclidean (L2)</button>
+      <button class="btn" data-dist="l1">Manhattan (L1)</button>
+      <button class="btn" data-dist="cos">Cosine</button>
+      <span class="readout" id="distInfo"></span>
+    </div>
+    <div class="hint">Cosine วัดมุมจากจุดกำเนิด จุดที่อยู่บนเส้นตรงเดียวกันจากศูนย์กลางจะถือว่า "เหมือนกัน" แม้จะห่างกันมาก</div>
+  </div>
+
+  <h4 style="margin:20px 0 10px;font-size:16.5px">5 ตระกูลของ Clustering — ตารางนี้ออกสอบแน่</h4>
+  <div class="ftable-wrap">
+  <table class="ftable">
+    <thead><tr><th style="width:150px">ตระกูล</th><th style="width:190px">ตัวอย่างอัลกอริทึม</th><th style="width:150px">ต้องบอก k ไหม</th><th>แนวคิดหลัก</th></tr></thead>
+    <tbody>
+      <tr><td><b>Partitioning</b></td><td class="fm">K-means, K-medoids</td><td class="fm">ต้องบอก</td><td>แบ่งแบน ๆ เป็น k กลุ่ม แต่ละกลุ่มมีตัวแทน (centroid)</td></tr>
+      <tr><td><b>Hierarchical</b></td><td class="fm">Agglomerative</td><td class="fm">ไม่ต้อง</td><td>สร้างต้นไม้การรวมกลุ่ม (dendrogram) แล้วค่อยตัดทีหลัง</td></tr>
+      <tr><td><b>Density-based</b></td><td class="fm">DBSCAN, OPTICS</td><td class="fm">ไม่ต้อง</td><td>กลุ่ม = บริเวณที่จุดหนาแน่น · จับรูปทรงแปลก ๆ และ<b>ระบุ noise ได้</b></td></tr>
+      <tr><td><b>Model-based</b></td><td class="fm">GMM, Mean Shift</td><td class="fm">GMM ต้อง · Mean Shift ไม่ต้อง</td><td>สมมติว่าข้อมูลมาจากการแจกแจง แล้วหาพารามิเตอร์</td></tr>
+      <tr><td><b>Graph-based</b></td><td class="fm">Spectral</td><td class="fm">ต้องบอก</td><td>สร้างกราฟความคล้าย แล้วตัดกราฟ — เก่งรูปทรงไม่นูน (วงแหวน)</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">ตัวอย่างที่ใช้ตลอด Week 7: <b>Mall Customers</b> — feature คือ รายได้ต่อปี (k USD) กับ spending score (0–100) · ไม่มี label บอกว่าลูกค้าแบ่งเป็นกี่กลุ่ม · คำถามคือ <b>มีกลุ่มธรรมชาติกี่กลุ่ม และแต่ละกลุ่มคือใคร</b> — แต่ละอัลกอริทึมตอบไม่เหมือนกัน และนั่นคือประเด็น</div>
+  <div class="takeaway"><b>ระยะทางคือหัวใจ</b> — ก่อน cluster ต้อง <b>scale feature ก่อนเสมอ</b> ไม่งั้น feature ที่มีหน่วยใหญ่ (เช่น เงินเดือน) จะกลบ feature หน่วยเล็ก (เช่น อายุ) จนกลุ่มที่ได้ไม่มีความหมาย</div>
+</section>
+
+<!-- W7 : K-means -->
+<section class="section reveal" id="w7-kmeans" data-week="7" data-nav="K-means & Inertia (WCSS) 🔥">
+  <div class="sec-head">
+    <div class="kicker">W7 · Part 3</div>
+    <h3>K-means — 4 ขั้นตอนที่ต้องท่องได้</h3>
+    <p class="desc">อัลกอริทึม clustering ที่ใช้บ่อยที่สุด · <b>พารามิเตอร์ที่ต้องตั้งเอง: <span class="math">k</span> = จำนวนกลุ่ม</b> ต้องบอกก่อนรัน</p>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="s-t">ขั้น 1 · วาง centroid</div><div class="s-x">สุ่มเลือก centroid <span class="math">k</span> ตัว — <b>k-means++</b> จะเลือกให้กระจายห่างกัน ดีกว่าสุ่มล้วน</div></div>
+    <div class="step"><div class="s-t">ขั้น 2 · Assign</div><div class="s-x">จับทุกจุดเข้ากับ centroid ที่<b>ใกล้ที่สุด</b></div></div>
+    <div class="step"><div class="s-t">ขั้น 3 · Update</div><div class="s-x">ย้าย centroid ไปที่<b>ค่าเฉลี่ยของกลุ่มตัวเอง</b></div></div>
+    <div class="step"><div class="s-t">ขั้น 4 · วนซ้ำ</div><div class="s-x">ทำขั้น 2–3 ซ้ำจนกว่า <b>centroid หยุดขยับ</b> → ได้ k กลุ่ม แต่ละกลุ่มนิยามด้วย centroid ของมัน</div></div>
+  </div>
+
+  <div class="demo">
+    <div class="demo-title">🎬 K-means ทีละรอบ <span class="live">ANIMATED</span></div>
+    <div class="demo-sub">กด "ขั้นต่อไป" เพื่อสลับระหว่าง <b>Assign</b> (จับจุดเข้ากลุ่ม) กับ <b>Update</b> (ย้าย centroid) — ดูจนกว่า centroid จะหยุดนิ่ง</div>
+    <canvas id="cvKm" height="360"></canvas>
+    <div class="ctrl">
+      <button class="btn primary" id="kmStep">⏭ ขั้นต่อไป</button>
+      <button class="btn" id="kmAuto">▶ รันจนจบ</button>
+      <button class="btn" id="kmReset">↺ สุ่มใหม่</button>
+      <span class="readout" id="kmInfo"></span>
+    </div>
+    <div class="hint">สังเกตว่า inertia (J) ลดลงทุกรอบ และลดเร็วมากในช่วงแรก — นั่นคือที่มาของ "elbow"</div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card tone-cyan">
+      <h4><span class="ic">🎯</span>เป้าหมายที่ K-means ลด: Inertia (WCSS)</h4>
+      <ul>
+        <li><span class="math">J = Σᵢ ‖xᵢ − c₍ᵢ₎‖²</span> — ผลรวมระยะยกกำลังสองจากจุดไปยัง centroid ของตัวเอง</li>
+        <li>เรียกอีกชื่อว่า <b>WCSS</b> (Within-Cluster Sum of Squares)</li>
+        <li><b>ทำไม update ด้วย "ค่าเฉลี่ย" ถึงถูกต้อง?</b> เพราะค่าเฉลี่ยคือจุดที่ทำให้ผลรวมระยะยกกำลังสองน้อยที่สุด — พิสูจน์ได้จากอนุพันธ์</li>
+        <li><span class="math">J</span> ลดลงเรื่อย ๆ ทุก iteration → รับประกันว่า<b>ลู่เข้า</b> แต่อาจเป็น local optimum</li>
+        <li><b>เพิ่ม k เท่าไหร่ J ก็ลดเสมอ</b> — ถ้า <span class="math">k = n</span> จะได้ <span class="math">J = 0</span> จึงใช้ J เลือก k ตรง ๆ ไม่ได้</li>
+      </ul>
+    </div>
+    <div class="card tone-red">
+      <h4><span class="ic">🚫</span>ข้อจำกัดที่ต้องรู้</h4>
+      <ul>
+        <li>สมมติว่ากลุ่มเป็น<b>ทรงกลม ขนาดใกล้เคียงกัน</b></li>
+        <li>เจอข้อมูลรูป <b>two moons</b> (พระจันทร์เสี้ยวสองอัน) จะ label ข้ามช่องว่าง — <b>ผิด</b></li>
+        <li>ไวต่อ <b>scale</b> ของ feature และไวต่อ <b>outlier</b> (เพราะใช้ค่าเฉลี่ย)</li>
+        <li>ข้อจำกัดนี้แหละที่เป็นเหตุผลว่าทำไมต้องมี <b>DBSCAN</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ftable-wrap" style="margin-top:16px">
+  <table class="ftable">
+    <thead><tr><th style="width:200px">Use case</th><th style="width:250px">ข้อดี</th><th>ข้อเสีย</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Customer segmentation · จัดกลุ่มเอกสาร · Image compression</td>
+        <td><b>เร็ว</b> · เข้าใจง่าย · scale ได้ถึงข้อมูลใหญ่ · มี hyperparameter แค่ตัวเดียว (k)</td>
+        <td><b>ต้องบอก k เอง</b> · ได้แต่กลุ่มทรงกลม · ไวต่อ scale · ไวต่อ outlier</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="worked">
+    <div class="wq"><span class="qn">โจทย์กระดาน · K-MEANS</span>
+      จุด (1,1), (1,2), (2,1), (7,7), (7,8), (8,7) · <span class="math">k = 2</span> · centroid เริ่มต้นที่ (1,1) และ (7,7)<br>
+      ถาม: จับกลุ่มยังไง · centroid ใหม่อยู่ที่ไหน · ขยับอีกไหม</div>
+    <button class="wtoggle">👁 ดูเฉลย</button>
+    <div class="wans">
+      <div class="step"><b>รอบ 1 — Assign:</b> วัดระยะทุกจุดไปยัง <span class="math">c₁=(1,1)</span> และ <span class="math">c₂=(7,7)</span><br>
+        (1,1)→0 vs 8.49 · (1,2)→1 vs 7.81 · (2,1)→1 vs 7.81 &nbsp;⇒&nbsp; <b>กลุ่ม 1</b><br>
+        (7,7)→8.49 vs 0 · (7,8)→9.22 vs 1 · (8,7)→9.22 vs 1 &nbsp;⇒&nbsp; <b>กลุ่ม 2</b></div>
+      <div class="step"><b>รอบ 1 — Update:</b> centroid ใหม่ = ค่าเฉลี่ยของแต่ละกลุ่ม<br>
+        <span class="math">c₁ = ((1+1+2)/3, (1+2+1)/3) = (4/3, 4/3) ≈ (1.33, 1.33)</span><br>
+        <span class="math">c₂ = ((7+7+8)/3, (7+8+7)/3) = (22/3, 22/3) ≈ (7.33, 7.33)</span></div>
+      <div class="step"><b>รอบ 2 — Assign:</b> การจับกลุ่ม<b>เหมือนเดิมทุกจุด</b> (สองก้อนอยู่ห่างกันมาก) → centroid คำนวณใหม่ได้ค่าเดิม → <b>centroid ไม่ขยับ = ลู่เข้าแล้ว หยุด</b></div>
+      <div class="step"><b>คำนวณ inertia:</b> กลุ่ม 1 → <span class="math">2/9 + 5/9 + 5/9 = 12/9 = 4/3</span> · กลุ่ม 2 สมมาตรกันได้ <span class="math">4/3</span> เท่ากัน</div>
+      <div class="final">2 กลุ่ม · <span class="math">c₁ = (1.33, 1.33)</span> กับ <span class="math">c₂ = (7.33, 7.33)</span> · ลู่เข้าใน 2 รอบ · <span class="math">J = 8/3 ≈ 2.67</span></div>
+    </div>
+    <div class="wtip">ข้อสอบมักหยุดแค่ "centroid ใหม่คือเท่าไหร่" — <b>อย่าลืมตอบว่ามันลู่เข้าแล้วหรือยัง</b> วิธีเช็คคือลอง assign อีกรอบ ถ้ากลุ่มไม่เปลี่ยน centroid ก็ไม่เปลี่ยน แปลว่าจบ</div>
+  </div>
+
+  <div class="takeaway">ท่อง 4 ขั้น: <b>วาง centroid → Assign → Update → วนซ้ำจนนิ่ง</b> · และจำว่า <b>เพิ่ม k แล้ว J ลดเสมอ</b> จึงต้องใช้ elbow หรือ silhouette มาช่วยเลือก k</div>
+</section>
+
+<!-- W7 : เลือก k -->
+<section class="section reveal" id="w7-choosek" data-week="7" data-nav="เลือก k: Elbow & Silhouette 🔥">
+  <div class="sec-head">
+    <div class="kicker">W7 · Part 3.5</div>
+    <h3>เลือก <span class="math">k</span> ยังไง — Elbow &amp; Silhouette</h3>
+    <p class="desc">เพราะ inertia ลดลงเสมอเมื่อเพิ่ม <span class="math">k</span> จึงต้องมีวิธีอื่นมาช่วยตัดสิน — และ <b>อาจารย์ย้ำว่าห้ามใช้อย่างใดอย่างหนึ่งเดี่ยว ๆ</b></p>
+  </div>
+
+  <div class="grid2">
+    <div class="card tone-blue">
+      <h4><span class="ic">💪</span>Elbow Method</h4>
+      <ul>
+        <li>พล็อต <span class="math">J</span> (inertia) เทียบกับ <span class="math">k</span></li>
+        <li>เลือก <span class="math">k</span> ตรงจุดที่ <b>J เลิกลดเร็ว</b> — กราฟหักเหมือนข้อศอก</li>
+        <li>ก่อนข้อศอก: เพิ่ม k แล้วคุ้ม · หลังข้อศอก: เพิ่ม k แล้วแทบไม่ได้อะไร</li>
+        <li><b>จุดอ่อน:</b> บางทีกราฟเรียบจนไม่มีข้อศอกชัด → ตัดสินด้วยตาไม่ได้</li>
+      </ul>
+    </div>
+    <div class="card tone-green">
+      <h4><span class="ic">📊</span>Silhouette Score</h4>
+      <ul>
+        <li>เลือก <span class="math">k</span> ที่ให้ <b>คะแนนสูงสุด</b></li>
+        <li>ให้ตัวเลขชัดเจน ไม่ต้องเดาด้วยสายตาเหมือน elbow</li>
+        <li><b>ใช้ได้กับทุกอัลกอริทึม</b> ไม่ใช่แค่ K-means (ขอแค่มี label กับระยะทาง)</li>
+        <li><b>จุดอ่อน:</b> ช้ากว่า เพราะต้องคำนวณระยะระหว่างจุดทุกคู่</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="demo">
+    <div class="demo-title">📈 Elbow + Silhouette พร้อมกัน <span class="live">INTERACTIVE</span></div>
+    <div class="demo-sub">ข้อมูลชุดนี้มี <b>4 กลุ่มจริง</b> — ดูว่ากราฟทั้งสองชี้ไปที่ <span class="math">k=4</span> เหมือนกันไหม แล้วกดเลือก k เพื่อดูผลการแบ่งจริง</div>
+    <canvas id="cvElbow" height="300"></canvas>
+    <div class="ctrl">
+      <span class="readout">เลือก k:</span>
+      <button class="btn" data-ek="2">2</button><button class="btn" data-ek="3">3</button>
+      <button class="btn primary" data-ek="4">4</button><button class="btn" data-ek="5">5</button>
+      <button class="btn" data-ek="6">6</button><button class="btn" data-ek="7">7</button>
+      <button class="btn" id="ebNew">↺ ข้อมูลใหม่</button>
+    </div>
+    <canvas id="cvElbowPts" height="260"></canvas>
+    <div class="hint">ถ้าสองวิธีชี้คนละค่า ให้เชื่อ silhouette มากกว่า แล้วเอา elbow มายืนยัน — และดูภาพกลุ่มจริงประกอบเสมอ</div>
+  </div>
+
+  <div class="card tone-purple" style="margin-top:16px">
+    <h4><span class="ic">🧮</span>สูตร Silhouette — ต้องเขียนได้</h4>
+    <ul>
+      <li><span class="math">a(i)</span> = ระยะเฉลี่ยจากจุด <span class="math">i</span> ไปยัง<b>จุดอื่นใน cluster เดียวกัน</b> → ยิ่งน้อยยิ่งดี (แน่น)</li>
+      <li><span class="math">b(i)</span> = ระยะเฉลี่ยจาก <span class="math">i</span> ไปยังจุดใน <b>cluster อื่นที่ใกล้ที่สุด</b> → ยิ่งมากยิ่งดี (แยกชัด)</li>
+      <li><span class="math">s(i) = (b(i) − a(i)) / max(a(i), b(i))</span> &nbsp;·&nbsp; <span class="math">s(i) ∈ [−1, +1]</span></li>
+      <li><span class="math">S</span> = ค่าเฉลี่ยของ <span class="math">s(i)</span> ทุกจุด</li>
+    </ul>
+  </div>
+
+  <div class="ftable-wrap" style="margin-top:14px">
+  <table class="ftable">
+    <thead><tr><th style="width:130px">ค่า s(i)</th><th style="width:210px">แปลว่า</th><th>ความหมายเชิงภาพ</th></tr></thead>
+    <tbody>
+      <tr><td class="fm"><b>≈ +1</b></td><td>อยู่ในกลุ่มที่ถูกต้อง</td><td>ใกล้พวกเดียวกันมาก ห่างกลุ่มอื่นมาก — อยู่ลึกในกลุ่ม</td></tr>
+      <tr><td class="fm"><b>≈ 0</b></td><td>อยู่บนเส้นแบ่ง</td><td>ใกล้สองกลุ่มพอ ๆ กัน จะจัดเข้ากลุ่มไหนก็ได้</td></tr>
+      <tr><td class="fm"><b>≈ −1</b></td><td>อยู่ผิดกลุ่ม</td><td>ใกล้กลุ่มอื่นมากกว่ากลุ่มตัวเอง — จัดผิดแล้ว</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note"><b>ข้อควรระวังตอนใช้กับ DBSCAN:</b> ต้อง<b>ตัดจุด noise (label = −1) ออกก่อน</b> และตัด cluster ที่มีจุดเดียวออกด้วย ไม่งั้นคะแนนจะเพี้ยน — เพราะ <span class="math">a(i)</span> ของ cluster ที่มีจุดเดียวนิยามไม่ได้</div>
+
+  <div class="worked">
+    <div class="wq"><span class="qn">โจทย์กระดาน · SILHOUETTE</span>
+      cluster A = (0,0), (1,0) &nbsp;·&nbsp; cluster B = (10,0), (11,0)<br>
+      ถาม: หา <span class="math">a(i)</span>, <span class="math">b(i)</span> และ <span class="math">s(i)</span> ของจุด (0,0)</div>
+    <button class="wtoggle">👁 ดูเฉลย</button>
+    <div class="wans">
+      <div class="step"><b>หา a(i):</b> ใน cluster A มีอีกจุดเดียวคือ (1,0)<br>
+        <span class="math">a = d((0,0),(1,0)) = 1</span></div>
+      <div class="step"><b>หา b(i):</b> cluster อื่นที่ใกล้ที่สุดคือ B — เฉลี่ยระยะไปหาสมาชิกทุกตัว<br>
+        <span class="math">d((0,0),(10,0)) = 10</span> · <span class="math">d((0,0),(11,0)) = 11</span><br>
+        <span class="math">b = (10 + 11) / 2 = 10.5</span></div>
+      <div class="step"><b>หา s(i):</b> <span class="math">s = (b − a) / max(a, b) = (10.5 − 1) / 10.5 = 9.5 / 10.5 ≈ 0.905</span></div>
+      <div class="step"><b>ทั้งชุด:</b> (0,0)→0.905 · (1,0)→0.895 · (10,0)→0.895 · (11,0)→0.905 &nbsp;⇒&nbsp; <span class="math">S ≈ 0.90</span></div>
+      <div class="final"><span class="math">a = 1</span>, <span class="math">b = 10.5</span>, <span class="math">s ≈ 0.905</span> — ใกล้ +1 มาก แปลว่าแบ่งกลุ่มได้ดีมาก ซึ่งสมเหตุสมผลเพราะสองกลุ่มห่างกัน 10 หน่วย</div>
+    </div>
+    <div class="wtip">ตัวส่วนคือ <b><span class="math">max(a,b)</span> ไม่ใช่ <span class="math">b</span></b> — คนพลาดตรงนี้บ่อย · และ <span class="math">a(i)</span> คิดเฉพาะ<b>จุดอื่น</b>ในกลุ่ม ไม่นับตัวเอง (ถ้ากลุ่มมีจุดเดียว นิยาม <span class="math">s = 0</span>)</div>
+  </div>
+
+  <div class="takeaway"><b>Elbow ดูตา · Silhouette ดูตัวเลข — ใช้คู่กันเสมอ</b> · และจำว่า silhouette วัดได้ทุกอัลกอริทึม ส่วน elbow ใช้ได้เฉพาะอันที่มี inertia (K-means)</div>
+</section>
+
+<!-- W7 : Hierarchical -->
+<section class="section reveal" id="w7-hier" data-week="7" data-nav="Hierarchical & Dendrogram 🔥">
+  <div class="sec-head">
+    <div class="kicker">W7 · Part 4</div>
+    <h3>Hierarchical Clustering — ต้นไม้การรวมกลุ่ม</h3>
+    <p class="desc"><b>ไม่ต้องบอก <span class="math">k</span> ล่วงหน้า</b> — สร้างต้นไม้ทั้งต้นก่อน แล้วค่อยตัดทีหลังว่าจะเอากี่กลุ่ม · พารามิเตอร์ที่ต้องตั้งคือ <b>linkage</b> = นิยามว่า "ใกล้ที่สุด" วัดยังไง</p>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="s-t">ขั้น 1</div><div class="s-x">เริ่มจาก<b>ทุกจุดเป็น cluster ของตัวเอง</b> — มี n จุดก็มี n cluster</div></div>
+    <div class="step"><div class="s-t">ขั้น 2</div><div class="s-x">รวม <b>2 cluster ที่ใกล้ที่สุด</b> (ตามนิยาม linkage ที่เลือก)</div></div>
+    <div class="step"><div class="s-t">ขั้น 3</div><div class="s-x">ทำซ้ำจนเหลือ cluster เดียว → ได้ <b>merge tree</b></div></div>
+    <div class="step"><div class="s-t">ขั้น 4</div><div class="s-x"><b>ตัดต้นไม้</b>ที่ความสูงที่ต้องการ หรือกำหนด k → ได้ k กลุ่ม</div></div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card tone-cyan">
+      <h4><span class="ic">🔗</span>Linkage 5 แบบ</h4>
+      <ul>
+        <li><b>Single</b> — ระยะ<b>น้อยที่สุด</b>ระหว่างสมาชิกสองกลุ่ม · จับรูปยาว ๆ ได้ แต่เกิด <i>chaining</i> ง่าย</li>
+        <li><b>Complete</b> — ระยะ<b>มากที่สุด</b> · ได้กลุ่มกระชับ ขนาดใกล้เคียงกัน</li>
+        <li><b>Average</b> — <b>เฉลี่ยทุกคู่</b> · อยู่กลางระหว่าง single กับ complete</li>
+        <li><b>Centroid</b> — ระยะระหว่าง<b>จุดศูนย์กลาง</b>ของสองกลุ่ม</li>
+        <li><b>Ward</b> — รวมแล้ว<b>ความแปรปรวนรวมเพิ่มน้อยที่สุด</b> · เป็นตัวเลือกเริ่มต้นที่ดีที่สุดในทางปฏิบัติ</li>
+      </ul>
+    </div>
+    <div class="card tone-yellow">
+      <h4><span class="ic">📖</span>อ่าน Dendrogram ยังไง</h4>
+      <ul>
+        <li><b>ความสูงของแท่งแนวตั้ง = ระยะตอนที่รวมกัน</b></li>
+        <li><b>แท่งสูง = สองกลุ่มนั้นอยู่ห่างกันมาก</b> → เป็นจุดตัดที่ดี</li>
+        <li>ตัดเส้นแนวนอน → กลุ่มคือกิ่งที่อยู่<b>ใต้</b>เส้นตัด</li>
+        <li><b>จำนวนเส้นที่เส้นตัดพาดผ่าน = จำนวน cluster</b> ที่ได้</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="demo">
+    <div class="demo-title">🌳 สร้าง Dendrogram + ลากเส้นตัด <span class="live">INTERACTIVE</span></div>
+    <div class="demo-sub">เปลี่ยน linkage แล้วดูว่าต้นไม้เปลี่ยนรูปยังไง · <b>ลากเส้นประแนวนอน</b> เพื่อตัด แล้วดูจำนวนกลุ่มที่ได้</div>
+    <canvas id="cvDend" height="330"></canvas>
+    <div class="ctrl">
+      <button class="btn primary" data-lk="single">Single</button>
+      <button class="btn" data-lk="complete">Complete</button>
+      <button class="btn" data-lk="average">Average</button>
+      <span class="readout" id="dendInfo"></span>
+    </div>
+    <div class="hint">Single linkage มักทำให้เกิด "โซ่" — กลุ่มยาวเรียวที่ลากต่อกันไปเรื่อย ๆ สังเกตความต่างเวลาสลับไป Complete</div>
+  </div>
+
+  <div class="ftable-wrap" style="margin-top:16px">
+  <table class="ftable">
+    <thead><tr><th style="width:210px">Use case</th><th style="width:240px">ข้อดี</th><th>ข้อเสีย</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>ข้อมูลเล็ก–กลาง · การจัดหมวดหมู่ (อนุกรมวิธานสิ่งมีชีวิต, ผังองค์กร) · ต้นไม้ยีน</td>
+        <td><b>ไม่ต้องบอก k ล่วงหน้า</b> · ได้ลำดับชั้นทั้งหมด · dendrogram อธิบายให้คนดูเข้าใจง่าย</td>
+        <td><b>ช้ามาก <span class="math">O(n²)–O(n³)</span></b> ใช้กับข้อมูลใหญ่ไม่ไหว · <b>ย้อนกลับไปแก้การรวมที่ผิดตอนต้นไม่ได้</b></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="worked">
+    <div class="wq"><span class="qn">โจทย์กระดาน · HIERARCHICAL</span>
+      จุด (0,0), (1,0), (5,0), (6,0) · ใช้ <b>single linkage</b><br>
+      ถาม: คู่ไหนรวมกันก่อน · รวมที่ความสูงเท่าไหร่ · วาด dendrogram</div>
+    <button class="wtoggle">👁 ดูเฉลย</button>
+    <div class="wans">
+      <div class="step"><b>ตารางระยะ</b> (ทุกจุดอยู่บนแกน x ระยะคือผลต่างค่า x)<br>
+        <span class="math">d(A,B)=1</span> · <span class="math">d(C,D)=1</span> · <span class="math">d(B,C)=4</span> · <span class="math">d(A,C)=5</span> · <span class="math">d(B,D)=5</span> · <span class="math">d(A,D)=6</span><br>
+        โดย A=(0,0), B=(1,0), C=(5,0), D=(6,0)</div>
+      <div class="step"><b>รวมครั้งที่ 1:</b> ระยะน้อยสุดคือ 1 — เสมอกันสองคู่ รวม <b>A+B ที่ความสูง 1</b></div>
+      <div class="step"><b>รวมครั้งที่ 2:</b> รวม <b>C+D ที่ความสูง 1</b></div>
+      <div class="step"><b>รวมครั้งที่ 3:</b> เหลือ {A,B} กับ {C,D} · single linkage ใช้ระยะ<b>น้อยที่สุด</b>ระหว่างสมาชิก<br>
+        <span class="math">min(5, 6, 4, 5) = 4</span> ⇒ รวมที่ <b>ความสูง 4</b></div>
+      <div class="final">ต้นไม้: A+B ที่ h=1 · C+D ที่ h=1 · แล้วสองกลุ่มรวมกันที่ h=4<br>
+        <b>ตัดที่ความสูงใดก็ได้ระหว่าง 1 ถึง 4 จะได้ 2 cluster</b> คือ {A,B} กับ {C,D}</div>
+    </div>
+    <div class="wtip">แท่งสูง 4 กับแท่งเตี้ย 1 <b>ต่างกันมาก</b> — ช่องว่างที่กว้างแบบนี้คือสัญญาณว่า "ตัดตรงนี้แหละ" · ถ้าโจทย์ใช้ <b>complete linkage</b> ครั้งที่ 3 จะใช้ <span class="math">max = 6</span> แทน 4 (ความสูงเปลี่ยน แต่กลุ่มที่ได้เหมือนเดิม)</div>
+  </div>
+
+  <div class="takeaway"><b>Single = min · Complete = max · Average = เฉลี่ย · Ward = ความแปรปรวนเพิ่มน้อยสุด</b> — ท่องสี่ตัวนี้ให้ได้ แล้วจำว่า hierarchical <b>ไม่ต้องบอก k</b> แต่ <b>ช้า</b> และ <b>แก้การรวมที่ผิดไม่ได้</b></div>
+</section>
+
+<!-- W7 : DBSCAN -->
+<section class="section reveal" id="w7-dbscan" data-week="7" data-nav="DBSCAN: Core, Border, Noise 🔥">
+  <div class="sec-head">
+    <div class="kicker">W7 · Part 5</div>
+    <h3>DBSCAN — จัดกลุ่มตามความหนาแน่น</h3>
+    <p class="desc">อัลกอริทึมเดียวในบทนี้ที่ <b>ระบุ noise ได้</b> และจับ<b>รูปทรงอะไรก็ได้</b> · พารามิเตอร์ 2 ตัว: <span class="math">eps</span> = รัศมีเพื่อนบ้าน และ <span class="math">min_samples</span> = เกณฑ์ความหนาแน่น</p>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="s-t">ขั้น 1</div><div class="s-x">นับเพื่อนบ้านของทุกจุดที่อยู่ในรัศมี <span class="math">eps</span></div></div>
+    <div class="step"><div class="s-t">ขั้น 2</div><div class="s-x">ติดป้าย <b>core</b> (เพื่อนบ้าน ≥ min_samples) / <b>border</b> / <b>noise</b></div></div>
+    <div class="step"><div class="s-t">ขั้น 3</div><div class="s-x">เชื่อมจุด core ที่<b>ติดกันทางความหนาแน่น</b>เข้าเป็น cluster เดียวกัน</div></div>
+    <div class="step"><div class="s-t">ขั้น 4</div><div class="s-x">จุด border เข้ากับ cluster ที่อยู่ติด · <b>จุด noise ไม่ถูกจัดเข้ากลุ่มใดเลย</b></div></div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card tone-green">
+      <h4><span class="ic">🎯</span>3 ประเภทของจุด — ออกสอบแน่</h4>
+      <ul>
+        <li><b>Core</b> — มีเพื่อนบ้านในรัศมี <span class="math">eps</span> อย่างน้อย <span class="math">min_samples</span> จุด (<b>นับตัวเองด้วย</b>)</li>
+        <li><b>Border</b> — เพื่อนบ้านไม่ถึงเกณฑ์ <b>แต่อยู่ในรัศมีของจุด core</b></li>
+        <li><b>Noise</b> — ไม่ใช่ทั้งสองอย่าง → ไม่ถูกจัดกลุ่ม (มักวาดเป็นสีเทา, label = <span class="math">−1</span>)</li>
+        <li>แยก two moons ได้ ซึ่ง <b>K-means ทำไม่ได้</b></li>
+      </ul>
+    </div>
+    <div class="card tone-red">
+      <h4><span class="ic">🎚️</span>ปรับ eps ยังไง</h4>
+      <ul>
+        <li><b>eps เล็กไป</b> → ได้กลุ่มจิ๋ว ๆ เต็มไปหมด และ noise เยอะเกินจริง</li>
+        <li><b>eps ใหญ่ไป</b> → ทุกอย่างกลายเป็นก้อนเดียว</li>
+        <li>วิธีมาตรฐาน: ใช้ <b>k-distance plot</b> — เรียงระยะไปยังเพื่อนบ้านลำดับที่ k แล้วหา "ข้อศอก"</li>
+        <li>ค่าเริ่มต้นที่นิยม: <span class="math">min_samples = 2 × จำนวนมิติ</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="demo">
+    <div class="demo-title">🌙 DBSCAN vs K-means บน Two Moons <span class="live">INTERACTIVE</span></div>
+    <div class="demo-sub">เลื่อน <span class="math">eps</span> กับ <span class="math">min_samples</span> แล้วดูว่า core / border / noise เปลี่ยนยังไง · กดสลับไป K-means เพื่อดูว่ามันพังตรงไหน</div>
+    <canvas id="cvDb" height="340"></canvas>
+    <div class="ctrl">
+      <span class="readout">eps</span><input type="range" id="dbEps" min="6" max="40" value="16" step="1">
+      <span class="readout">minPts</span><input type="range" id="dbMin" min="2" max="10" value="4" step="1">
+      <button class="btn primary" id="dbMode">🔄 สลับไป K-means</button>
+      <span class="readout" id="dbInfo"></span>
+    </div>
+    <div class="hint">วงกลมจาง ๆ คือรัศมี eps ของจุด core · จุดเทา = noise · ลอง eps เล็กมาก ๆ แล้วดูว่า noise ท่วมยังไง</div>
+  </div>
+
+  <div class="ftable-wrap" style="margin-top:16px">
+  <table class="ftable">
+    <thead><tr><th style="width:200px">Use case</th><th style="width:230px">ข้อดี</th><th>ข้อเสีย</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>ข้อมูลพิกัดภูมิศาสตร์ · ค่าจากเซ็นเซอร์ · ตรวจจับสิ่งผิดปกติ</td>
+        <td><b>จับรูปทรงอะไรก็ได้</b> · <b>ระบุ noise ได้</b> · <b>ไม่ต้องบอก k</b></td>
+        <td><b>ความหนาแน่นไม่เท่ากันทำให้สับสน</b> · เดา eps ยาก · อ่อนแรงเมื่อมิติสูง</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="worked">
+    <div class="wq"><span class="qn">โจทย์กระดาน · DBSCAN</span>
+      จุด (0,0), (0,1), (1,0), (5,5) · <span class="math">eps = 1</span> · <span class="math">min_samples = 3</span><br>
+      ถาม: นับเพื่อนบ้านแต่ละจุด · ติดป้าย core/border/noise · ได้กี่กลุ่ม จุดไหนคือ noise</div>
+    <button class="wtoggle">👁 ดูเฉลย</button>
+    <div class="wans">
+      <div class="step"><b>ขั้น 1 — นับเพื่อนบ้านในรัศมี eps = 1</b> (นับตัวเองด้วย)<br>
+        <span class="math">P₁(0,0)</span>: ถึง <span class="math">P₂(0,1)</span> = 1 ✓ · ถึง <span class="math">P₃(1,0)</span> = 1 ✓ · ถึง <span class="math">P₄(5,5)</span> = 7.07 ✗ &nbsp;⇒&nbsp; <b>3 จุด</b><br>
+        <span class="math">P₂(0,1)</span>: ถึง P₁ = 1 ✓ · ถึง P₃ = <span class="math">√2 ≈ 1.41</span> ✗ &nbsp;⇒&nbsp; <b>2 จุด</b><br>
+        <span class="math">P₃(1,0)</span>: ถึง P₁ = 1 ✓ · ถึง P₂ = 1.41 ✗ &nbsp;⇒&nbsp; <b>2 จุด</b><br>
+        <span class="math">P₄(5,5)</span>: ไม่มีใครอยู่ใกล้เลย &nbsp;⇒&nbsp; <b>1 จุด</b></div>
+      <div class="step"><b>ขั้น 2 — ติดป้าย</b> (เกณฑ์ core คือ ≥ 3)<br>
+        <span class="math">P₁</span> ได้ 3 ⇒ <b>CORE</b> · <span class="math">P₂</span> ได้ 2 แต่อยู่ในรัศมีของ P₁ ⇒ <b>BORDER</b><br>
+        <span class="math">P₃</span> ได้ 2 แต่อยู่ในรัศมีของ P₁ ⇒ <b>BORDER</b> · <span class="math">P₄</span> ได้ 1 ไม่ติดใครเลย ⇒ <b>NOISE</b></div>
+      <div class="step"><b>ขั้น 3 — ประกอบกลุ่ม:</b> มี core ตัวเดียวคือ P₁ · P₂ กับ P₃ เป็น border ที่ติดกับ P₁ จึงเข้ากลุ่มเดียวกัน</div>
+      <div class="final"><b>1 cluster</b> = {(0,0), (0,1), (1,0)} &nbsp;·&nbsp; <b>noise 1 จุด</b> = (5,5)</div>
+    </div>
+    <div class="wtip">กับดักที่พลาดกันมากที่สุด: <b><span class="math">min_samples</span> นับตัวเองด้วย</b> — ถ้าลืมนับ P₁ จะได้แค่ 2 แล้วสรุปผิดว่าไม่มี core เลย · อีกจุดคือ <span class="math">d(P₂,P₃) = √2 ≈ 1.41 &gt; 1</span> จึง<b>ไม่</b>เป็นเพื่อนบ้านกัน แม้จะดูใกล้</div>
+  </div>
+
+  <div class="takeaway"><b>Core ≥ min_samples · Border ติด core · Noise ไม่ติดใคร</b> — และจำจุดขายว่า DBSCAN คือตัวเดียวที่ <b>ไม่ต้องบอก k + จับรูปทรงอิสระ + บอก noise ได้</b></div>
+</section>
+
+<!-- W7 : เปรียบเทียบ + สรุป -->
+<section class="section reveal" id="w7-compare" data-week="7" data-nav="เทียบทุกอัลกอริทึม + Quiz 🔥">
+  <div class="sec-head">
+    <div class="kicker">W7 · Part 6–8</div>
+    <h3>อัลกอริทึมอื่น ๆ &amp; ตารางเปรียบเทียบ</h3>
+    <p class="desc">อีก 4 ตัวที่อาจารย์ผ่านแบบเร็ว ๆ แต่<b>ตารางเปรียบเทียบข้างล่างคือสิ่งที่ออกสอบแน่นอนที่สุดของ Week 7</b></p>
+  </div>
+
+  <div class="grid2">
+    <div class="card tone-purple">
+      <h4><span class="ic">⛰️</span>Mean Shift</h4>
+      <ul>
+        <li>ทุกจุด<b>ไต่ขึ้นเนิน</b>ไปหาบริเวณที่หนาแน่นที่สุด (mode)</li>
+        <li>พารามิเตอร์: <b>bandwidth <span class="math">h</span></b> = ขนาดหน้าต่าง · <b>ไม่ต้องบอก k</b></li>
+        <li>ใช้กับ: image segmentation, การติดตามวัตถุในวิดีโอ</li>
+      </ul>
+    </div>
+    <div class="card tone-cyan">
+      <h4><span class="ic">🎲</span>GMM (Gaussian Mixture)</h4>
+      <ul>
+        <li>สมมติแต่ละ cluster เป็น<b>การแจกแจงแบบเกาส์เซียน</b></li>
+        <li>ให้ <b>soft assignment</b> — บอกเป็น<b>ความน่าจะเป็น</b>ว่าอยู่กลุ่มไหนเท่าไหร่ ไม่ใช่ตอบตายตัว</li>
+        <li><b>ต้องบอก k</b> · ได้กลุ่มทรง<b>วงรี</b>ไม่ใช่แค่วงกลมเหมือน K-means</li>
+        <li>ใช้กับ: density estimation, งานที่ต้องการความไม่แน่นอน</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:14px">
+    <div class="card tone-blue">
+      <h4><span class="ic">🕸️</span>Spectral Clustering</h4>
+      <ul>
+        <li>สร้าง<b>กราฟความคล้าย</b>แล้วตัดกราฟให้ขาดตรงจุดที่เชื่อมกันน้อยที่สุด</li>
+        <li>เก่งเรื่อง<b>รูปทรงไม่นูน</b> เช่นวงแหวนซ้อนกัน · <b>ต้องบอก k</b></li>
+        <li>ใช้กับ: การแบ่งส่วนภาพ, เครือข่ายสังคม</li>
+      </ul>
+    </div>
+    <div class="card tone-green">
+      <h4><span class="ic">📶</span>OPTICS</h4>
+      <ul>
+        <li>ญาติของ DBSCAN ที่ปรับให้รับมือ<b>ความหนาแน่นไม่เท่ากัน</b>ได้</li>
+        <li><b>ไม่ต้องเดา eps</b> — จุดอ่อนที่ใหญ่ที่สุดของ DBSCAN</li>
+        <li><b>ระบุ noise ได้เหมือน DBSCAN</b> · ใช้กับข้อมูลที่ความหนาแน่นปนกัน</li>
+      </ul>
+    </div>
+  </div>
+
+  <h4 style="margin:22px 0 10px;font-size:17px">⭐ ตารางเปรียบเทียบ — จำให้ได้ทั้งตาราง</h4>
+  <div class="ftable-wrap">
+  <table class="ftable">
+    <thead><tr><th style="width:130px">Algorithm</th><th style="width:120px">ต้องบอก k</th><th style="width:120px">รูปทรง</th><th style="width:110px">บอก noise</th><th style="width:100px">ความเร็ว</th><th>จำอะไร</th></tr></thead>
+    <tbody>
+      <tr><td><b>K-means</b></td><td class="fm">ต้อง (k)</td><td class="fm">ทรงกลม</td><td class="fm">ไม่ได้</td><td class="fm"><b>เร็วที่สุด</b></td><td>ตัวมาตรฐาน · เร็ว scale ดี แต่ต้องกลมและต้องบอก k</td></tr>
+      <tr><td><b>Hierarchical</b></td><td class="fm">ไม่ต้อง</td><td class="fm">อะไรก็ได้</td><td class="fm">ไม่ได้</td><td class="fm">ช้า</td><td>ได้ dendrogram · เหมาะข้อมูลเล็ก</td></tr>
+      <tr><td><b>DBSCAN</b></td><td class="fm">ไม่ต้อง</td><td class="fm">อะไรก็ได้</td><td class="fm"><b>ได้ ✓</b></td><td class="fm">ปานกลาง</td><td><b>ตัวเดียวที่ครบทั้ง 3 อย่าง</b>: ไม่ต้องบอก k + รูปอิสระ + บอก noise</td></tr>
+      <tr><td><b>Mean Shift</b></td><td class="fm">ไม่ต้อง</td><td class="fm">อะไรก็ได้</td><td class="fm">บางส่วน</td><td class="fm">ช้า</td><td>ไต่เนินหา mode · ตั้ง bandwidth แทน k</td></tr>
+      <tr><td><b>GMM</b></td><td class="fm">ต้อง (k)</td><td class="fm">วงรี</td><td class="fm">ไม่ได้</td><td class="fm">ปานกลาง</td><td><b>ตัวเดียวที่ให้ความน่าจะเป็น</b> (soft assignment)</td></tr>
+      <tr><td><b>Spectral</b></td><td class="fm">ต้อง (k)</td><td class="fm">อะไรก็ได้</td><td class="fm">ไม่ได้</td><td class="fm">ปานกลาง</td><td>ตัดกราฟ · เก่งวงแหวนซ้อน</td></tr>
+      <tr><td><b>OPTICS</b></td><td class="fm">ไม่ต้อง</td><td class="fm">อะไรก็ได้</td><td class="fm"><b>ได้ ✓</b></td><td class="fm">ปานกลาง</td><td>DBSCAN ที่ไม่ต้องเดา eps · รับความหนาแน่นผสมได้</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note" style="margin-top:12px"><b>สรุปหนึ่งบรรทัดที่อาจารย์เน้น:</b> K-means เร็วที่สุด · GMM เพิ่มความน่าจะเป็นเข้ามา · <b>DBSCAN กับ OPTICS เป็นสองตัวเดียวที่ระบุ noise ได้</b></div>
+
+  <h4 style="margin:22px 0 10px;font-size:17px">🏆 Golden Rules 5 ข้อ</h4>
+  <div class="steps">
+    <div class="step"><div class="s-t">1 · Scale ก่อนเสมอ</div><div class="s-x">ทุกอัลกอริทึมที่ใช้ระยะทางต้อง <b>scale feature ก่อน</b> ไม่งั้น feature หน่วยใหญ่จะครอบงำผลลัพธ์ทั้งหมด</div></div>
+    <div class="step"><div class="s-t">2 · เลือก k ด้วยสองวิธีคู่กัน</div><div class="s-x">ใช้ <b>elbow + silhouette พร้อมกัน</b> ห้ามเชื่ออย่างใดอย่างหนึ่งเดี่ยว ๆ</div></div>
+    <div class="step"><div class="s-t">3 · สงสัย noise → DBSCAN</div><div class="s-x">ถ้าข้อมูลน่าจะมี noise หรือรูปทรงแปลก ให้ใช้ <b>density-based</b> ไม่ใช่ K-means</div></div>
+    <div class="step"><div class="s-t">4 · อย่าเชื่อการรันครั้งเดียว</div><div class="s-x">K-means ขึ้นกับจุดเริ่มต้น <b>ต้องรันหลายรอบ (n_init)</b> แล้วเลือกผลที่ inertia ต่ำสุด</div></div>
+    <div class="step"><div class="s-t">5 · วาดกราฟดูเสมอ</div><div class="s-x"><b>clustering มีไว้ให้ดูด้วยตา</b> — ตัวเลขอย่างเดียวหลอกได้ ต้องพล็อตออกมาดูว่ากลุ่มที่ได้สมเหตุสมผลไหม</div></div>
+  </div>
+
+  <div class="card tone-yellow" style="margin-top:18px">
+    <h4><span class="ic">📝</span>การบ้าน &amp; Lab Assignment</h4>
+    <ul>
+      <li><b>Part A — เขียนมือ:</b> ใช้ข้อมูลที่ให้ เขียน workflow ด้วยมือของทั้ง 3 อัลกอริทึม (K-means, Hierarchical, DBSCAN)</li>
+      <li><b>Part B — Python Notebook:</b> โหลด CSV แล้วเขียนฟังก์ชันเอง <code class="inline">custom_kmeans(X, k)</code> · <code class="inline">custom_hierarchical(X, linkage_method, n_clusters)</code> · <code class="inline">custom_dbscan(X, eps, min_pts)</code></li>
+      <li><b>แล้วรันไลบรารีมาตรฐานเทียบผล</b> — ต้องได้ผลตรงกัน ถ้าไม่ตรงต้องอธิบายได้ว่าเพราะอะไร</li>
+      <li>อ้างอิงเพิ่มเติม: Géron — <i>Hands-On ML</i> บทที่ 9 · sklearn user guide หัวข้อ clustering</li>
+    </ul>
+  </div>
+
+  <div class="quiz" id="quiz-w7" data-quiz="w7"></div>
+  <div class="takeaway">ถ้าจำได้แค่อย่างเดียวจาก Week 7 ให้จำ<b>ตารางเปรียบเทียบ</b> — คำถามแนว "งานแบบนี้ควรใช้อัลกอริทึมไหน" ตอบได้ทั้งหมดจากคอลัมน์ <b>ต้องบอก k / รูปทรง / บอก noise</b></div>
+</section>
+
+<!-- ══════════════════════ WEEK 8 · DIMENSIONALITY REDUCTION ══════════════════════ -->
+
+<!-- W8 : ทำไมต้องลดมิติ -->
+<section class="section reveal" id="w8-why" data-week="8" data-nav="ทำไมต้องลดมิติ & Curse of Dim.">
+  <div class="sec-head">
+    <div class="kicker">W8 · Part 1</div>
+    <h3>ทำไมต้องลดมิติ — และ Curse of Dimensionality</h3>
+    <p class="desc">Week 7 จัดกลุ่มข้อมูล · Week 8 <b>บีบข้อมูลให้เล็กลงโดยเก็บสาระไว้</b> — เพื่อให้เร็วขึ้น เจอ noise น้อยลง และวาดกราฟให้คนดูรู้เรื่อง</p>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="s-t">⚡ Speed</div><div class="s-x">feature น้อยลง → train และ inference เร็วขึ้น ใช้ memory น้อยลง</div></div>
+    <div class="step"><div class="s-t">🔇 Noise Reduction</div><div class="s-x">รวม signal หลักไว้ แล้วตัดส่วนที่เป็น noise หรือข้อมูลซ้ำซ้อนทิ้ง</div></div>
+    <div class="step"><div class="s-t">🗺️ Visualization</div><div class="s-x">แปลงข้อมูลมิติสูงเป็น 2D/3D เพื่อสำรวจ pattern ด้วยตา</div></div>
+  </div>
+
+  <div class="grid2" style="margin-top:18px">
+    <div class="card tone-red">
+      <h4><span class="ic">😱</span>Curse of Dimensionality — เกิดอะไรขึ้น</h4>
+      <ul>
+        <li>ยิ่งมิติเยอะ <b>ระยะทางระหว่างจุดเริ่มแยกใกล้-ไกลไม่ออก</b> — ทุกจุดดูห่างเท่ากันหมด</li>
+        <li>ต้องใช้ข้อมูล<b>มากขึ้นแบบทวีคูณ</b>เพื่อครอบคลุม feature space</li>
+        <li>model เสี่ยง <b>overfitting</b> เมื่อจำนวน feature มากกว่า signal ที่มีจริง</li>
+        <li>มองด้วยตาไม่ได้เลยเมื่อเกิน 3 มิติ</li>
+      </ul>
+    </div>
+    <div class="card tone-yellow">
+      <h4><span class="ic">💥</span>ผลกระทบจริงในทางปฏิบัติ</h4>
+      <ul>
+        <li><b>KNN และ clustering พังก่อนใคร</b> เพราะทั้งคู่ยืนอยู่บนระยะทาง — เชื่อมกับ Week 7 โดยตรง</li>
+        <li>linear model ไม่เสถียรถ้า feature ซ้ำซ้อนกัน (multicollinearity)</li>
+        <li>เทรนช้าลง กิน memory มากขึ้น</li>
+        <li>ต้องหา representation ที่<b>กระชับแต่ยังเก็บ signal สำคัญ</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="demo">
+    <div class="demo-title">📉 ระยะทาง "แบนราบ" เมื่อมิติเพิ่ม <span class="live">INTERACTIVE</span></div>
+    <div class="demo-sub">สุ่มจุดในลูกบาศก์ <span class="math">d</span> มิติ แล้วดูอัตราส่วน <span class="math">(d_max − d_min) / d_min</span> — ถ้าค่านี้เข้าใกล้ 0 แปลว่า<b>ใกล้กับไกลแยกไม่ออกแล้ว</b></div>
+    <canvas id="cvCurse" height="300"></canvas>
+    <div class="ctrl">
+      <span class="readout">จำนวนจุด</span><input type="range" id="curseN" min="30" max="300" value="120" step="10">
+      <button class="btn" id="curseNew">↺ สุ่มใหม่</button>
+      <span class="readout" id="curseInfo"></span>
+    </div>
+    <div class="hint">ที่ <span class="math">d = 2</span> จุดที่ไกลสุดอาจห่างกว่าจุดใกล้สุดหลายเท่า แต่พอ <span class="math">d = 100</span> ทุกคู่ห่างพอ ๆ กันหมด — นั่นคือเหตุผลที่ KNN ใช้ไม่ได้ในมิติสูง</div>
+  </div>
+
+  <h4 style="margin:22px 0 10px;font-size:16.5px">Dimensionality Reduction แบ่งเป็น 2 สายใหญ่ — ต้องแยกให้ออก</h4>
+  <div class="ftable-wrap">
+  <table class="ftable">
+    <thead><tr><th style="width:170px">หัวข้อ</th><th>Feature Selection (คัดเลือก)</th><th>Feature Extraction (สร้างใหม่)</th></tr></thead>
+    <tbody>
+      <tr><td><b>ทำอะไร</b></td><td><b>เลือก subset ของ feature เดิม</b> ทิ้งที่เหลือ</td><td><b>สร้าง feature ใหม่</b>จากการผสม feature เดิม</td></tr>
+      <tr><td><b>ตัวอย่าง</b></td><td class="fm">Variance threshold · Correlation · Mutual information · Lasso · SelectFromModel</td><td class="fm">PCA · TruncatedSVD · t-SNE · UMAP</td></tr>
+      <tr><td><b>ตีความ</b></td><td><b>ง่าย</b> — ชื่อ feature ยังอยู่ บอกได้ว่าใช้ "อายุ" กับ "รายได้"</td><td><b>ยาก</b> — PC1 คือผลรวมถ่วงน้ำหนักของทุก feature ไม่ใช่ feature ใดตัวเดียว</td></tr>
+      <tr><td><b>เหมาะเมื่อ</b></td><td>ความหมายของ feature สำคัญ ต้องอธิบายให้คนอื่นฟัง</td><td>feature สัมพันธ์กันสูง มีข้อมูลซ้ำซ้อนเยอะ</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="takeaway">คำถามที่ต้องตอบให้ได้: <b>"เลือกของเดิม" หรือ "สร้างของใหม่"</b> — PCA อยู่ฝั่งสร้างใหม่ จึงบีบข้อมูลได้ดีกว่า แต่แลกด้วยความสามารถในการอธิบาย</div>
+</section>
+
+<!-- W8 : PCA -->
+<section class="section reveal" id="w8-pca" data-week="8" data-nav="PCA: หลักการ & คณิตศาสตร์ 🔥">
+  <div class="sec-head">
+    <div class="kicker">W8 · Part 2</div>
+    <h3>PCA — Principal Component Analysis</h3>
+    <p class="desc">หา<b>ทิศทางที่ข้อมูลกระจายตัวมากที่สุด</b> แล้วฉายข้อมูลลงบนทิศทางเหล่านั้น · เป็น <b>linear method</b> และเป็นตัวที่ออกสอบมากที่สุดของ Week 8</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card tone-blue">
+      <h4><span class="ic">📐</span>ภาพเชิงเรขาคณิต</h4>
+      <ul>
+        <li>หา direction ที่ข้อมูล<b>กระจายตัว (variance) มากที่สุด</b> → นั่นคือ <b>PC1</b></li>
+        <li><b>PC2</b> คือทิศที่เก็บ variance รองลงมา และ<b>ตั้งฉากกับ PC1</b></li>
+        <li>ตั้งฉากกัน ⇒ <b>ไม่เก็บข้อมูลซ้ำกัน</b> (uncorrelated)</li>
+        <li>เอาข้อมูล<b>ฉาย (project)</b> ลงบนแกนใหม่ แล้วเก็บแค่ top-k แกน</li>
+      </ul>
+    </div>
+    <div class="card tone-purple">
+      <h4><span class="ic">🎯</span>ความหมายในเชิง ML</h4>
+      <ul>
+        <li>ลดความซ้ำซ้อนจาก feature ที่สัมพันธ์กัน</li>
+        <li>ช่วย <b>denoise</b> ก่อนเอาไป train หรือ cluster</li>
+        <li>ใช้ทำ visualization 2D ของข้อมูลมิติสูง</li>
+        <li><b>ต้อง fit PCA บน training data เท่านั้น</b> — จุดนี้คือที่ที่คนทำ leakage กันมากที่สุด</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:14px">
+    <div class="card tone-cyan">
+      <h4><span class="ic">🧮</span>ขั้นตอนคณิตศาสตร์</h4>
+      <ul>
+        <li>เริ่มจาก matrix <span class="math">X</span> shape = <span class="math">n × d</span> (n samples × d features)</li>
+        <li><b>Center</b> — ลบค่าเฉลี่ยของแต่ละ feature ออก (บังคับ)</li>
+        <li><b>Scale</b> — ถ้าหน่วยต่างกันต้องทำด้วย (ดูหัวข้อถัดไป)</li>
+        <li>คำนวณ <b>covariance matrix</b> ซึ่งบอกว่า feature เปลี่ยนแปลงร่วมกันยังไง</li>
+      </ul>
+    </div>
+    <div class="card tone-green">
+      <h4><span class="ic">🔑</span>มุมมอง Eigen / SVD</h4>
+      <ul>
+        <li><b>ทิศทางหลัก = eigenvector ของ covariance matrix</b></li>
+        <li><b>eigenvalue = variance ตามทิศทางนั้น</b> — λ ใหญ่ = ทิศสำคัญ</li>
+        <li>ในทางปฏิบัติใช้ <b>SVD</b> คำนวณเพราะเสถียรกว่าและเร็วกว่า</li>
+        <li>เลือก eigenvector ของ <span class="math">k</span> λ ที่ใหญ่ที่สุด → ได้ <span class="math">X_reduced</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note">🔗 <b>เชื่อมกับ Week 2:</b> ตอนนั้นเรียน eigenvalue/eigenvector ของ <span class="math">A = [[2,1],[1,2]]</span> ได้ <span class="math">λ = 3</span> (v=[1,1]) และ <span class="math">λ = 1</span> (v=[1,−1]) — <b>PCA ก็คือการทำแบบเดียวกันนั้นกับ covariance matrix</b> นี่คือเหตุผลที่ Week 2 สอนเรื่อง eigen ไว้ตั้งแต่แรก</div>
+
+  <div class="demo">
+    <div class="demo-title">🎯 PCA แบบกดเล่น — เลื่อนความสัมพันธ์แล้วดูแกนหมุน <span class="live">INTERACTIVE</span></div>
+    <div class="demo-sub">เลื่อน correlation ดูว่าแกน <b>PC1 (ฟ้า)</b> กับ <b>PC2 (ชมพู)</b> หมุนยังไง · กด "ฉายลง PC1" เพื่อดูว่าการลดเหลือ 1 มิติทำให้เสียอะไรไป</div>
+    <canvas id="cvPca" height="360"></canvas>
+    <div class="ctrl">
+      <span class="readout">correlation</span><input type="range" id="pcaR" min="0" max="98" value="85" step="1">
+      <button class="btn primary" id="pcaProj">📉 ฉายลง PC1</button>
+      <button class="btn" id="pcaScale">⚖️ ไม่ scale</button>
+      <span class="readout" id="pcaInfo"></span>
+    </div>
+    <div class="hint">ลอง correlation ใกล้ 0 — จะเห็นว่า PC1 กับ PC2 เก็บ variance พอ ๆ กัน แปลว่า<b>ลดมิติแล้วเสียข้อมูลเยอะ</b> · ยิ่ง correlation สูง ยิ่งลดมิติได้คุ้ม</div>
+  </div>
+
+  <div class="worked">
+    <div class="wq"><span class="qn">โจทย์คำนวณ · PCA</span>
+      ข้อมูล 4 จุด: (1,1), (2,3), (3,2), (4,4)<br>
+      ถาม: หา covariance matrix · eigenvalue · eigenvector · และ PC1 อธิบาย variance กี่เปอร์เซ็นต์</div>
+    <button class="wtoggle">👁 ดูเฉลย</button>
+    <div class="wans">
+      <div class="step"><b>ขั้น 1 — Center:</b> <span class="math">mean = (2.5, 2.5)</span><br>
+        centered: <span class="math">(−1.5,−1.5) · (−0.5, 0.5) · (0.5,−0.5) · (1.5, 1.5)</span></div>
+      <div class="step"><b>ขั้น 2 — Covariance</b> (หารด้วย <span class="math">n−1 = 3</span>)<br>
+        <span class="math">S_xx = (2.25+0.25+0.25+2.25)/3 = 5/3</span><br>
+        <span class="math">S_yy = 5/3</span> (สมมาตรกัน)<br>
+        <span class="math">S_xy = (2.25 − 0.25 − 0.25 + 2.25)/3 = 4/3</span><br>
+        <span class="math">C = [[5/3, 4/3], [4/3, 5/3]]</span></div>
+      <div class="step"><b>ขั้น 3 — Eigenvalue:</b> matrix รูป <span class="math">[[a,b],[b,a]]</span> มี <span class="math">λ = a ± b</span> เสมอ<br>
+        <span class="math">λ₁ = 5/3 + 4/3 = 3</span> · <span class="math">λ₂ = 5/3 − 4/3 = 1/3</span></div>
+      <div class="step"><b>ขั้น 4 — Eigenvector:</b> รูปแบบนี้ได้ <span class="math">v₁ = [1,1]/√2</span> (ทิศ 45°) และ <span class="math">v₂ = [1,−1]/√2</span> (ตั้งฉาก)</div>
+      <div class="step"><b>ขั้น 5 — Explained variance ratio:</b><br>
+        <span class="math">PC1 = 3 / (3 + 1/3) = 3 / (10/3) = 0.90</span> · <span class="math">PC2 = 0.10</span></div>
+      <div class="final"><span class="math">C = [[5/3, 4/3],[4/3, 5/3]]</span> · <span class="math">λ = 3, 1/3</span> · <span class="math">v = [1,1]/√2, [1,−1]/√2</span><br>
+        <b>PC1 อธิบาย variance ได้ 90%</b> → ลดจาก 2 มิติเหลือ 1 มิติ เสียข้อมูลแค่ 10%</div>
+    </div>
+    <div class="wtip">ทริกที่ใช้ได้ทันที: covariance ของสอง feature รูป <span class="math">[[a,b],[b,a]]</span> จะได้ <b><span class="math">λ = a+b</span> กับ <span class="math">a−b</span></b> และ eigenvector คือ <span class="math">[1,1]</span> กับ <span class="math">[1,−1]</span> เสมอ — ไม่ต้องแก้สมการ characteristic ให้เสียเวลา · <b>อย่าลืม center ก่อน</b> ไม่งั้น covariance ผิดหมด</div>
+  </div>
+
+  <div class="takeaway"><b>PCA = หา eigenvector ของ covariance matrix</b> · eigenvalue คือ variance ตามทิศนั้น · เรียง λ จากมากไปน้อยแล้วเก็บ top-k</div>
+</section>
+
+<!-- W8 : Explained Variance -->
+<section class="section reveal" id="w8-variance" data-week="8" data-nav="Explained Variance & เลือก k 🔥">
+  <div class="sec-head">
+    <div class="kicker">W8 · Part 3</div>
+    <h3>Explained Variance — เลือกจำนวน components ยังไง</h3>
+    <p class="desc">คำถามเดียวกับ Week 7 ที่ว่า "เลือก k ยังไง" แต่คราวนี้มีตัวเลขตรง ๆ ให้ใช้ คือ <b>สัดส่วน variance ที่เก็บไว้ได้</b></p>
+  </div>
+
+  <div class="grid2">
+    <div class="card tone-blue">
+      <h4><span class="ic">📊</span>นิยาม</h4>
+      <ul>
+        <li><code class="inline">explained_variance_ratio_</code> = สัดส่วน variance ที่แต่ละ component เก็บได้</li>
+        <li><b>Cumulative</b> = สะสมไปเรื่อย ๆ ว่ารวมกันแล้วเก็บได้เท่าไหร่</li>
+        <li>เช่นสะสมถึง <span class="math">0.95</span> = เก็บ variance ไว้ <b>95%</b> ตัดทิ้ง 5%</li>
+        <li><b>เป็นแค่ heuristic</b> ไม่ได้รับประกันว่า model จะทำงานดีที่สุด</li>
+      </ul>
+    </div>
+    <div class="card tone-green">
+      <h4><span class="ic">🎚️</span>วิธีเลือก k</h4>
+      <ul>
+        <li>ดู <b>elbow ของเส้น cumulative</b> — จุดที่เพิ่ม component แล้วแทบไม่ได้ variance เพิ่ม</li>
+        <li>ตั้ง threshold ตาม use case: <b>90% / 95% / 99%</b></li>
+        <li><b>ต้องตรวจ metric ปลายทางเสมอ</b> ว่าลดมิติแล้ว model แย่ลงไหม</li>
+        <li>ถ้าทำเพื่อ <b>visualization</b> บังคับ <span class="math">k = 2</span> หรือ <span class="math">3</span> ไม่ต้องคิดมาก</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="demo">
+    <div class="demo-title">📈 Scree Plot + Cumulative Variance <span class="live">INTERACTIVE</span></div>
+    <div class="demo-sub">ข้อมูลจำลอง 8 มิติที่สร้างจาก latent factor ไม่กี่ตัว — <b>คำนวณ eigenvalue จริงด้วย Jacobi</b> · กดเลือก k ดูว่าเก็บ variance ได้เท่าไหร่</div>
+    <canvas id="cvScree" height="320"></canvas>
+    <div class="ctrl">
+      <span class="readout">เลือก k:</span>
+      <button class="btn" data-sk="1">1</button><button class="btn primary" data-sk="2">2</button>
+      <button class="btn" data-sk="3">3</button><button class="btn" data-sk="4">4</button>
+      <button class="btn" data-sk="5">5</button><button class="btn" data-sk="6">6</button>
+      <button class="btn" id="screeNew">↺ ข้อมูลใหม่</button>
+      <span class="readout" id="screeInfo"></span>
+    </div>
+    <div class="hint">แท่ง = variance ของแต่ละ component (เรียงจากมากไปน้อยเสมอ) · เส้น = สะสม · เส้นประคือเกณฑ์ 95%</div>
+  </div>
+
+  <div class="codebox">
+    <div class="cb-head"><span class="lang">python · เลือก k จาก cumulative variance</span><button class="copy">คัดลอก</button></div>
+    <pre><span class="c-kw">import</span> numpy <span class="c-kw">as</span> np
+<span class="c-kw">from</span> sklearn.decomposition <span class="c-kw">import</span> PCA
+<span class="c-kw">from</span> sklearn.preprocessing <span class="c-kw">import</span> StandardScaler
+
+X_scaled = StandardScaler().<span class="c-fn">fit_transform</span>(X_train)   <span class="c-cm"># fit บน train เท่านั้น</span>
+pca = <span class="c-fn">PCA</span>().<span class="c-fn">fit</span>(X_scaled)                            <span class="c-cm"># ยังไม่ตัด — เอาไว้ดูเส้นก่อน</span>
+cumulative = np.<span class="c-fn">cumsum</span>(pca.explained_variance_ratio_)
+
+k = np.<span class="c-fn">argmax</span>(cumulative &gt;= <span class="c-num">0.95</span>) + <span class="c-num">1</span>            <span class="c-cm"># +1 เพราะ index เริ่มที่ 0</span>
+<span class="c-fn">print</span>(<span class="c-str">f"components for 95% variance: {k}"</span>)</pre>
+  </div>
+  <div class="note">ทางลัดที่ควรรู้: <code class="inline">PCA(n_components=0.95)</code> — ใส่เป็น<b>ทศนิยม</b>แทนจำนวนเต็ม sklearn จะเลือก k ที่เก็บ variance ถึง 95% ให้เอง ไม่ต้องเขียน argmax เอง</div>
+  <div class="takeaway"><b>eigenvalue เรียงมากไปน้อยเสมอ</b> → scree plot จึงลาดลงตลอด · เลือก k ที่ cumulative ถึงเกณฑ์ แล้ว<b>ยืนยันด้วย metric ปลายทาง</b> ไม่ใช่ดูแค่กราฟ</div>
+</section>
+
+<!-- W8 : Scaling + compression -->
+<section class="section reveal" id="w8-scaling" data-week="8" data-nav="Scaling ก่อน PCA & บีบอัด 🔥">
+  <div class="sec-head">
+    <div class="kicker">W8 · Part 4</div>
+    <h3>Scaling ก่อน PCA · Compression · TruncatedSVD</h3>
+    <p class="desc"><b>ข้อผิดพลาดอันดับหนึ่งของ PCA คือลืม scale</b> — เพราะ PCA มองแต่ variance มันจึงถูก feature ที่มีหน่วยใหญ่ครอบงำได้ทั้งหมด</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card tone-red">
+      <h4><span class="ic">⚠️</span>ทำไม Scaling ถึงสำคัญมาก</h4>
+      <ul>
+        <li>PCA สนใจ <b>variance</b> จึง<b>ไวต่อหน่วยวัด</b>โดยตรง</li>
+        <li>feature ที่ scale ใหญ่จะ<b>ครอบงำ component ทั้งหมด</b></li>
+        <li>ตัวอย่างคลาสสิก: <b>income (หลักหมื่น) กลบ age (หลักสิบ)</b> จน PC1 กลายเป็น income เพียว ๆ</li>
+        <li><code class="inline">StandardScaler</code> เป็น baseline ที่ใช้บ่อยที่สุด</li>
+      </ul>
+    </div>
+    <div class="card tone-cyan">
+      <h4><span class="ic">🤔</span>เมื่อไหร่ที่ไม่ต้อง scale</h4>
+      <ul>
+        <li>ทุก feature <b>หน่วยเดียวกัน</b> และความต่างของ variance มีความหมายจริง</li>
+        <li>งานภาพบางแบบใช้ normalization เฉพาะทางแทน</li>
+        <li>ยังไงก็ต้อง<b>บันทึกไว้ว่าใช้ preprocessing อะไร</b> เพื่อให้ reproduce ได้</li>
+        <li><b>ห้าม fit scaler ก่อน split</b> — เป็น leakage ทันที</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="codebox">
+    <div class="cb-head"><span class="lang">python · PCA พร้อม scaling ที่ถูกต้อง</span><button class="copy">คัดลอก</button></div>
+    <pre><span class="c-kw">from</span> sklearn.pipeline <span class="c-kw">import</span> make_pipeline
+<span class="c-kw">from</span> sklearn.preprocessing <span class="c-kw">import</span> StandardScaler
+<span class="c-kw">from</span> sklearn.decomposition <span class="c-kw">import</span> PCA
+
+pca_model = <span class="c-fn">make_pipeline</span>(
+    <span class="c-fn">StandardScaler</span>(),                              <span class="c-cm"># scale ก่อน</span>
+    <span class="c-fn">PCA</span>(n_components=<span class="c-num">2</span>, random_state=<span class="c-num">42</span>),         <span class="c-cm"># แล้วค่อย PCA</span>
+)
+
+X_pca = pca_model.<span class="c-fn">fit_transform</span>(X_train)             <span class="c-cm"># fit + transform บน train</span>
+X_test_pca = pca_model.<span class="c-fn">transform</span>(X_test)            <span class="c-cm"># test แค่ transform ห้าม fit</span></pre>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card tone-purple">
+      <h4><span class="ic">🗜️</span>Compression</h4>
+      <ul>
+        <li>เก็บแค่ top components → ลดพื้นที่จัดเก็บ</li>
+        <li>ใช้กับ image vectors, sensor windows, embeddings</li>
+        <li>ยอมเสีย variance บางส่วนเพื่อความกระชับ</li>
+        <li><code class="inline">inverse_transform</code> ใช้ reconstruct กลับ<b>โดยประมาณ</b> (ไม่เหมือนเดิม 100%)</li>
+      </ul>
+    </div>
+    <div class="card tone-green">
+      <h4><span class="ic">🔇</span>Denoising</h4>
+      <ul>
+        <li><b>noise มักกระจายอยู่ใน component ที่ variance ต่ำ</b></li>
+        <li>ตัด component ท้าย ๆ ทิ้ง = ตัด noise ทิ้ง</li>
+        <li>ได้ผลดีเมื่อ signal หลักอยู่ใน structure ใหญ่</li>
+        <li><b>ต้องตรวจว่าไม่ได้ตัด signal สำคัญทิ้งไปด้วย</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <h4 style="margin:22px 0 10px;font-size:16.5px">TruncatedSVD — สำหรับข้อมูล sparse เช่นข้อความ</h4>
+  <div class="ftable-wrap">
+  <table class="ftable">
+    <thead><tr><th style="width:230px">ปัญหาของ PCA ปกติ</th><th>ทางแก้ด้วย TruncatedSVD</th></tr></thead>
+    <tbody>
+      <tr><td>TF-IDF จากข้อความเป็น <b>sparse</b> และมิติสูงมาก (หลักหมื่น)</td><td>ทำ <b>low-rank approximation ได้โดยไม่ต้อง center</b></td></tr>
+      <tr><td><b>การ center ทำให้ sparse matrix กลายเป็น dense</b> → memory ระเบิด</td><td>รับ sparse input ได้ตรง ๆ ไม่ต้องแปลงเป็น dense</td></tr>
+      <tr><td>PCA ปกติมักต้องทำงานกับ dense representation</td><td>เป็นหัวใจของ <b>Latent Semantic Analysis (LSA)</b> สำหรับข้อความ</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="codebox">
+    <div class="cb-head"><span class="lang">python · TruncatedSVD กับ text features</span><button class="copy">คัดลอก</button></div>
+    <pre><span class="c-kw">from</span> sklearn.feature_extraction.text <span class="c-kw">import</span> TfidfVectorizer
+<span class="c-kw">from</span> sklearn.decomposition <span class="c-kw">import</span> TruncatedSVD
+<span class="c-kw">from</span> sklearn.pipeline <span class="c-kw">import</span> make_pipeline
+
+text_model = <span class="c-fn">make_pipeline</span>(
+    <span class="c-fn">TfidfVectorizer</span>(max_features=<span class="c-num">20_000</span>),          <span class="c-cm"># sparse 20,000 มิติ</span>
+    <span class="c-fn">TruncatedSVD</span>(n_components=<span class="c-num">100</span>, random_state=<span class="c-num">42</span>), <span class="c-cm"># เหลือ 100 มิติ</span>
+)
+
+X_text_reduced = text_model.<span class="c-fn">fit_transform</span>(documents)
+<span class="c-fn">print</span>(X_text_reduced.shape)</pre>
+  </div>
+
+  <div class="takeaway">จำคู่นี้: <b>ข้อมูลหนาแน่น (dense) → PCA · ข้อมูลเบาบาง (sparse) เช่น TF-IDF → TruncatedSVD</b> เพราะ PCA ต้อง center ซึ่งทำลายความ sparse</div>
+</section>
+
+<!-- W8 : t-SNE / UMAP -->
+<section class="section reveal" id="w8-tsne" data-week="8" data-nav="t-SNE & UMAP: ข้อควรระวัง 🔥">
+  <div class="sec-head">
+    <div class="kicker">W8 · Part 5</div>
+    <h3>t-SNE &amp; UMAP — nonlinear visualization</h3>
+    <p class="desc">PCA เป็นเส้นตรงจึง<b>คลี่ข้อมูลที่โค้งงอไม่ได้</b> · t-SNE กับ UMAP แก้ตรงนี้ได้ แต่มาพร้อมกับดักในการตีความที่ต้องระวังมาก</p>
+  </div>
+
+  <div class="demo">
+    <div class="demo-title">🌀 PCA คลี่ manifold ไม่ได้ <span class="live">INTERACTIVE</span></div>
+    <div class="demo-sub">ข้อมูลสองกลุ่มพันกันเป็นเกลียว — กดสลับดูว่า <b>PCA ฉายลง 1 มิติแล้วสองกลุ่มทับกันหมด</b> ส่วนวิธีที่รักษาเพื่อนบ้านแยกออกได้</div>
+    <canvas id="cvManifold" height="340"></canvas>
+    <div class="ctrl">
+      <button class="btn primary" id="mfMode">🔄 ดูผล PCA (ฉายลง PC1)</button>
+      <span class="readout" id="mfInfo"></span>
+    </div>
+    <div class="hint">นี่คือเหตุผลเดียวกับที่ K-means พังกับ two moons ใน Week 7 — <b>วิธีเชิงเส้นจับโครงสร้างโค้งไม่ได้</b></div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card tone-blue">
+      <h4><span class="ic">🔬</span>t-SNE ทำอะไร</h4>
+      <ul>
+        <li>แปลงข้อมูลมิติสูงเป็น <b>2D/3D เพื่อ visualization</b></li>
+        <li>พยายาม<b>รักษา local neighborhood</b> — จุดที่ใกล้กันในมิติสูงให้ยังใกล้กันบนภาพ</li>
+        <li>เหมาะกับ embeddings, images, text vectors</li>
+        <li>มัก<b>ทำ PCA ก่อนเหลือ ~50 มิติ</b> แล้วค่อยเข้า t-SNE เพื่อลด noise และเร็วขึ้น</li>
+      </ul>
+    </div>
+    <div class="card tone-red">
+      <h4><span class="ic">🚨</span>ข้อจำกัดที่ออกสอบแน่</h4>
+      <ul>
+        <li><b>ไม่ใช่ feature reduction สำหรับ production model</b> — ใช้ดูอย่างเดียว</li>
+        <li><b>ระยะห่างระดับ global และขนาดของ cluster บนภาพ หลอกได้</b> — กลุ่มที่ดูใหญ่ไม่ได้แปลว่ามีจุดเยอะ กลุ่มที่ดูไกลกันไม่ได้แปลว่าต่างกันมาก</li>
+        <li>ผลขึ้นกับ <b>perplexity, learning rate, random seed</b> — รันสองครั้งได้ภาพไม่เหมือนกัน</li>
+        <li><b>ใช้เพื่อสำรวจ ไม่ใช่หลักฐานสุดท้าย</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ftable-wrap" style="margin-top:16px">
+  <table class="ftable">
+    <thead><tr><th style="width:170px">พารามิเตอร์</th><th style="width:180px">ควบคุมอะไร</th><th>ข้อควรรู้</th></tr></thead>
+    <tbody>
+      <tr><td class="fm"><b>perplexity</b></td><td>ขนาด neighborhood โดยประมาณ</td><td>ค่าทั่วไป <b>5–50</b> · <b>ต้องน้อยกว่าจำนวน sample</b> · ค่าต่างกันได้ภาพต่างกัน ควรลองหลายค่าแล้วดู pattern ที่เสถียร</td></tr>
+      <tr><td class="fm"><b>learning_rate</b></td><td>ความเร็วในการปรับตำแหน่ง</td><td>กระทบการกระจายของจุด ถ้าต่ำไปจุดจะกองกัน ถ้าสูงไปจะกระจายมั่ว</td></tr>
+      <tr><td class="fm"><b>max_iter</b></td><td>จำนวนรอบ optimization</td><td>ต้องมากพอให้ converge ไม่งั้นภาพยังไม่นิ่ง</td></tr>
+      <tr><td class="fm"><b>init='pca'</b></td><td>จุดเริ่มต้น</td><td><b>มักช่วยให้ผลเสถียรกว่า</b> init แบบสุ่ม — แนะนำให้ตั้งเสมอ</td></tr>
+      <tr><td class="fm"><b>random_state</b></td><td>seed</td><td><b>ต้องตั้งเพื่อให้ reproduce ได้</b> — และต้องรายงานค่านี้ในผลงาน</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="codebox">
+    <div class="cb-head"><span class="lang">python · PCA แล้วค่อย t-SNE (ท่ามาตรฐาน)</span><button class="copy">คัดลอก</button></div>
+    <pre><span class="c-kw">from</span> sklearn.decomposition <span class="c-kw">import</span> PCA
+<span class="c-kw">from</span> sklearn.manifold <span class="c-kw">import</span> TSNE
+<span class="c-kw">from</span> sklearn.preprocessing <span class="c-kw">import</span> StandardScaler
+
+X_scaled = StandardScaler().<span class="c-fn">fit_transform</span>(X)
+X_50 = <span class="c-fn">PCA</span>(n_components=<span class="c-num">50</span>, random_state=<span class="c-num">42</span>).<span class="c-fn">fit_transform</span>(X_scaled)  <span class="c-cm"># ลด noise + เร็วขึ้น</span>
+
+X_tsne = <span class="c-fn">TSNE</span>(
+    n_components=<span class="c-num">2</span>,
+    perplexity=<span class="c-num">30</span>,
+    init=<span class="c-str">"pca"</span>,          <span class="c-cm"># เสถียรกว่าสุ่ม</span>
+    random_state=<span class="c-num">42</span>,     <span class="c-cm"># ต้องมี ไม่งั้น reproduce ไม่ได้</span>
+).<span class="c-fn">fit_transform</span>(X_50)</pre>
+  </div>
+
+  <div class="card tone-yellow" style="margin-top:16px">
+    <h4><span class="ic">🗺️</span>UMAP — ทางเลือกที่เร็วกว่า</h4>
+    <ul>
+      <li>projection แบบไม่เชิงเส้น สำหรับทั้ง visualization และ representation learning</li>
+      <li><b>มักเร็วกว่า t-SNE</b> บนข้อมูลขนาดใหญ่</li>
+      <li>พยายามรักษาทั้ง <b>local และบางส่วนของ global structure</b> (ดีกว่า t-SNE ตรงนี้)</li>
+      <li>ใช้บ่อยกับ embeddings และ single-cell data</li>
+      <li><b>ไม่อยู่ใน scikit-learn</b> ต้องติดตั้ง package แยก · พารามิเตอร์สำคัญคือ <code class="inline">n_neighbors</code> กับ <code class="inline">min_dist</code></li>
+      <li>ยังเป็น projection อยู่ดี — <b>ต้องตรวจ stability หลาย seed ก่อนเชื่อ</b></li>
+    </ul>
+  </div>
+
+  <div class="takeaway"><b>PCA = ลดมิติจริงเอาไปใช้ต่อได้ · t-SNE/UMAP = ภาพสำหรับดูเท่านั้น</b> — และห้ามตีความระยะห่างหรือขนาดกลุ่มบนภาพ t-SNE ว่าเป็นความจริง</div>
+</section>
+
+<!-- W8 : Feature Selection -->
+<section class="section reveal" id="w8-fs" data-week="8" data-nav="Feature Selection 2 แบบ">
+  <div class="sec-head">
+    <div class="kicker">W8 · Part 6</div>
+    <h3>Feature Selection — เมื่อยังอยากรู้ว่าใช้ feature อะไร</h3>
+    <p class="desc">ต่างจาก PCA ตรงที่<b>ไม่สร้าง feature ใหม่</b> จึงยังบอกได้ว่า model ใช้ "อายุ" กับ "รายได้" — เหมาะเมื่อต้องอธิบายให้คนอื่นฟัง</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card tone-cyan">
+      <h4><span class="ic">🔍</span>Filter Methods — ให้คะแนนก่อนเทรน</h4>
+      <ul>
+        <li>ให้คะแนน feature <b>โดยไม่ต้อง train model เต็มรูปแบบ</b></li>
+        <li>ตัวอย่าง: <b>variance threshold · correlation · mutual information</b></li>
+        <li><b>เร็วและเข้าใจง่าย</b> เหมาะเป็น preprocessing ขั้นแรก</li>
+        <li><b>จุดอ่อน:</b> อาจพลาด feature ที่สำคัญ<b>เมื่ออยู่ร่วมกับ feature อื่น</b> เพราะดูทีละตัว</li>
+        <li>เตือน: <b>correlation สูงไม่ได้แปลว่าเป็นสาเหตุ</b></li>
+      </ul>
+    </div>
+    <div class="card tone-purple">
+      <h4><span class="ic">🌲</span>Model-Based (Embedded) — ให้ model บอก</h4>
+      <ul>
+        <li>ใช้ model ช่วยบอก <b>feature importance</b></li>
+        <li><b>Lasso</b> ดัน coefficient บางตัวให้เป็น<b>ศูนย์</b> = คัดทิ้งอัตโนมัติ</li>
+        <li><b>Tree-based</b> ให้ impurity importance หรือ permutation importance</li>
+        <li><code class="inline">SelectFromModel</code> ใช้ตัด feature ตาม importance</li>
+        <li><b>จุดอ่อน:</b> ขึ้นกับ model ที่เลือก · importance <b>เพี้ยนได้เมื่อ feature สัมพันธ์กัน</b> · ต้อง validate ด้วย cross-validation</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ftable-wrap" style="margin-top:16px">
+  <table class="ftable">
+    <thead><tr><th style="width:150px">เลือกอะไรดี</th><th style="width:220px">ใช้เมื่อ</th><th>ข้อแลกเปลี่ยน</th></tr></thead>
+    <tbody>
+      <tr><td><b>PCA</b></td><td>feature สัมพันธ์กันสูง ต้องการบีบข้อมูล ไม่ต้องอธิบายรายตัว</td><td>บีบได้ดีที่สุด แต่<b>เสียความสามารถในการตีความ</b></td></tr>
+      <tr><td><b>Filter</b></td><td>feature เยอะมาก ต้องการคัดหยาบ ๆ ให้เร็วก่อน</td><td>เร็วที่สุด แต่<b>มองข้าม interaction</b></td></tr>
+      <tr><td><b>Model-based</b></td><td>ต้องการทั้งความแม่นและยังคงชื่อ feature ไว้</td><td>ตีความได้ดี แต่<b>ผูกกับ model ที่ใช้เลือก</b> และช้ากว่า</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note">ข้อบังคับที่ทั้งสองแบบมีเหมือนกัน: <b>ต้อง fit การคัดเลือกบน training data เท่านั้น</b> — ถ้าเลือก feature โดยดู correlation กับ target จากข้อมูลทั้งชุด นั่นคือ leakage ทันที</div>
+  <div class="takeaway"><b>อยากได้ความกระชับสูงสุด → PCA · อยากอธิบายได้ → Feature Selection</b> · เลือกตามว่างานนั้นต้องส่งให้ใครดู</div>
+</section>
+
+<!-- W8 : Leakage + สรุป -->
+<section class="section reveal" id="w8-leak" data-week="8" data-nav="ป้องกัน Leakage + สรุป + Quiz 🔥">
+  <div class="sec-head">
+    <div class="kicker">W8 · Part 7–8</div>
+    <h3>ป้องกัน Data Leakage · กรณีใช้งานจริง · กับดัก</h3>
+    <p class="desc">Week 3 เตือนเรื่อง leakage ไปแล้ว · Week 8 คือจุดที่<b>คนพลาดกันมากที่สุด</b> เพราะ PCA กับ scaler เป็น transformer ที่ต้อง fit และคนมักลืมว่ามันเรียนรู้จากข้อมูล</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card tone-red">
+      <h4><span class="ic">☠️</span>รูปแบบที่รั่ว</h4>
+      <ul>
+        <li><b>fit scaler หรือ PCA บนข้อมูลทั้งหมดก่อน split</b> ← ข้อนี้พบบ่อยที่สุด</li>
+        <li>เลือก feature โดยดู correlation กับ target จาก dataset ทั้งชุด</li>
+        <li>fit t-SNE/UMAP รวม test แล้วเอา representation นั้นไปใช้</li>
+        <li>ทำ cross-validation <b>หลังจาก</b> preprocessing ที่ fit ไปแล้ว</li>
+      </ul>
+    </div>
+    <div class="card tone-green">
+      <h4><span class="ic">✅</span>รูปแบบที่ปลอดภัย</h4>
+      <ul>
+        <li><b>split ก่อน</b> แล้ว fit preprocessing บน train เท่านั้น</li>
+        <li>ใช้ <code class="inline">Pipeline</code> เพื่อให้ CV <b>fit transformer ใหม่ในทุก fold</b></li>
+        <li>test set <b>ผ่านแค่ transform</b> ที่เรียนมาจาก train</li>
+        <li>บันทึก fitted transformer ไว้ใช้ตอน deploy</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="codebox">
+    <div class="cb-head"><span class="lang">python · Pipeline ที่ปลอดภัยจาก leakage</span><button class="copy">คัดลอก</button></div>
+    <pre><span class="c-kw">from</span> sklearn.pipeline <span class="c-kw">import</span> Pipeline
+<span class="c-kw">from</span> sklearn.preprocessing <span class="c-kw">import</span> StandardScaler
+<span class="c-kw">from</span> sklearn.decomposition <span class="c-kw">import</span> PCA
+<span class="c-kw">from</span> sklearn.linear_model <span class="c-kw">import</span> LogisticRegression
+<span class="c-kw">from</span> sklearn.model_selection <span class="c-kw">import</span> cross_val_score
+
+pipe = <span class="c-fn">Pipeline</span>([
+    (<span class="c-str">"scale"</span>, <span class="c-fn">StandardScaler</span>()),
+    (<span class="c-str">"pca"</span>,   <span class="c-fn">PCA</span>(n_components=<span class="c-num">0.95</span>, random_state=<span class="c-num">42</span>)),  <span class="c-cm"># ทศนิยม = เก็บ variance 95%</span>
+    (<span class="c-str">"clf"</span>,   <span class="c-fn">LogisticRegression</span>(max_iter=<span class="c-num">1000</span>)),
+])
+
+<span class="c-cm"># cross_val_score จะ fit scaler + PCA ใหม่ทุก fold ให้เอง = ไม่รั่ว</span>
+scores = <span class="c-fn">cross_val_score</span>(pipe, X, y, cv=<span class="c-num">5</span>, scoring=<span class="c-str">"f1_macro"</span>)
+<span class="c-fn">print</span>(scores.<span class="c-fn">mean</span>())</pre>
+  </div>
+  <div class="note"><b>เหตุผลที่ Pipeline สำคัญ ไม่ใช่แค่เรื่องความสวยงามของโค้ด:</b> ถ้าเขียนแยกเป็น <code class="inline">X = scaler.fit_transform(X)</code> แล้วค่อย <code class="inline">cross_val_score</code> ทีหลัง scaler ตัวนั้นเห็นข้อมูลของทุก fold ไปแล้ว คะแนนที่ได้จะ<b>สูงเกินจริง</b>โดยไม่มี error ใดฟ้อง</div>
+
+  <h4 style="margin:22px 0 10px;font-size:16.5px">กรณีใช้งานจริง 2 แบบ</h4>
+  <div class="grid2">
+    <div class="card tone-blue">
+      <h4><span class="ic">🖼️</span>Image Embeddings</h4>
+      <ul>
+        <li><b>โจทย์:</b> embedding ขนาด 512–2048 มิติ ต้องสำรวจว่าภาพสินค้าแบ่งกลุ่มยังไง หา duplicate และ category ที่ทับกัน</li>
+        <li><b>ขั้นตอน:</b> scale/normalize ตาม model → <b>PCA เหลือ 50 มิติ</b> → t-SNE/UMAP ทำภาพ 2D</li>
+        <li>ปิดท้ายด้วยการ<b>เปิดดูภาพจริงที่อยู่ใกล้กัน</b> เพื่อยืนยันว่าใกล้กันจริงในเชิงความหมาย</li>
+      </ul>
+    </div>
+    <div class="card tone-purple">
+      <h4><span class="ic">🛒</span>Customer Segmentation</h4>
+      <ul>
+        <li><b>โจทย์:</b> feature เยอะจาก spend/frequency/channel/preference และหลายตัวซ้ำซ้อนกัน</li>
+        <li><b>ขั้นตอน:</b> เลือก feature จาก action ที่จะทำ → scale + encode → <b>PCA ลด redundancy → K-Means (Week 7)</b></li>
+        <li><b>สำคัญ:</b> ตอนอธิบายกลุ่มให้ใช้ <b>feature เดิม ไม่ใช่ principal component</b> เพราะ business ไม่เข้าใจว่า PC1 คืออะไร</li>
+      </ul>
+    </div>
+  </div>
+
+  <h4 style="margin:22px 0 10px;font-size:16.5px">วัดผลว่าลดมิติแล้วดีขึ้นจริงไหม</h4>
+  <div class="ftable-wrap">
+  <table class="ftable">
+    <thead><tr><th style="width:210px">ไม่มี label (Unsupervised)</th><th>มี label (Supervised)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>ดู <b>explained variance curve</b> และ <b>reconstruction error</b> · ตรวจว่าภาพเสถียรไหมเมื่อเปลี่ยน seed · ถ้าเอาไป cluster ต่อ ให้ดูคุณภาพ cluster (silhouette จาก Week 7)</td>
+        <td><b>เทียบ metric ก่อน–หลังลดมิติ</b> · วัด training time, inference time และ memory ที่ประหยัดได้ · ตรวจ performance แยกตาม segment</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note">หลักการตัดสิน: <b>เลือกวิธีที่ช่วยเป้าหมายจริง ไม่ใช่วิธีที่ทำให้ plot ออกมาสวย</b> — ถ้าลดมิติแล้ว F1 ตกแต่เร็วขึ้น 10 เท่า ต้องชั่งน้ำหนักตามงาน ไม่ใช่ตัดสินจากกราฟอย่างเดียว</div>
+
+  <h4 style="margin:22px 0 10px;font-size:16.5px">⚠️ กับดักที่พบบ่อย</h4>
+  <div class="grid2">
+    <div class="card tone-red">
+      <h4><span class="ic">🔧</span>ด้านเทคนิค</h4>
+      <ul>
+        <li>ลดมิติ<b>ก่อน split</b> → leakage</li>
+        <li>ใช้ PCA กับข้อมูลที่<b>ยังไม่ได้ scale</b> โดยไม่ตั้งใจ</li>
+        <li>ตีความ<b>ระยะห่างหรือขนาด cluster บน t-SNE เกินจริง</b></li>
+        <li>เลือก k จาก variance อย่างเดียว<b>โดยไม่ตรวจ metric ปลายทาง</b></li>
+      </ul>
+    </div>
+    <div class="card tone-yellow">
+      <h4><span class="ic">💬</span>ด้านการสื่อสาร</h4>
+      <ul>
+        <li>บอกว่า <b>"PC1 คือรายได้"</b> ทั้งที่จริง PC1 เป็น<b>ผลรวมถ่วงน้ำหนักของทุก feature</b></li>
+        <li>เอา plot 2D ไปใช้เป็น<b>หลักฐานตัดสินเด็ดขาด</b></li>
+        <li><b>ไม่บอก random seed หรือพารามิเตอร์</b> ที่ใช้</li>
+        <li>ไม่อธิบายว่า<b>ตัดข้อมูลอะไรทิ้งไปบ้าง</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card tone-green" style="margin-top:18px">
+    <h4><span class="ic">📋</span>Checklist สรุป Week 8</h4>
+    <ul>
+      <li>Dimensionality reduction ช่วย <b>ลด noise · เทรนเร็วขึ้น · วาดภาพข้อมูลมิติสูงได้</b></li>
+      <li><b>PCA</b> เป็น linear method อธิบายด้วย <b>variance, eigenvector, SVD</b></li>
+      <li><b>t-SNE/UMAP</b> เหมาะกับ visualization แต่<b>ห้ามตีความ global distance และขนาด cluster</b></li>
+      <li><b>Feature selection</b> เหมาะเมื่อยังต้องการชื่อ feature และความสามารถในการอธิบาย</li>
+      <li>ใช้ <b>Pipeline</b> และ fit เฉพาะ training fold เพื่อกัน leakage</li>
+      <li>ถัดไป: <b>Week 9 — Neural Networks &amp; Deep Learning</b></li>
+    </ul>
+  </div>
+
+  <div class="quiz" id="quiz-w8" data-quiz="w8"></div>
+  <div class="takeaway">แกน Week 8 ทั้งหมดใน 1 ประโยค: <b>PCA หา eigenvector ของ covariance เพื่อเก็บ variance ให้มากที่สุดด้วยมิติน้อยที่สุด · ต้อง scale ก่อน · ต้อง fit บน train เท่านั้น · และ t-SNE ใช้ดูอย่างเดียว</b></div>
+</section>
+
 <footer>
-  สร้างจากสไลด์ Week 1–6 · Introduction to AI &amp; ML · Mathematics for ML · Data Preprocessing &amp; EDA · Regression · Classification · Bayesian Networks<br>
+  สร้างจากสไลด์ Week 1–8 · Introduction to AI &amp; ML · Mathematics for ML · Data Preprocessing &amp; EDA · Regression · Classification · Bayesian Networks · Unsupervised Learning &amp; Clustering · Dimensionality Reduction<br>
   เสริมเนื้อหาจาก <a href="https://www.geeksforgeeks.org/machine-learning/machine-learning-mathematics/" target="_blank">GeeksforGeeks — Maths for Machine Learning</a> · โครงสร้างรองรับการเพิ่ม Week 4+ (ดู comment ในโค้ด)
 </footer>
 
@@ -4024,8 +5354,8 @@ model.<span class="c-fn">fit</span>(X_train, y_train)     <span class="c-cm"># f
 
     <div class="pm-lab">1 · เลือกช่วงเนื้อหา</div>
     <div class="pm-opts" id="pmScope">
-      <button class="pm-opt on" data-v="all">📚 ทั้งหมด (Week 1–6 + ติวสอบ)</button>
-      <button class="pm-opt" data-v="lessons">📖 เฉพาะบทเรียน Week 1–6</button>
+      <button class="pm-opt on" data-v="all">📚 ทั้งหมด (Week 1–8 + ติวสอบ)</button>
+      <button class="pm-opt" data-v="lessons">📖 เฉพาะบทเรียน Week 1–8</button>
       <button class="pm-opt" data-v="exam">🎯 เฉพาะโซนติวสอบ</button>
       <button class="pm-opt" data-v="1">W1</button>
       <button class="pm-opt" data-v="2">W2</button>
@@ -4033,6 +5363,8 @@ model.<span class="c-fn">fit</span>(X_train, y_train)     <span class="c-cm"># f
       <button class="pm-opt" data-v="4">W4</button>
       <button class="pm-opt" data-v="5">W5</button>
       <button class="pm-opt" data-v="6">W6</button>
+      <button class="pm-opt" data-v="7">W7</button>
+      <button class="pm-opt" data-v="8">W8</button>
     </div>
 
     <div class="pm-lab">2 · พื้นที่จดโน้ต</div>
@@ -4104,8 +5436,9 @@ const store = {
 
 /* ============ sidebar TOC (collapsible weeks) + week switcher ============ */
 const WEEK_TITLES = {exam:'ติวสอบ & Cram Sheet', 1:'Introduction to AI & ML', 2:'Mathematics for ML',
-  3:'Data Preprocessing & EDA', 4:'Regression', 5:'Classification', 6:'Bayesian Networks'};
-const WEEK_ICONS  = {exam:'🎯', 1:'W1', 2:'W2', 3:'W3', 4:'W4', 5:'W5', 6:'W6'};
+  3:'Data Preprocessing & EDA', 4:'Regression', 5:'Classification', 6:'Bayesian Networks',
+  7:'Unsupervised Learning & Clustering', 8:'Dimensionality Reduction'};
+const WEEK_ICONS  = {exam:'🎯', 1:'W1', 2:'W2', 3:'W3', 4:'W4', 5:'W5', 6:'W6', 7:'W7', 8:'W8'};
 const wkIcon = wk => WEEK_ICONS[wk] || ('W'+wk);
 const sections = [...document.querySelectorAll('.section[data-nav]')];
 const toc = document.getElementById('toc');
@@ -5475,6 +6808,748 @@ document.querySelectorAll('.worked .wtoggle').forEach(btn=>{
 });
 
 /* ================================================================
+   WEEK 7 · CLUSTERING DEMOS
+================================================================ */
+(function W7(){
+  const CC=['#4f8cff','#f472b6','#34d399','#fbbf24','#a78bfa','#22d3ee','#fb923c'];
+  const GRID='rgba(148,163,214,.10)', DIM='#5c6a8a', MUT='#93a1bd';
+
+  function fit(cv,h){
+    if(!cv) return null;
+    const dpr=window.devicePixelRatio||1;
+    const w=cv.clientWidth||(cv.parentElement&&cv.parentElement.clientWidth)||620;
+    cv.width=Math.round(w*dpr); cv.height=Math.round(h*dpr);
+    const x=cv.getContext('2d'); if(!x) return null;
+    x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,w,h);
+    return {x,w,h};
+  }
+  function mkRnd(seed){ let s=seed; return ()=>{ s=(s*1103515245+12345)&0x7fffffff; return s/0x7fffffff; }; }
+  function gauss(r){ return (r()+r()+r()+r()+r()+r()-3)/1.2; }
+  function grid(x,w,h,pad){
+    x.strokeStyle=GRID; x.lineWidth=1;
+    for(let i=0;i<=4;i++){
+      const gy=pad+(h-2*pad)*i/4, gx=pad+(w-2*pad)*i/4;
+      x.beginPath(); x.moveTo(pad,gy); x.lineTo(w-pad,gy); x.stroke();
+      x.beginPath(); x.moveTo(gx,pad); x.lineTo(gx,h-pad); x.stroke();
+    }
+  }
+  function dot(x,px,py,r,fill,stroke){
+    x.beginPath(); x.arc(px,py,r,0,Math.PI*2);
+    x.fillStyle=fill; x.fill();
+    if(stroke){ x.strokeStyle=stroke; x.lineWidth=1.5; x.stroke(); }
+  }
+  const on=(el,ev,fn)=>{ if(el) el.addEventListener(ev,fn); };
+
+  /* ---------- 1. distance metrics ---------- */
+  (function(){
+    const cv=document.getElementById('cvDist'); if(!cv) return;
+    const info=document.getElementById('distInfo');
+    const A={x:.28,y:.34}, B={x:.72,y:.70};      // สอง cluster center (normalised)
+    let P={x:.50,y:.42}, metric='l2', drag=false;
+
+    const D={
+      l2 :(p,q)=>Math.hypot(p.x-q.x,p.y-q.y),
+      l1 :(p,q)=>Math.abs(p.x-q.x)+Math.abs(p.y-q.y),
+      cos:(p,q)=>1-((p.x*q.x+p.y*q.y)/((Math.hypot(p.x,p.y)*Math.hypot(q.x,q.y))||1e-9))
+    };
+    const NAME={l2:'Euclidean (L2)',l1:'Manhattan (L1)',cos:'Cosine'};
+
+    function draw(){
+      const c=fit(cv,330); if(!c) return; const {x,w,h}=c, pad=26;
+      const X=v=>pad+v*(w-2*pad), Y=v=>pad+v*(h-2*pad);
+      grid(x,w,h,pad);
+      // ระบายพื้นหลังตามว่าแต่ละพิกเซลใกล้ A หรือ B (ความละเอียดหยาบ ๆ พอให้เห็นเส้นแบ่ง)
+      const st=7;
+      for(let px=pad;px<w-pad;px+=st) for(let py=pad;py<h-pad;py+=st){
+        const q={x:(px-pad)/(w-2*pad), y:(py-pad)/(h-2*pad)};
+        const near=D[metric](q,A)<=D[metric](q,B)?0:1;
+        x.fillStyle=near?'rgba(79,140,255,.10)':'rgba(244,114,182,.10)';
+        x.fillRect(px,py,st,st);
+      }
+      const dA=D[metric](P,A), dB=D[metric](P,B), win=dA<=dB?0:1;
+      x.setLineDash([4,4]); x.lineWidth=1.5;
+      x.strokeStyle='rgba(79,140,255,.65)'; x.beginPath(); x.moveTo(X(P.x),Y(P.y)); x.lineTo(X(A.x),Y(A.y)); x.stroke();
+      x.strokeStyle='rgba(244,114,182,.65)'; x.beginPath(); x.moveTo(X(P.x),Y(P.y)); x.lineTo(X(B.x),Y(B.y)); x.stroke();
+      x.setLineDash([]);
+      dot(x,X(A.x),Y(A.y),11,CC[0],'#fff'); dot(x,X(B.x),Y(B.y),11,CC[1],'#fff');
+      x.fillStyle='#fff'; x.font='600 11px Sarabun,sans-serif'; x.textAlign='center';
+      x.fillText('A',X(A.x),Y(A.y)+4); x.fillText('B',X(B.x),Y(B.y)+4);
+      dot(x,X(P.x),Y(P.y),9,'#fff',win?CC[1]:CC[0]);
+      x.fillStyle=MUT; x.font='11px Sarabun,sans-serif'; x.textAlign='left';
+      x.fillText('ลากจุดขาว',pad+4,h-10);
+      if(info) info.innerHTML=`${NAME[metric]} · d(P,A)=<b>${dA.toFixed(3)}</b> · d(P,B)=<b>${dB.toFixed(3)}</b> → เข้ากลุ่ม <b style="color:${win?CC[1]:CC[0]}">${win?'B':'A'}</b>`;
+    }
+    function pos(e){
+      const r=cv.getBoundingClientRect(), pad=26;
+      const t=e.touches?e.touches[0]:e;
+      return {x:Math.max(0,Math.min(1,(t.clientX-r.left-pad)/(r.width-2*pad))),
+              y:Math.max(0,Math.min(1,(t.clientY-r.top -pad)/(r.height-2*pad)))};
+    }
+    const start=e=>{drag=true;P=pos(e);draw();e.preventDefault();};
+    const move =e=>{if(!drag)return;P=pos(e);draw();e.preventDefault();};
+    const end  =()=>{drag=false;};
+    on(cv,'mousedown',start); on(window,'mousemove',move); on(window,'mouseup',end);
+    on(cv,'touchstart',start); on(cv,'touchmove',move); on(window,'touchend',end);
+    document.querySelectorAll('[data-dist]').forEach(b=>on(b,'click',()=>{
+      metric=b.dataset.dist;
+      document.querySelectorAll('[data-dist]').forEach(o=>o.classList.toggle('primary',o===b));
+      draw();
+    }));
+    draw(); on(window,'resize',draw);
+  })();
+
+  /* ---------- 2. K-means step by step ---------- */
+  (function(){
+    const cv=document.getElementById('cvKm'); if(!cv) return;
+    const info=document.getElementById('kmInfo');
+    const K=3; let pts=[], cen=[], phase='assign', iter=0, timer=null, moved=true;
+
+    function reset(){
+      const r=mkRnd(Date.now()&0xffff);
+      const blobs=[[.25,.30],[.72,.28],[.48,.74]];
+      pts=[];
+      blobs.forEach(b=>{ for(let i=0;i<26;i++)
+        pts.push({x:Math.max(.04,Math.min(.96,b[0]+gauss(r)*.075)),
+                  y:Math.max(.04,Math.min(.96,b[1]+gauss(r)*.075)), c:-1}); });
+      cen=[]; for(let i=0;i<K;i++){ const p=pts[Math.floor(r()*pts.length)]; cen.push({x:p.x,y:p.y}); }
+      phase='assign'; iter=0; moved=true; draw();
+    }
+    function inertia(){
+      let J=0; pts.forEach(p=>{ if(p.c>=0){ const c=cen[p.c]; J+=(p.x-c.x)**2+(p.y-c.y)**2; } }); return J;
+    }
+    function step(){
+      if(phase==='assign'){
+        pts.forEach(p=>{ let bi=0,bd=1e9;
+          cen.forEach((c,i)=>{ const d=(p.x-c.x)**2+(p.y-c.y)**2; if(d<bd){bd=d;bi=i;} }); p.c=bi; });
+        phase='update';
+      }else{
+        moved=false;
+        cen.forEach((c,i)=>{
+          const g=pts.filter(p=>p.c===i);
+          if(!g.length) return;
+          const nx=g.reduce((s,p)=>s+p.x,0)/g.length, ny=g.reduce((s,p)=>s+p.y,0)/g.length;
+          if(Math.hypot(nx-c.x,ny-c.y)>1e-4) moved=true;
+          c.x=nx; c.y=ny;
+        });
+        phase='assign'; iter++;
+      }
+      draw();
+      return moved;
+    }
+    function draw(){
+      const c=fit(cv,360); if(!c) return; const {x,w,h}=c, pad=24;
+      const X=v=>pad+v*(w-2*pad), Y=v=>pad+v*(h-2*pad);
+      grid(x,w,h,pad);
+      pts.forEach(p=>{ if(p.c>=0){ x.strokeStyle=CC[p.c]+'44'; x.lineWidth=1;
+        x.beginPath(); x.moveTo(X(p.x),Y(p.y)); x.lineTo(X(cen[p.c].x),Y(cen[p.c].y)); x.stroke(); } });
+      pts.forEach(p=>dot(x,X(p.x),Y(p.y),4.5,p.c<0?'#6b7a99':CC[p.c]));
+      cen.forEach((c,i)=>{
+        x.save(); x.translate(X(c.x),Y(c.y));
+        x.strokeStyle='#fff'; x.lineWidth=2.5;
+        x.beginPath(); x.moveTo(-8,0); x.lineTo(8,0); x.moveTo(0,-8); x.lineTo(0,8); x.stroke();
+        dot(x,0,0,7,CC[i],'#fff'); x.restore();
+      });
+      if(info) info.innerHTML= (!moved&&iter>0)
+        ? `✅ ลู่เข้าแล้วที่รอบ <b>${iter}</b> · J = <b>${inertia().toFixed(4)}</b>`
+        : `รอบ <b>${iter}</b> · ขั้นถัดไป: <b>${phase==='assign'?'Assign (จับเข้ากลุ่ม)':'Update (ย้าย centroid)'}</b>` +
+          (pts.some(p=>p.c>=0)?` · J = <b>${inertia().toFixed(4)}</b>`:'');
+    }
+    on(document.getElementById('kmStep'),'click',()=>{ if(timer){clearInterval(timer);timer=null;} step(); });
+    on(document.getElementById('kmAuto'),'click',()=>{
+      if(timer){ clearInterval(timer); timer=null; return; }
+      timer=setInterval(()=>{ const m=step(); if(!m&&phase==='assign'){ clearInterval(timer); timer=null; } },550);
+    });
+    on(document.getElementById('kmReset'),'click',()=>{ if(timer){clearInterval(timer);timer=null;} reset(); });
+    reset(); on(window,'resize',draw);
+  })();
+
+  /* ---------- 3. elbow + silhouette ---------- */
+  (function(){
+    const cv=document.getElementById('cvElbow'), cv2=document.getElementById('cvElbowPts');
+    if(!cv) return;
+    let pts=[], res=[], pick=4;
+    const KS=[2,3,4,5,6,7];
+
+    function kmeans(P,k,rnd){
+      let cen=[]; const used=new Set();
+      while(cen.length<k){ const i=Math.floor(rnd()*P.length); if(!used.has(i)){used.add(i);cen.push({x:P[i].x,y:P[i].y});} }
+      let lab=new Array(P.length).fill(0);
+      for(let it=0;it<40;it++){
+        let ch=false;
+        P.forEach((p,i)=>{ let bi=0,bd=1e9;
+          cen.forEach((c,j)=>{const d=(p.x-c.x)**2+(p.y-c.y)**2; if(d<bd){bd=d;bi=j;}});
+          if(lab[i]!==bi){lab[i]=bi;ch=true;} });
+        cen.forEach((c,j)=>{ const g=P.filter((_,i)=>lab[i]===j); if(!g.length)return;
+          c.x=g.reduce((s,p)=>s+p.x,0)/g.length; c.y=g.reduce((s,p)=>s+p.y,0)/g.length; });
+        if(!ch) break;
+      }
+      let J=0; P.forEach((p,i)=>{J+=(p.x-cen[lab[i]].x)**2+(p.y-cen[lab[i]].y)**2;});
+      return {lab,cen,J};
+    }
+    function silhouette(P,lab,k){
+      const idx=[]; for(let j=0;j<k;j++) idx.push(P.map((_,i)=>i).filter(i=>lab[i]===j));
+      let tot=0,n=0;
+      P.forEach((p,i)=>{
+        const own=idx[lab[i]]; if(own.length<2){ n++; return; }
+        const a=own.filter(j=>j!==i).reduce((s,j)=>s+Math.hypot(p.x-P[j].x,p.y-P[j].y),0)/(own.length-1);
+        let b=1e9;
+        idx.forEach((g,j)=>{ if(j===lab[i]||!g.length)return;
+          const d=g.reduce((s,q)=>s+Math.hypot(p.x-P[q].x,p.y-P[q].y),0)/g.length; if(d<b)b=d; });
+        tot+=(b-a)/Math.max(a,b); n++;
+      });
+      return n?tot/n:0;
+    }
+    function build(){
+      const r=mkRnd(Date.now()&0xffff);
+      const blobs=[[.24,.26],[.74,.24],[.26,.74],[.76,.76]];
+      pts=[]; blobs.forEach(b=>{ for(let i=0;i<24;i++)
+        pts.push({x:Math.max(.03,Math.min(.97,b[0]+gauss(r)*.070)),
+                  y:Math.max(.03,Math.min(.97,b[1]+gauss(r)*.070))}); });
+      res=KS.map(k=>{
+        let best=null;
+        for(let t=0;t<4;t++){ const o=kmeans(pts,k,mkRnd(1000+k*97+t*31)); if(!best||o.J<best.J) best=o; }
+        return {k, J:best.J, S:silhouette(pts,best.lab,k), lab:best.lab, cen:best.cen};
+      });
+      draw();
+    }
+    function draw(){
+      const c=fit(cv,300); if(!c) return; const {x,w,h}=c;
+      const L=46,R=46,T=26,B=34, pw=w-L-R, ph=h-T-B;
+      const Js=res.map(o=>o.J), Ss=res.map(o=>o.S);
+      const jmin=Math.min(...Js),jmax=Math.max(...Js), smin=Math.min(...Ss),smax=Math.max(...Ss);
+      const px=i=>L+i*(pw/(KS.length-1));
+      const pyJ=v=>T+ph-((v-jmin)/((jmax-jmin)||1))*ph;
+      const pyS=v=>T+ph-((v-smin)/((smax-smin)||1))*ph;
+      x.strokeStyle=GRID; for(let i=0;i<=4;i++){ const gy=T+ph*i/4;
+        x.beginPath(); x.moveTo(L,gy); x.lineTo(L+pw,gy); x.stroke(); }
+      // เส้น inertia
+      x.strokeStyle=CC[0]; x.lineWidth=2.4; x.beginPath();
+      res.forEach((o,i)=>{ i?x.lineTo(px(i),pyJ(o.J)):x.moveTo(px(i),pyJ(o.J)); }); x.stroke();
+      res.forEach((o,i)=>dot(x,px(i),pyJ(o.J),4.5,CC[0]));
+      // เส้น silhouette
+      x.strokeStyle=CC[2]; x.lineWidth=2.4; x.setLineDash([5,4]); x.beginPath();
+      res.forEach((o,i)=>{ i?x.lineTo(px(i),pyS(o.S)):x.moveTo(px(i),pyS(o.S)); }); x.stroke(); x.setLineDash([]);
+      res.forEach((o,i)=>dot(x,px(i),pyS(o.S),4.5,CC[2]));
+      // ไฮไลต์ k ที่ silhouette สูงสุด
+      const bi=Ss.indexOf(smax);
+      x.strokeStyle='rgba(52,211,153,.5)'; x.lineWidth=1.5; x.setLineDash([3,3]);
+      x.beginPath(); x.moveTo(px(bi),T); x.lineTo(px(bi),T+ph); x.stroke(); x.setLineDash([]);
+      x.fillStyle=CC[2]; x.font='600 10.5px JetBrains Mono,monospace'; x.textAlign='center';
+      x.fillText('silhouette สูงสุด',px(bi),T-9);
+      // แกน
+      x.fillStyle=DIM; x.font='10.5px JetBrains Mono,monospace';
+      res.forEach((o,i)=>{
+        x.textAlign='center'; x.fillStyle=(o.k===pick)?'#fff':DIM;
+        x.fillText('k='+o.k,px(i),h-14);
+      });
+      x.textAlign='left';  x.fillStyle=CC[0]; x.fillText('inertia (J)',L,T-9);
+      x.textAlign='right'; x.fillStyle=CC[2]; x.fillText('silhouette',L+pw,h-14);
+      drawPts();
+    }
+    function drawPts(){
+      const c=fit(cv2,260); if(!c) return; const {x,w,h}=c, pad=20;
+      const X=v=>pad+v*(w-2*pad), Y=v=>pad+v*(h-2*pad);
+      const o=res.find(r=>r.k===pick); if(!o) return;
+      grid(x,w,h,pad);
+      pts.forEach((p,i)=>dot(x,X(p.x),Y(p.y),4.5,CC[o.lab[i]%CC.length]));
+      o.cen.forEach((c2,i)=>{ dot(x,X(c2.x),Y(c2.y),7,CC[i%CC.length],'#fff'); });
+      x.fillStyle=MUT; x.font='11.5px Sarabun,sans-serif'; x.textAlign='left';
+      x.fillText(`k = ${pick} · silhouette = ${o.S.toFixed(3)} · inertia = ${o.J.toFixed(3)}`,pad+2,h-8);
+    }
+    document.querySelectorAll('[data-ek]').forEach(b=>on(b,'click',()=>{
+      pick=+b.dataset.ek;
+      document.querySelectorAll('[data-ek]').forEach(o=>o.classList.toggle('primary',o===b));
+      draw();
+    }));
+    on(document.getElementById('ebNew'),'click',build);
+    build(); on(window,'resize',draw);
+  })();
+
+  /* ---------- 4. dendrogram ---------- */
+  (function(){
+    const cv=document.getElementById('cvDend'); if(!cv) return;
+    const info=document.getElementById('dendInfo');
+    const NAMES='ABCDEFGH'.split('');
+    const P=[[.08,.30],[.14,.42],[.30,.22],[.36,.36],[.62,.70],[.70,.60],[.86,.78],[.92,.66]];
+    let link='single', cut=null, tree=null, drag=false;
+
+    const dist=(a,b)=>Math.hypot(P[a][0]-P[b][0],P[a][1]-P[b][1]);
+    function clusterDist(g1,g2){
+      const ds=[]; g1.forEach(a=>g2.forEach(b=>ds.push(dist(a,b))));
+      if(link==='single')   return Math.min(...ds);
+      if(link==='complete') return Math.max(...ds);
+      return ds.reduce((s,d)=>s+d,0)/ds.length;
+    }
+    function build(){
+      let cl=P.map((_,i)=>({members:[i], node:{leaf:i, h:0}}));
+      const merges=[];
+      while(cl.length>1){
+        let bi=0,bj=1,bd=1e9;
+        for(let i=0;i<cl.length;i++) for(let j=i+1;j<cl.length;j++){
+          const d=clusterDist(cl[i].members,cl[j].members); if(d<bd){bd=d;bi=i;bj=j;} }
+        const node={l:cl[bi].node, r:cl[bj].node, h:bd};
+        merges.push(bd);
+        const merged={members:cl[bi].members.concat(cl[bj].members), node};
+        cl=cl.filter((_,i)=>i!==bi&&i!==bj); cl.push(merged);
+      }
+      tree=cl[0].node;
+      const maxH=Math.max(...merges);
+      if(cut===null) cut=maxH*0.55;
+      cut=Math.min(cut,maxH*1.02);
+      return maxH;
+    }
+    function leavesOrder(n,out){ if(n.leaf!==undefined){out.push(n.leaf);return;} leavesOrder(n.l,out); leavesOrder(n.r,out); }
+    function countCut(n,c){ if(n.leaf!==undefined) return 1; if(n.h<=c) return 1; return countCut(n.l,c)+countCut(n.r,c); }
+
+    function draw(){
+      const maxH=build();
+      const c=fit(cv,330); if(!c) return; const {x,w,h}=c;
+      const L=34,R=18,T=22,B=40, pw=w-L-R, ph=h-T-B;
+      const order=[]; leavesOrder(tree,order);
+      const posOf={}; order.forEach((lf,i)=>posOf[lf]=L+(i+.5)*(pw/order.length));
+      const Y=hh=>T+ph-(hh/(maxH*1.08))*ph;
+      x.strokeStyle=GRID;
+      for(let i=0;i<=4;i++){ const gy=T+ph*i/4; x.beginPath(); x.moveTo(L,gy); x.lineTo(L+pw,gy); x.stroke();
+        x.fillStyle=DIM; x.font='9.5px JetBrains Mono,monospace'; x.textAlign='right';
+        x.fillText((maxH*1.08*(1-i/4)).toFixed(2),L-6,gy+3); }
+      const nClusters=countCut(tree,cut);
+      let ci=0; const colorOf={};
+      (function assign(n){
+        if(n.leaf!==undefined){ colorOf[n.leaf]=ci; return; }
+        if(n.h<=cut){ (function paint(m){ if(m.leaf!==undefined){colorOf[m.leaf]=ci;return;} paint(m.l); paint(m.r); })(n); ci++; return; }
+        assign(n.l); assign(n.r);
+      })(tree);
+      function drawNode(n){
+        if(n.leaf!==undefined) return {px:posOf[n.leaf], col:colorOf[n.leaf]};
+        const a=drawNode(n.l), b=drawNode(n.r);
+        const y=Y(n.h), same=a.col===b.col && n.h<=cut;
+        x.strokeStyle = same ? CC[a.col%CC.length] : 'rgba(148,163,214,.55)';
+        x.lineWidth=2;
+        x.beginPath(); x.moveTo(a.px,Y(n.l.h||0)); x.lineTo(a.px,y); x.lineTo(b.px,y); x.lineTo(b.px,Y(n.r.h||0)); x.stroke();
+        return {px:(a.px+b.px)/2, col:same?a.col:-1};
+      }
+      drawNode(tree);
+      order.forEach(lf=>{
+        dot(x,posOf[lf],T+ph,5,CC[colorOf[lf]%CC.length]);
+        x.fillStyle=MUT; x.font='600 11px Sarabun,sans-serif'; x.textAlign='center';
+        x.fillText(NAMES[lf],posOf[lf],T+ph+18);
+      });
+      x.strokeStyle='rgba(251,191,36,.9)'; x.lineWidth=1.8; x.setLineDash([6,4]);
+      x.beginPath(); x.moveTo(L,Y(cut)); x.lineTo(L+pw,Y(cut)); x.stroke(); x.setLineDash([]);
+      x.fillStyle='#fbbf24'; x.font='600 10.5px JetBrains Mono,monospace'; x.textAlign='left';
+      x.fillText('เส้นตัด (ลากได้)',L+4,Y(cut)-6);
+      if(info) info.innerHTML=`linkage <b>${link}</b> · ตัดที่ h = <b>${cut.toFixed(3)}</b> → ได้ <b style="color:#fbbf24">${nClusters} cluster</b>`;
+    }
+    function setCut(e){
+      const r=cv.getBoundingClientRect(), t=e.touches?e.touches[0]:e;
+      const T=22,B=40, ph=r.height-T-B, maxH=build();
+      const v=(1-Math.max(0,Math.min(1,(t.clientY-r.top-T)/ph)))*maxH*1.08;
+      cut=Math.max(0.001,v); draw(); e.preventDefault();
+    }
+    on(cv,'mousedown',e=>{drag=true;setCut(e);});
+    on(window,'mousemove',e=>{if(drag)setCut(e);});
+    on(window,'mouseup',()=>{drag=false;});
+    on(cv,'touchstart',e=>{drag=true;setCut(e);});
+    on(cv,'touchmove',e=>{if(drag)setCut(e);});
+    on(window,'touchend',()=>{drag=false;});
+    document.querySelectorAll('[data-lk]').forEach(b=>on(b,'click',()=>{
+      link=b.dataset.lk; cut=null;
+      document.querySelectorAll('[data-lk]').forEach(o=>o.classList.toggle('primary',o===b));
+      draw();
+    }));
+    draw(); on(window,'resize',draw);
+  })();
+
+  /* ---------- 5. DBSCAN vs K-means on two moons ---------- */
+  (function(){
+    const cv=document.getElementById('cvDb'); if(!cv) return;
+    const info=document.getElementById('dbInfo');
+    const epsEl=document.getElementById('dbEps'), minEl=document.getElementById('dbMin'),
+          modeEl=document.getElementById('dbMode');
+    let pts=[], mode='dbscan';
+
+    (function make(){
+      const r=mkRnd(20260824);
+      for(let i=0;i<70;i++){ const t=Math.PI*i/69;
+        pts.push({x:.30+.26*Math.cos(t)+gauss(r)*.030, y:.62-.26*Math.sin(t)+gauss(r)*.030}); }
+      for(let i=0;i<70;i++){ const t=Math.PI*i/69;
+        pts.push({x:.58+.26*Math.cos(t)+gauss(r)*.030, y:.40+.26*Math.sin(t)+gauss(r)*.030}); }
+    })();
+
+    function dbscan(eps,minPts){
+      const n=pts.length, lab=new Array(n).fill(-2), nb=[];   // -2 = ยังไม่ตรวจ, -1 = noise
+      for(let i=0;i<n;i++){ const a=[];
+        for(let j=0;j<n;j++) if(Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y)<=eps) a.push(j);
+        nb.push(a); }
+      const isCore=i=>nb[i].length>=minPts;
+      let cid=0;
+      for(let i=0;i<n;i++){
+        if(lab[i]!==-2||!isCore(i)) continue;
+        const q=[i]; lab[i]=cid;
+        while(q.length){ const u=q.pop();
+          nb[u].forEach(v=>{ if(lab[v]===-2||lab[v]===-1){ const wasNoise=lab[v]===-1; lab[v]=cid;
+            if(!wasNoise&&isCore(v)) q.push(v); } }); }
+        cid++;
+      }
+      for(let i=0;i<n;i++) if(lab[i]===-2) lab[i]=-1;
+      return {lab,cid,isCore,nb};
+    }
+    function kmeans2(){
+      let cen=[{x:.30,y:.42},{x:.62,y:.58}], lab=new Array(pts.length).fill(0);
+      for(let it=0;it<30;it++){
+        pts.forEach((p,i)=>{ lab[i]=Math.hypot(p.x-cen[0].x,p.y-cen[0].y)<=Math.hypot(p.x-cen[1].x,p.y-cen[1].y)?0:1; });
+        [0,1].forEach(j=>{ const g=pts.filter((_,i)=>lab[i]===j); if(!g.length)return;
+          cen[j]={x:g.reduce((s,p)=>s+p.x,0)/g.length, y:g.reduce((s,p)=>s+p.y,0)/g.length}; });
+      }
+      return {lab,cen};
+    }
+    function draw(){
+      const c=fit(cv,340); if(!c) return; const {x,w,h}=c, pad=22;
+      const X=v=>pad+v*(w-2*pad), Y=v=>pad+v*(h-2*pad), S=(w-2*pad);
+      grid(x,w,h,pad);
+      if(mode==='dbscan'){
+        const eps=(+epsEl.value)/100, minPts=+minEl.value;
+        const {lab,cid,isCore}=dbscan(eps,minPts);
+        pts.forEach((p,i)=>{ if(isCore(i)){ x.beginPath(); x.arc(X(p.x),Y(p.y),eps*S,0,Math.PI*2);
+          x.fillStyle=(CC[lab[i]%CC.length]||'#888')+'0d'; x.fill(); } });
+        let nNoise=0,nCore=0,nBorder=0;
+        pts.forEach((p,i)=>{
+          if(lab[i]===-1){ nNoise++; dot(x,X(p.x),Y(p.y),4,'#4a5670'); return; }
+          if(isCore(i)){ nCore++; dot(x,X(p.x),Y(p.y),5.5,CC[lab[i]%CC.length],'#ffffffcc'); }
+          else { nBorder++; dot(x,X(p.x),Y(p.y),4.2,CC[lab[i]%CC.length]+'99'); }
+        });
+        if(info) info.innerHTML=`eps=<b>${eps.toFixed(2)}</b> minPts=<b>${minPts}</b> → <b style="color:#34d399">${cid} cluster</b> · core <b>${nCore}</b> · border <b>${nBorder}</b> · noise <b style="color:#93a1bd">${nNoise}</b>`;
+      }else{
+        const {lab,cen}=kmeans2();
+        pts.forEach((p,i)=>dot(x,X(p.x),Y(p.y),5,CC[lab[i]]));
+        cen.forEach((c2,i)=>{ x.save(); x.translate(X(c2.x),Y(c2.y));
+          x.strokeStyle='#fff'; x.lineWidth=2.5;
+          x.beginPath(); x.moveTo(-8,0); x.lineTo(8,0); x.moveTo(0,-8); x.lineTo(0,8); x.stroke();
+          dot(x,0,0,7,CC[i],'#fff'); x.restore(); });
+        if(info) info.innerHTML=`<b style="color:#f87171">K-means (k=2)</b> — ตัดข้ามช่องว่างของเสี้ยว จับรูปโค้งไม่ได้`;
+      }
+      x.fillStyle=MUT; x.font='11.5px Sarabun,sans-serif'; x.textAlign='left';
+      x.fillText(mode==='dbscan'?'วงใหญ่ = core · จาง = border · เทา = noise':'สองสี = สองกลุ่มที่ K-means แบ่ง',pad+2,h-9);
+    }
+    on(epsEl,'input',draw); on(minEl,'input',draw);
+    on(modeEl,'click',()=>{
+      mode = mode==='dbscan'?'kmeans':'dbscan';
+      modeEl.textContent = mode==='dbscan' ? '🔄 สลับไป K-means' : '🔄 สลับกลับ DBSCAN';
+      draw();
+    });
+    draw(); on(window,'resize',draw);
+  })();
+})();
+
+/* ================================================================
+   WEEK 8 · DIMENSIONALITY REDUCTION DEMOS
+================================================================ */
+(function W8(){
+  const CC=['#4f8cff','#f472b6','#34d399','#fbbf24','#a78bfa','#22d3ee'];
+  const GRID='rgba(148,163,214,.10)', DIM='#5c6a8a', MUT='#93a1bd';
+  function fit(cv,h){
+    if(!cv) return null;
+    const dpr=window.devicePixelRatio||1;
+    const w=cv.clientWidth||(cv.parentElement&&cv.parentElement.clientWidth)||620;
+    cv.width=Math.round(w*dpr); cv.height=Math.round(h*dpr);
+    const x=cv.getContext('2d'); if(!x) return null;
+    x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,w,h);
+    return {x,w,h};
+  }
+  const mkRnd=s=>()=>{ s=(s*1103515245+12345)&0x7fffffff; return s/0x7fffffff; };
+  const gauss=r=>(r()+r()+r()+r()+r()+r()-3)/1.2;
+  function dot(x,px,py,r,fill,stroke){
+    x.beginPath(); x.arc(px,py,r,0,Math.PI*2); x.fillStyle=fill; x.fill();
+    if(stroke){ x.strokeStyle=stroke; x.lineWidth=1.5; x.stroke(); }
+  }
+  function grid(x,w,h,pad){
+    x.strokeStyle=GRID; x.lineWidth=1;
+    for(let i=0;i<=4;i++){ const gy=pad+(h-2*pad)*i/4, gx=pad+(w-2*pad)*i/4;
+      x.beginPath(); x.moveTo(pad,gy); x.lineTo(w-pad,gy); x.stroke();
+      x.beginPath(); x.moveTo(gx,pad); x.lineTo(gx,h-pad); x.stroke(); }
+  }
+  const on=(el,ev,fn)=>{ if(el) el.addEventListener(ev,fn); };
+  /* eigen ของ 2x2 สมมาตร [[a,b],[b,d]] — สูตรปิด */
+  function eig2(a,b,d){
+    const tr=a+d, det=a*d-b*b, s=Math.sqrt(Math.max(0,tr*tr-4*det));
+    const l1=(tr+s)/2, l2=(tr-s)/2;
+    let v1;
+    if(Math.abs(b)>1e-12) v1=[b, l1-a];
+    else v1 = a>=d ? [1,0] : [0,1];
+    const n=Math.hypot(v1[0],v1[1])||1; v1=[v1[0]/n, v1[1]/n];
+    return {l1,l2,v1,v2:[-v1[1],v1[0]]};
+  }
+
+  /* ---------- 1. curse of dimensionality ---------- */
+  (function(){
+    const cv=document.getElementById('cvCurse'); if(!cv) return;
+    const info=document.getElementById('curseInfo'), nEl=document.getElementById('curseN');
+    const DS=[1,2,3,5,10,20,50,100,200,500];
+    let res=[];
+    function build(){
+      const N=+(nEl?nEl.value:120), r=mkRnd(Date.now()&0xffff);
+      res=DS.map(d=>{
+        let acc=0;
+        for(let t=0;t<5;t++){                      // เฉลี่ย 5 ครั้งกันฟลุก
+          const q=[]; for(let k=0;k<d;k++) q.push(r());
+          let mn=1e9,mx=0;
+          for(let i=0;i<N;i++){
+            let s=0; for(let k=0;k<d;k++){ const v=r()-q[k]; s+=v*v; }
+            const dd=Math.sqrt(s); if(dd<mn)mn=dd; if(dd>mx)mx=dd;
+          }
+          acc += mn>1e-9 ? (mx-mn)/mn : 0;
+        }
+        return {d, ratio:acc/5};
+      });
+      draw();
+    }
+    function draw(){
+      const c=fit(cv,300); if(!c) return; const {x,w,h}=c;
+      const L=52,R=20,T=24,B=38, pw=w-L-R, ph=h-T-B;
+      const mx=Math.max(...res.map(o=>o.ratio),1);
+      const px=i=>L+i*(pw/(DS.length-1)), py=v=>T+ph-(v/mx)*ph;
+      x.strokeStyle=GRID;
+      for(let i=0;i<=4;i++){ const gy=T+ph*i/4;
+        x.beginPath(); x.moveTo(L,gy); x.lineTo(L+pw,gy); x.stroke();
+        x.fillStyle=DIM; x.font='10px JetBrains Mono,monospace'; x.textAlign='right';
+        x.fillText((mx*(1-i/4)).toFixed(1),L-7,gy+3.5); }
+      const g=x.createLinearGradient(0,T,0,T+ph);
+      g.addColorStop(0,'rgba(248,113,113,.22)'); g.addColorStop(1,'rgba(248,113,113,0)');
+      x.beginPath(); res.forEach((o,i)=>{ i?x.lineTo(px(i),py(o.ratio)):x.moveTo(px(i),py(o.ratio)); });
+      x.lineTo(px(res.length-1),T+ph); x.lineTo(px(0),T+ph); x.closePath(); x.fillStyle=g; x.fill();
+      x.strokeStyle='#f87171'; x.lineWidth=2.4; x.beginPath();
+      res.forEach((o,i)=>{ i?x.lineTo(px(i),py(o.ratio)):x.moveTo(px(i),py(o.ratio)); }); x.stroke();
+      res.forEach((o,i)=>{
+        dot(x,px(i),py(o.ratio),4,'#f87171');
+        x.fillStyle=DIM; x.font='10px JetBrains Mono,monospace'; x.textAlign='center';
+        x.fillText('d='+o.d,px(i),h-14);
+      });
+      x.fillStyle=MUT; x.font='11px Sarabun,sans-serif'; x.textAlign='left';
+      x.fillText('(d_max − d_min) / d_min  ← ยิ่งต่ำ ยิ่งแยกใกล้-ไกลไม่ออก',L,T-9);
+      const a=res[1], z=res[res.length-1];
+      if(info) info.innerHTML=`d=${a.d} → <b>${a.ratio.toFixed(2)}</b> · d=${z.d} → <b style="color:#f87171">${z.ratio.toFixed(3)}</b> · ลดลง <b>${(a.ratio/Math.max(z.ratio,1e-6)).toFixed(0)}×</b>`;
+    }
+    on(nEl,'input',build); on(document.getElementById('curseNew'),'click',build);
+    build(); on(window,'resize',draw);
+  })();
+
+  /* ---------- 2. interactive PCA ---------- */
+  (function(){
+    const cv=document.getElementById('cvPca'); if(!cv) return;
+    const info=document.getElementById('pcaInfo'), rEl=document.getElementById('pcaR');
+    const projBtn=document.getElementById('pcaProj'), scBtn=document.getElementById('pcaScale');
+    let base=[], proj=false, scaled=true;
+    (function(){ const r=mkRnd(20260828);
+      for(let i=0;i<160;i++) base.push([gauss(r),gauss(r)]); })();
+
+    function data(){
+      const rho=(+rEl.value)/100;
+      const out=base.map(([u,v])=>{
+        let X=u, Y=rho*u+Math.sqrt(Math.max(0,1-rho*rho))*v;
+        if(!scaled) Y*=4.2;                    // จำลอง feature คนละหน่วย
+        return [X,Y];
+      });
+      return out;
+    }
+    function draw(){
+      const c=fit(cv,360); if(!c) return; const {x,w,h}=c, pad=30;
+      const P=data();
+      const mx=P.reduce((s,p)=>s+p[0],0)/P.length, my=P.reduce((s,p)=>s+p[1],0)/P.length;
+      let a=0,b=0,d=0; P.forEach(p=>{const u=p[0]-mx,v=p[1]-my; a+=u*u; b+=u*v; d+=v*v;});
+      a/=P.length-1; b/=P.length-1; d/=P.length-1;
+      const E=eig2(a,b,d), tot=E.l1+E.l2;
+      const span=Math.max(...P.map(p=>Math.max(Math.abs(p[0]-mx),Math.abs(p[1]-my))))*1.15||1;
+      const S=(Math.min(w,h)-2*pad)/(2*span);
+      const cx=w/2, cy=h/2;
+      const X=u=>cx+(u-mx)*S, Y=v=>cy-(v-my)*S;
+      grid(x,w,h,pad);
+      // แกน PC
+      [[E.v1,E.l1,CC[0],'PC1'],[E.v2,E.l2,CC[1],'PC2']].forEach(([v,l,col,nm])=>{
+        const len=Math.sqrt(Math.max(l,1e-9))*2.2*S;
+        x.strokeStyle=col; x.lineWidth=2.6;
+        x.beginPath(); x.moveTo(cx-v[0]*len,cy+v[1]*len); x.lineTo(cx+v[0]*len,cy-v[1]*len); x.stroke();
+        x.fillStyle=col; x.font='600 12px JetBrains Mono,monospace'; x.textAlign='center';
+        x.fillText(nm,cx+v[0]*(len+16),cy-v[1]*(len+16)+4);
+      });
+      if(proj){
+        P.forEach(p=>{
+          const u=p[0]-mx, v=p[1]-my, t=u*E.v1[0]+v*E.v1[1];
+          const qx=cx+E.v1[0]*t*S, qy=cy-E.v1[1]*t*S;
+          x.strokeStyle='rgba(148,163,214,.28)'; x.lineWidth=1;
+          x.beginPath(); x.moveTo(X(p[0]),Y(p[1])); x.lineTo(qx,qy); x.stroke();
+          dot(x,X(p[0]),Y(p[1]),2.6,'rgba(148,163,214,.45)');
+          dot(x,qx,qy,4,CC[0]);
+        });
+      } else {
+        P.forEach(p=>dot(x,X(p[0]),Y(p[1]),4,'rgba(79,140,255,.75)'));
+      }
+      dot(x,cx,cy,5,'#fff');
+      const e1=E.l1/tot;
+      if(info) info.innerHTML=`λ₁=<b>${E.l1.toFixed(2)}</b> λ₂=<b>${E.l2.toFixed(2)}</b> → PC1 อธิบาย <b style="color:${CC[0]}">${(e1*100).toFixed(1)}%</b>` +
+        (scaled?'':' · <b style="color:#f87171">ไม่ scale</b>');
+    }
+    on(rEl,'input',draw);
+    on(projBtn,'click',()=>{ proj=!proj; projBtn.textContent=proj?'↩ กลับเป็น 2 มิติ':'📉 ฉายลง PC1';
+      projBtn.classList.toggle('primary',proj); draw(); });
+    on(scBtn,'click',()=>{ scaled=!scaled; scBtn.textContent=scaled?'⚖️ ไม่ scale':'⚖️ scale แล้ว';
+      scBtn.classList.toggle('primary',!scaled); draw(); });
+    draw(); on(window,'resize',draw);
+  })();
+
+  /* ---------- 3. scree + cumulative ---------- */
+  (function(){
+    const cv=document.getElementById('cvScree'); if(!cv) return;
+    const info=document.getElementById('screeInfo');
+    const D=8; let ev=[], pick=2;
+
+    function jacobi(M,n){                       // eigenvalue ของ matrix สมมาตร
+      const A=M.map(r=>r.slice());
+      for(let sw=0;sw<80;sw++){
+        let off=0;
+        for(let i=0;i<n;i++) for(let j=i+1;j<n;j++) off+=A[i][j]*A[i][j];
+        if(off<1e-14) break;
+        for(let p=0;p<n;p++) for(let q=p+1;q<n;q++){
+          if(Math.abs(A[p][q])<1e-15) continue;
+          const th=(A[q][q]-A[p][p])/(2*A[p][q]);
+          const t=(th>=0?1:-1)/(Math.abs(th)+Math.sqrt(th*th+1));
+          const cs=1/Math.sqrt(t*t+1), sn=t*cs;
+          for(let k=0;k<n;k++){ const kp=A[k][p], kq=A[k][q];
+            A[k][p]=cs*kp-sn*kq; A[k][q]=sn*kp+cs*kq; }
+          for(let k=0;k<n;k++){ const pk=A[p][k], qk=A[q][k];
+            A[p][k]=cs*pk-sn*qk; A[q][k]=sn*pk+cs*qk; }
+        }
+      }
+      return A.map((r,i)=>r[i]).sort((x,y)=>y-x);
+    }
+    function build(){
+      const r=mkRnd(Date.now()&0xffff), N=220, K=3;
+      const wts=[]; for(let k=0;k<K;k++){ const row=[];
+        for(let j=0;j<D;j++) row.push(gauss(r)); wts.push(row); }
+      const X=[];
+      for(let i=0;i<N;i++){
+        const f=[]; for(let k=0;k<K;k++) f.push(gauss(r)*(1.8-k*0.45));  // latent variance ลดหลั่น
+        const row=[];
+        for(let j=0;j<D;j++){ let s=0; for(let k=0;k<K;k++) s+=f[k]*wts[k][j];
+          row.push(s+gauss(r)*0.35); }
+        X.push(row);
+      }
+      const mean=[]; for(let j=0;j<D;j++) mean.push(X.reduce((s,x)=>s+x[j],0)/N);
+      const sd=[]; for(let j=0;j<D;j++) sd.push(Math.sqrt(X.reduce((s,x)=>s+(x[j]-mean[j])**2,0)/(N-1))||1);
+      const C=[]; for(let i=0;i<D;i++){ const row=[];
+        for(let j=0;j<D;j++){ let s=0;
+          for(let n=0;n<N;n++) s+=((X[n][i]-mean[i])/sd[i])*((X[n][j]-mean[j])/sd[j]);
+          row.push(s/(N-1)); } C.push(row); }
+      const e=jacobi(C,D).map(v=>Math.max(v,0));
+      const tot=e.reduce((s,v)=>s+v,0)||1;
+      ev=e.map(v=>v/tot);
+      draw();
+    }
+    function draw(){
+      const c=fit(cv,320); if(!c) return; const {x,w,h}=c;
+      const L=48,R=48,T=26,B=36, pw=w-L-R, ph=h-T-B;
+      const bw=pw/D*0.56;
+      const cum=[]; ev.reduce((s,v,i)=>{ cum[i]=s+v; return cum[i]; },0);
+      const bx=i=>L+(i+.5)*(pw/D);
+      x.strokeStyle=GRID;
+      for(let i=0;i<=4;i++){ const gy=T+ph*i/4;
+        x.beginPath(); x.moveTo(L,gy); x.lineTo(L+pw,gy); x.stroke();
+        x.fillStyle=DIM; x.font='10px JetBrains Mono,monospace';
+        x.textAlign='right'; x.fillText((100-i*25)+'%',L-7,gy+3.5);
+        x.textAlign='left';  x.fillText(((100-i*25)/100*Math.max(...ev)*100).toFixed(0)+'%',L+pw+7,gy+3.5); }
+      // แท่ง = variance ต่อ component (สเกลของตัวเอง)
+      const mxe=Math.max(...ev)||1;
+      ev.forEach((v,i)=>{
+        const bh=v/mxe*ph, yy=T+ph-bh;
+        x.fillStyle = i<pick ? CC[0] : 'rgba(79,140,255,.25)';
+        x.fillRect(bx(i)-bw/2,yy,bw,bh);
+      });
+      // เส้นสะสม (สเกล 0–100%)
+      x.strokeStyle=CC[2]; x.lineWidth=2.4; x.beginPath();
+      cum.forEach((v,i)=>{ const yy=T+ph-v*ph; i?x.lineTo(bx(i),yy):x.moveTo(bx(i),yy); }); x.stroke();
+      cum.forEach((v,i)=>dot(x,bx(i),T+ph-v*ph,4,CC[2]));
+      // เส้น 95%
+      const y95=T+ph-0.95*ph;
+      x.strokeStyle='rgba(248,113,113,.7)'; x.lineWidth=1.5; x.setLineDash([5,4]);
+      x.beginPath(); x.moveTo(L,y95); x.lineTo(L+pw,y95); x.stroke(); x.setLineDash([]);
+      x.fillStyle='#f87171'; x.font='10px JetBrains Mono,monospace'; x.textAlign='left';
+      x.fillText('95%',L+2,y95-5);
+      ev.forEach((v,i)=>{ x.fillStyle=i<pick?'#fff':DIM; x.font='10px JetBrains Mono,monospace';
+        x.textAlign='center'; x.fillText('PC'+(i+1),bx(i),h-14); });
+      x.fillStyle=CC[2]; x.font='10.5px JetBrains Mono,monospace'; x.textAlign='left';
+      x.fillText('cumulative',L,T-9);
+      x.fillStyle=CC[0]; x.textAlign='right'; x.fillText('variance ต่อ PC',L+pw,T-9);
+      const k95=cum.findIndex(v=>v>=0.95)+1;
+      if(info) info.innerHTML=`k=<b>${pick}</b> เก็บได้ <b style="color:${CC[2]}">${(cum[pick-1]*100).toFixed(1)}%</b> · ถึง 95% ต้องใช้ <b>k=${k95}</b> จาก ${D} มิติ`;
+    }
+    document.querySelectorAll('[data-sk]').forEach(b=>on(b,'click',()=>{
+      pick=+b.dataset.sk;
+      document.querySelectorAll('[data-sk]').forEach(o=>o.classList.toggle('primary',o===b));
+      draw();
+    }));
+    on(document.getElementById('screeNew'),'click',build);
+    build(); on(window,'resize',draw);
+  })();
+
+  /* ---------- 4. PCA คลี่ manifold ไม่ได้ ---------- */
+  (function(){
+    const cv=document.getElementById('cvManifold'); if(!cv) return;
+    const info=document.getElementById('mfInfo'), btn=document.getElementById('mfMode');
+    let pts=[], mode=0;   // 0 = 2D จริง, 1 = ฉายลง PC1
+    (function(){ const r=mkRnd(880123);
+      for(let i=0;i<95;i++){ const t=Math.PI*1.15*i/94;
+        pts.push({x:0.5+0.34*Math.cos(t)+gauss(r)*.018, y:0.56-0.34*Math.sin(t)+gauss(r)*.018, c:0}); }
+      for(let i=0;i<95;i++){ const t=Math.PI*1.15*i/94;
+        pts.push({x:0.5+0.19*Math.cos(t)+gauss(r)*.018, y:0.56-0.19*Math.sin(t)+gauss(r)*.018, c:1}); }
+    })();
+    function draw(){
+      const c=fit(cv,340); if(!c) return; const {x,w,h}=c, pad=26;
+      const X=v=>pad+v*(w-2*pad), Y=v=>pad+v*(h-2*pad);
+      grid(x,w,h,pad);
+      const mx=pts.reduce((s,p)=>s+p.x,0)/pts.length, my=pts.reduce((s,p)=>s+p.y,0)/pts.length;
+      let a=0,b=0,d=0; pts.forEach(p=>{const u=p.x-mx,v=p.y-my; a+=u*u; b+=u*v; d+=v*v;});
+      const n=pts.length-1; a/=n; b/=n; d/=n;
+      const E=eig2(a,b,d);
+      if(mode===0){
+        pts.forEach(p=>dot(x,X(p.x),Y(p.y),4.2,CC[p.c===0?0:1]));
+        const len=Math.sqrt(E.l1)*2.4;
+        x.strokeStyle='rgba(148,163,214,.55)'; x.lineWidth=2; x.setLineDash([6,4]);
+        x.beginPath(); x.moveTo(X(mx-E.v1[0]*len),Y(my-E.v1[1]*len));
+        x.lineTo(X(mx+E.v1[0]*len),Y(my+E.v1[1]*len)); x.stroke(); x.setLineDash([]);
+        x.fillStyle=MUT; x.font='11px Sarabun,sans-serif'; x.textAlign='left';
+        x.fillText('สองกลุ่มแยกกันชัดใน 2 มิติ · เส้นประ = แกน PC1',pad+2,h-10);
+        if(info) info.innerHTML='ข้อมูลจริง 2 มิติ — <b style="color:#34d399">สองกลุ่มแยกกันได้</b>';
+      }else{
+        const yy=Y(0.62);
+        x.strokeStyle='rgba(148,163,214,.35)'; x.lineWidth=1.5;
+        x.beginPath(); x.moveTo(pad,yy); x.lineTo(w-pad,yy); x.stroke();
+        let ov=0;
+        const t1=[],t2=[];
+        pts.forEach(p=>{
+          const t=(p.x-mx)*E.v1[0]+(p.y-my)*E.v1[1];
+          (p.c===0?t1:t2).push(t);
+          const px=X(0.5+t*1.35);
+          x.strokeStyle='rgba(148,163,214,.13)'; x.lineWidth=1;
+          x.beginPath(); x.moveTo(X(p.x),Y(p.y)); x.lineTo(px,yy); x.stroke();
+          dot(x,X(p.x),Y(p.y),2.4,'rgba(148,163,214,.30)');
+          dot(x,px,yy+(p.c===0?-7:7),4,CC[p.c===0?0:1]);
+        });
+        const lo1=Math.min(...t1),hi1=Math.max(...t1),lo2=Math.min(...t2),hi2=Math.max(...t2);
+        const inter=Math.max(0,Math.min(hi1,hi2)-Math.max(lo1,lo2));
+        const uni=Math.max(hi1,hi2)-Math.min(lo1,lo2);
+        ov=uni>0?inter/uni*100:0;
+        x.fillStyle=MUT; x.font='11px Sarabun,sans-serif'; x.textAlign='left';
+        x.fillText('ฉายลง PC1 แล้ว — สองกลุ่มทับกันบนเส้นเดียว',pad+2,h-10);
+        if(info) info.innerHTML=`ฉายลง PC1 (1 มิติ) → ช่วงของสองกลุ่ม<b style="color:#f87171">ทับกัน ${ov.toFixed(0)}%</b> — แยกไม่ออกแล้ว`;
+      }
+    }
+    on(btn,'click',()=>{ mode=1-mode;
+      btn.textContent = mode? '↩ กลับไปดู 2 มิติ' : '🔄 ดูผล PCA (ฉายลง PC1)';
+      btn.classList.toggle('primary',mode===0); draw(); });
+    draw(); on(window,'resize',draw);
+  })();
+})();
+
+/* ================================================================
    QUIZ ENGINE + DATA
    เพิ่ม quiz week ใหม่: เพิ่ม key ใน QUIZ_DATA แล้ววาง
    <div class="quiz" data-quiz="w3"></div> ใน section ของ week นั้น
@@ -5694,6 +7769,97 @@ w456:{title:'Quiz Week 4–6 · Regression, Classification & Bayesian Networks',
  {q:'ข้อใดคือความต่างระหว่าง Variable Elimination กับ Enumeration?',
   o:['VE ให้คำตอบโดยประมาณ ส่วน enumeration ให้คำตอบ exact','ทั้งคู่ exact แต่ VE คูณเฉพาะ factor ที่เกี่ยวข้องและ reuse ผลลัพธ์กลาง จึงเร็วกว่า','VE ใช้ได้กับ tree เท่านั้น','ไม่ต่างกันเลย'],a:1,
   x:'ทั้งสองเป็น exact inference · enumeration คำนวณซ้ำเยอะจนโต exponential ส่วน VE คูณเฉพาะ factor ที่เกี่ยว แล้ว sum out ทีละตัว + reuse intermediate factors (elimination order มีผลต่อ runtime มาก)'},
+]},
+w7:{title:'Quiz Week 7 · Unsupervised Learning & Clustering', qs:[
+ {q:'ข้อใดคือความต่างหลักระหว่าง Supervised กับ Unsupervised Learning?',
+  o:['Unsupervised ใช้ข้อมูลน้อยกว่า','Unsupervised มีแค่ X ไม่มี label y จึงต้องหาโครงสร้างเอง','Unsupervised ต้องใช้ GPU','Unsupervised แม่นยำกว่าเสมอ'],a:1,
+  x:'Supervised มี (X, y) → ทำนาย y · Unsupervised มีแค่ X → หา hidden structure และเพราะไม่มีเฉลย วิธีวัดผลจึงต่างกันด้วย'},
+ {q:'K-means ทำ 4 ขั้นตอนวนซ้ำ ข้อใดเรียงถูกต้อง?',
+  o:['วาง centroid → Update → Assign → วนซ้ำ','Assign → วาง centroid → Update → วนซ้ำ','วาง centroid → Assign → Update → วนซ้ำจน centroid นิ่ง','Update → Assign → วาง centroid → วนซ้ำ'],a:2,
+  x:'วาง centroid k ตัว → จับทุกจุดเข้า centroid ที่ใกล้สุด (Assign) → ย้าย centroid ไปค่าเฉลี่ยของกลุ่ม (Update) → วนซ้ำจนหยุดขยับ'},
+ {q:'ทำไมจึงใช้ค่า inertia (WCSS) เลือก k ตรง ๆ ไม่ได้?',
+  o:['เพราะ inertia คำนวณช้า','เพราะ inertia ลดลงเสมอเมื่อ k เพิ่ม — ถ้า k = n จะได้ 0','เพราะ inertia ใช้ได้กับ DBSCAN เท่านั้น','เพราะ inertia ติดลบได้'],a:1,
+  x:'เพิ่ม k เท่าไหร่ J ก็ลดเสมอ สุดโต่งคือ k=n ทุกจุดเป็น centroid ของตัวเอง J=0 จึงต้องใช้ elbow (หาจุดหักเห) หรือ silhouette มาช่วย'},
+ {q:'จุด i มีค่า silhouette s(i) ≈ 0 แปลว่าอะไร?',
+  o:['อยู่ลึกในกลุ่มที่ถูกต้อง','อยู่บนเส้นแบ่งระหว่างสองกลุ่ม จะจัดเข้ากลุ่มไหนก็ได้','ถูกจัดผิดกลุ่มแน่นอน','เป็นจุด noise'],a:1,
+  x:'s ≈ +1 อยู่ในกลุ่มถูกต้อง · s ≈ 0 อยู่ก้ำกึ่งบนขอบ · s ≈ −1 อยู่ผิดกลุ่ม (ใกล้กลุ่มอื่นมากกว่ากลุ่มตัวเอง)'},
+ {q:'สูตร s(i) = (b − a) / ??? — ตัวส่วนคืออะไร?',
+  o:['b(i)','a(i)','max(a, b)','a + b'],a:2,
+  x:'ตัวส่วนคือ max(a, b) ไม่ใช่ b — เป็นจุดที่คนพลาดบ่อยที่สุด การหารด้วยค่ามากสุดทำให้ s ถูกบีบอยู่ในช่วง [−1, +1] เสมอ'},
+ {q:'Hierarchical clustering แบบ single linkage วัดระยะระหว่างสอง cluster อย่างไร?',
+  o:['ระยะมากที่สุดระหว่างสมาชิก','ระยะน้อยที่สุดระหว่างสมาชิก','เฉลี่ยระยะทุกคู่','ระยะระหว่าง centroid'],a:1,
+  x:'Single = min (น้อยสุด) · Complete = max (มากสุด) · Average = เฉลี่ยทุกคู่ · Centroid = ระยะ centroid · Ward = ความแปรปรวนที่เพิ่มน้อยสุด'},
+ {q:'ใน dendrogram ความสูงของแท่งแนวตั้งหมายถึงอะไร?',
+  o:['จำนวนจุดใน cluster','ระยะตอนที่สอง cluster นั้นรวมกัน','ค่า silhouette','ลำดับที่รวม'],a:1,
+  x:'ความสูง = merge distance · แท่งสูงแปลว่าสองกลุ่มนั้นห่างกันมาก จึงเป็นจุดที่เหมาะจะตัด · จำนวนเส้นที่เส้นตัดพาดผ่าน = จำนวน cluster'},
+ {q:'DBSCAN: eps=1, min_samples=3 · จุด P มีเพื่อนบ้านในรัศมี eps รวมตัวเอง 2 จุด แต่อยู่ในรัศมีของจุด core ตัวหนึ่ง P คือ?',
+  o:['Core point','Border point','Noise point','Centroid'],a:1,
+  x:'ไม่ถึงเกณฑ์ core (2 &lt; 3) แต่อยู่ในรัศมีของ core → เป็น border point และถูกดูดเข้า cluster ของ core ตัวนั้น · ถ้าไม่ติด core เลยถึงจะเป็น noise'},
+ {q:'ข้อใดคือจุดขายที่ทำให้ DBSCAN ต่างจาก K-means และ Hierarchical?',
+  o:['เร็วที่สุด','ระบุ noise ได้ + จับรูปทรงอิสระ + ไม่ต้องบอก k','ให้ผลเป็นความน่าจะเป็น','ใช้ได้กับข้อมูลมิติสูงดีที่สุด'],a:1,
+  x:'DBSCAN (และ OPTICS) เป็นสองตัวเดียวในตารางที่ label noise ได้ · แถมไม่ต้องบอก k และจับรูปทรงอะไรก็ได้ เช่น two moons ที่ K-means ทำพัง'},
+ {q:'อัลกอริทึมใดให้ soft assignment คือบอกเป็นความน่าจะเป็นว่าจุดอยู่กลุ่มไหนเท่าไหร่?',
+  o:['K-means','DBSCAN','GMM (Gaussian Mixture Model)','Spectral Clustering'],a:2,
+  x:'GMM สมมติแต่ละ cluster เป็น Gaussian แล้วให้ความน่าจะเป็นของการเป็นสมาชิก ตัวอื่นให้คำตอบตายตัว (hard assignment) · GMM ยังได้กลุ่มทรงวงรี ไม่ใช่แค่วงกลม'},
+ {q:'ข้อมูล two moons (พระจันทร์เสี้ยวสองอันประกบกัน) K-means จะทำงานผิดพลาดเพราะอะไร?',
+  o:['ข้อมูลมีมิติสูงเกินไป','K-means สมมติว่ากลุ่มเป็นทรงกลม จึงตัดข้ามช่องว่างของเสี้ยว','ไม่ได้ scale ข้อมูล','k น้อยเกินไป'],a:1,
+  x:'K-means แบ่งด้วยเส้นตรง (Voronoi) เพราะสมมติกลุ่มทรงกลมขนาดใกล้เคียงกัน เจอรูปโค้งจึง label ข้ามช่องว่าง — เป็นเหตุผลที่ต้องมี density-based อย่าง DBSCAN'},
+ {q:'Golden rule ข้อแรกของ clustering คืออะไร?',
+  o:['เลือก k ให้มากที่สุดเท่าที่ทำได้','Scale feature ก่อนทำ clustering ที่ใช้ระยะทาง','ใช้ DBSCAN เสมอ','รันครั้งเดียวพอ'],a:1,
+  x:'ถ้าไม่ scale feature ที่หน่วยใหญ่ (เช่น รายได้หลักหมื่น) จะกลบ feature หน่วยเล็ก (เช่น อายุ) จนระยะทางแทบขึ้นกับ feature เดียว กลุ่มที่ได้ก็ไม่มีความหมาย'},
+ {q:'ตอนคำนวณ silhouette ให้ผล DBSCAN ต้องระวังอะไรเป็นพิเศษ?',
+  o:['ต้องแปลงเป็น K-means ก่อน','ต้องตัดจุด noise (label = −1) และ cluster ที่มีจุดเดียวออกก่อน','silhouette ใช้กับ DBSCAN ไม่ได้เลย','ต้องใช้ Manhattan distance เท่านั้น'],a:1,
+  x:'จุด noise ไม่ได้อยู่ cluster ไหนจึงคำนวณ a(i) ไม่ได้ · cluster ที่มีจุดเดียวก็เช่นกัน (ไม่มีจุดอื่นให้วัด) ต้องตัดออกไม่งั้นคะแนนเพี้ยน'},
+ {q:'ต้องการจัดกลุ่มพิกัด GPS ของเหตุการณ์ในเมือง คาดว่ามีจุดกระจัดกระจายที่ไม่ควรนับเข้ากลุ่มใด และไม่รู้ว่ามีกี่กลุ่ม ควรใช้?',
+  o:['K-means','DBSCAN','GMM','Spectral Clustering'],a:1,
+  x:'เงื่อนไขตรงกับจุดขายของ DBSCAN ทั้งสามข้อ: ไม่รู้ k · ต้องการ label noise · ข้อมูลพิกัดมักมีรูปทรงตามถนน/แม่น้ำที่ไม่กลม'},
+]},
+w8:{title:'Quiz Week 8 · Dimensionality Reduction', qs:[
+ {q:'Curse of Dimensionality ทำให้เกิดปัญหาอะไรกับ KNN และ clustering มากที่สุด?',
+  o:['คำนวณช้าอย่างเดียว','ระยะทางระหว่างจุดเริ่มแยกใกล้-ไกลไม่ออก ทุกจุดดูห่างเท่ากันหมด','ข้อมูลหายไป','ต้องใช้ GPU'],a:1,
+  x:'ทั้ง KNN และ clustering ยืนอยู่บนระยะทาง เมื่อมิติสูงระยะทางกระจุกตัว (distance concentration) จนความใกล้ไกลไม่มีความหมาย — ดูได้จาก demo ที่อัตราส่วน (d_max−d_min)/d_min เข้าใกล้ 0'},
+ {q:'PCA จัดอยู่ในกลุ่มไหน และต่างจาก Feature Selection อย่างไร?',
+  o:['Feature Selection — เลือก feature เดิมบางตัว','Feature Extraction — สร้าง feature ใหม่จากการผสม feature เดิม','เป็นทั้งสองอย่างพร้อมกัน','ไม่ใช่ทั้งสองอย่าง'],a:1,
+  x:'PCA สร้าง principal component ซึ่งเป็นผลรวมถ่วงน้ำหนักของทุก feature เดิม จึงบีบข้อมูลได้ดีกว่า แต่เสียความสามารถในการตีความ · Feature Selection เลือก subset ของ feature เดิมจึงยังบอกชื่อ feature ได้'},
+ {q:'ในทางคณิตศาสตร์ ทิศทางหลัก (principal directions) ของ PCA คืออะไร?',
+  o:['ค่าเฉลี่ยของแต่ละ feature','eigenvector ของ covariance matrix','ค่าที่ได้จาก gradient descent','แถวแรกของ matrix X'],a:1,
+  x:'PCA = หา eigenvector ของ covariance matrix · eigenvalue ที่คู่กันคือ variance ตามทิศทางนั้น · ในทางปฏิบัติคำนวณด้วย SVD เพราะเสถียรและเร็วกว่า'},
+ {q:'covariance matrix C = [[5/3, 4/3],[4/3, 5/3]] มี eigenvalue เท่าไหร่ และ PC1 อธิบาย variance กี่ %?',
+  o:['λ = 3 และ 1/3 → PC1 = 90%','λ = 5/3 และ 4/3 → PC1 = 55%','λ = 2 และ 1 → PC1 = 67%','λ = 1 และ 1 → PC1 = 50%'],a:0,
+  x:'matrix รูป [[a,b],[b,a]] มี λ = a±b เสมอ → 5/3+4/3 = 3 และ 5/3−4/3 = 1/3 · PC1 = 3/(3+1/3) = 3/(10/3) = 0.90 → 90%'},
+ {q:'ทำไมจึงต้อง scale ข้อมูลก่อนทำ PCA?',
+  o:['เพื่อให้คำนวณเร็วขึ้น','เพราะ PCA มองที่ variance จึงไวต่อหน่วยวัด feature ที่ scale ใหญ่จะครอบงำ component ทั้งหมด','เพราะ PCA ต้องการค่าบวกเท่านั้น','ไม่จำเป็นต้อง scale เลย'],a:1,
+  x:'ตัวอย่างคลาสสิก: income หลักหมื่นกับ age หลักสิบ ถ้าไม่ scale PC1 จะกลายเป็น income เพียว ๆ เพราะ variance ของมันใหญ่กว่ามาก — ไม่เกี่ยวกับความสำคัญจริงเลย'},
+ {q:'explained_variance_ratio_ สะสมได้ 0.95 ที่ k=12 หมายความว่าอะไร?',
+  o:['model จะได้ accuracy 95%','ใช้ 12 components เก็บ variance ของข้อมูลเดิมไว้ 95% ตัดทิ้ง 5%','มี 95 features เหลืออยู่','error เหลือ 5%'],a:1,
+  x:'เป็นสัดส่วน variance ที่รักษาไว้ได้ ไม่ใช่ accuracy ของ model · เป็นแค่ heuristic ต้องตรวจ metric ปลายทางเสมอว่าลดมิติแล้ว model แย่ลงไหม'},
+ {q:'ข้อมูล TF-IDF จากข้อความมี 20,000 มิติและเป็น sparse ควรใช้อะไรลดมิติ?',
+  o:['PCA ปกติ','TruncatedSVD','t-SNE','StandardScaler'],a:1,
+  x:'PCA ต้อง center ข้อมูล ซึ่งจะทำให้ sparse matrix กลายเป็น dense จน memory ระเบิด · TruncatedSVD ทำ low-rank approximation ได้โดยไม่ต้อง center รับ sparse input ตรง ๆ เป็นหัวใจของ LSA'},
+ {q:'ข้อใดคือข้อจำกัดสำคัญที่สุดของ t-SNE ที่ต้องเตือนคนอ่านกราฟ?',
+  o:['ช้าเกินไป','ระยะห่างระดับ global และขนาดของ cluster บนภาพหลอกได้ ห้ามตีความตรง ๆ','ใช้กับข้อมูลตัวเลขไม่ได้','ต้องบอกจำนวน cluster ก่อน'],a:1,
+  x:'t-SNE รักษาแค่ local neighborhood · กลุ่มที่ดูใหญ่ไม่ได้แปลว่ามีจุดเยอะ กลุ่มที่ดูไกลกันไม่ได้แปลว่าต่างกันมาก · ใช้เพื่อสำรวจเท่านั้น ไม่ใช่หลักฐานสุดท้าย'},
+ {q:'ท่ามาตรฐานก่อนใช้ t-SNE กับข้อมูลมิติสูงคืออะไร?',
+  o:['ทำ t-SNE ตรง ๆ เลย','ทำ PCA ลดเหลือ ~50 มิติก่อน แล้วค่อยเข้า t-SNE','ทำ K-Means ก่อน','ทำ DBSCAN ก่อน'],a:1,
+  x:'PCA ก่อนช่วยลด noise และทำให้ t-SNE เร็วขึ้นมาก · และควรตั้ง init="pca" กับ random_state ด้วยเพื่อให้ผลเสถียรและ reproduce ได้'},
+ {q:'perplexity ใน t-SNE ควบคุมอะไร และมีข้อจำกัดอะไร?',
+  o:['จำนวน cluster · ต้องเท่ากับ k','ขนาด neighborhood โดยประมาณ · ต้องน้อยกว่าจำนวน samples','ความเร็วในการเทรน · ต้องเป็นจำนวนเต็ม','จำนวนมิติผลลัพธ์ · ต้องเป็น 2 หรือ 3'],a:1,
+  x:'ค่าทั่วไป 5–50 และต้องน้อยกว่าจำนวน sample · ค่าต่างกันได้ภาพต่างกัน จึงควรลองหลายค่าแล้วดูว่า pattern ไหนเสถียร'},
+ {q:'ข้อใดคือ data leakage ในบริบทของ dimensionality reduction?',
+  o:['ใช้ PCA กับข้อมูล train','fit scaler หรือ PCA บนข้อมูลทั้งหมดก่อน split','ใช้ n_components น้อยเกินไป','ตั้ง random_state'],a:1,
+  x:'scaler และ PCA เป็น transformer ที่ "เรียนรู้" จากข้อมูล ถ้า fit บนข้อมูลทั้งชุด test set จะรั่วเข้าไปใน representation ทำให้คะแนนสูงเกินจริงโดยไม่มี error ฟ้อง'},
+ {q:'ทำไมการใช้ Pipeline จึงสำคัญกว่าแค่ความสวยงามของโค้ด?',
+  o:['ทำให้โค้ดสั้นลง','เพราะ cross_val_score จะ fit transformer ใหม่ในทุก fold ทำให้ไม่รั่ว','ทำให้เทรนเร็วขึ้น','เพราะ sklearn บังคับ'],a:1,
+  x:'ถ้าเขียน X = scaler.fit_transform(X) แล้วค่อย cross_val_score ทีหลัง scaler ตัวนั้นเห็นข้อมูลทุก fold ไปแล้ว · Pipeline บังคับให้ fit ใหม่ในแต่ละ fold จึงวัดผลได้ตรงความจริง'},
+ {q:'PCA(n_components=0.95) ต่างจาก PCA(n_components=95) อย่างไร?',
+  o:['เหมือนกัน','0.95 = เลือก k ที่เก็บ variance ถึง 95% · 95 = ใช้ 95 components ตายตัว','0.95 ใช้ไม่ได้ ต้องเป็นจำนวนเต็ม','0.95 คือ learning rate'],a:1,
+  x:'ใส่เป็นทศนิยม sklearn จะเลือกจำนวน component ให้เองจนกว่า cumulative variance ถึงเกณฑ์ · ใส่จำนวนเต็มคือกำหนดจำนวน component ตรง ๆ'},
+ {q:'พูดว่า "PC1 คือรายได้" ผิดตรงไหน?',
+  o:['ไม่ผิด ถูกต้องแล้ว','PC1 เป็นผลรวมถ่วงน้ำหนักของทุก feature ไม่ใช่ feature ใดตัวเดียว','PC1 ต้องเป็น feature ตัวสุดท้ายเสมอ','PC1 ไม่มีความหมายเลย'],a:1,
+  x:'principal component คือ linear combination ของ feature ทั้งหมด แม้รายได้จะมีน้ำหนักมากที่สุดก็ยังไม่เท่ากับรายได้ · เป็นกับดักด้านการสื่อสารที่พบบ่อยตอนนำเสนอ'},
+ {q:'ต้องการลดมิติเพื่อนำ feature ไปเข้า model ใน production ควรเลือกอะไรระหว่าง PCA กับ t-SNE?',
+  o:['t-SNE เพราะแยกกลุ่มสวยกว่า','PCA เพราะ transform ข้อมูลใหม่ได้และเป็น mapping ที่คงที่','ใช้ได้ทั้งคู่เหมือนกัน','ไม่ต้องลดมิติเลย'],a:1,
+  x:'PCA เรียน mapping ไว้แล้ว transform ข้อมูลใหม่ได้ทันที · t-SNE เป็นการจัดวางจุดเฉพาะชุดข้อมูลนั้น ไม่มี transform สำหรับข้อมูลใหม่ และผลเปลี่ยนตาม seed จึงใช้ดูอย่างเดียว'},
 ]}};
 
 /* ================================================================
@@ -5701,7 +7867,7 @@ w456:{title:'Quiz Week 4–6 · Regression, Classification & Bayesian Networks',
 ================================================================ */
 (function(){
   const box=document.getElementById('examSim'); if(!box) return;
-  const SRC={w1:'Week 1',w2:'Week 2',w2x:'Week 2 · เสริม',w3:'Week 3',w456:'Week 4–6'};
+  const SRC={w1:'Week 1',w2:'Week 2',w2x:'Week 2 · เสริม',w3:'Week 3',w456:'Week 4–6',w7:'Week 7',w8:'Week 8'};
   // scope หนึ่งอาจครอบหลายชุด (Week 2 = ชุดหลัก + ชุดเสริมจาก cram sheet)
   const SCOPE_KEYS={w2:['w2','w2x']};
   // สร้างคลังข้อสอบจาก QUIZ_DATA ทุกชุด
