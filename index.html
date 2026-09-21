@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>AI & ML Interactive Lessons — Week 1-8</title>
-<meta name="description" content="บทเรียน AI &amp; ML แบบ interactive Week 1-8 พร้อมติวสอบ">
+<title>AI & ML Interactive Lessons — Week 1-9</title>
+<meta name="description" content="บทเรียน AI &amp; ML แบบ interactive Week 1-9 พร้อมติวสอบ">
 <meta name="theme-color" content="#060b1a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1668,6 +1668,134 @@ UMAP      nonlinear ไม่ได้ ✗       local + บาง global  ไ�
   </div>
 
   <div class="takeaway">3 ประโยคเข้าห้องสอบ: <b>① PCA = eigenvector ของ covariance · eigenvalue = variance ② ต้อง scale ก่อน และ fit บน train เท่านั้น ③ t-SNE/UMAP ใช้ดูอย่างเดียว ห้ามตีความระยะห่างกับขนาดกลุ่ม</b></div>
+</section>
+
+<section class="section reveal" id="ex-cram-w9" data-week="exam" data-nav="🧠 Cram: Week 9 CNN 🔥">
+  <div class="sec-head">
+    <div class="kicker">โซนติวสอบ · Week 9</div>
+    <h3>Cram Sheet — Convolutional Neural Networks</h3>
+    <p class="desc">Week 9 มี<b>โจทย์คำนวณที่ต้องทำได้ด้วยมือ 3 แบบ</b>: ขนาด output · จำนวนพารามิเตอร์ · conv/pooling ทีละช่อง</p>
+  </div>
+
+  <div class="cram" style="border-color:rgba(167,139,250,.35)">
+    <h4>🖼️ Week 9 — Convolutional Neural Networks</h4>
+    <div class="cram-sub">แนวข้อสอบ: <b>คำนวณขนาด/พารามิเตอร์</b> · <b>ชั้นไหนมี/ไม่มีพารามิเตอร์</b> · <b>เลือก activation + loss ให้ตรงงาน</b></div>
+
+    <div class="cram-row">
+      <div class="ck">ทำไมภาพใช้ MLP ไม่ได้ — 3 เหตุผล <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv">① <b>พารามิเตอร์ระเบิด</b> — 224×224×3 = 150,528 ค่า × Dense 1,000 ≈ <b>150 ล้านพารามิเตอร์</b> ในชั้นเดียว<br>
+        ② <b>Flatten ทำลายโครงสร้าง 2 มิติ</b> — พิกเซลที่ติดกันแนวตั้งกลายเป็นห่างกัน 224 ตำแหน่ง<br>
+        ③ <b>ไม่มี translation invariance</b> — แมวมุมซ้ายกับแมวมุมขวา MLP มองเป็นคนละลาย ต้องเรียนใหม่ทุกตำแหน่ง</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">3 แนวคิดหลักของ CNN <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>① Local connectivity</b> — นิวรอนเห็นแค่บริเวณเล็ก ๆ (receptive field)<br>
+        <b>② Weight sharing</b> — filter ตัวเดียวเลื่อนทั่วภาพ ⇒ <b>ลดพารามิเตอร์ + ได้ translation invariance</b><br>
+        <b>③ Hierarchical features</b> — ขอบ → พื้นผิว → ชิ้นส่วน → วัตถุ<br>
+        <b>อุปมา:</b> filter คือ<b>ตราปั๊ม</b>ที่ถามว่า "ลายนี้มีตรงนี้ไหม" แล้วเอาอันเดิมไปปั๊มทุกตำแหน่ง</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">⭐ สูตรขนาด output — ต้องคำนวณได้ <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><span class="f">Output = ⌊ (N + 2P − F) / S ⌋ + 1</span>
+        <b>N</b> = ขนาด input · <b>F</b> = kernel · <b>S</b> = stride · <b>P</b> = padding · <b>⌊ ⌋ ปัดลงเสมอ</b><br>
+        <b>ตัวอย่างที่ต้องทำได้:</b> N=5, F=3, S=1, P=0 → ⌊2/1⌋+1 = <b>3</b> → output 3×3<br>
+        <b>ทางลัด:</b> <span class="math">padding='same'</span> + <span class="math">S=1</span> ⇒ output = input · สูตร P ที่ทำให้ same คือ <span class="math">P = (F−1)/2</span></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">⭐ สูตรนับพารามิเตอร์ <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><span class="f">Conv2D = (F × F × C_in + 1) × K        Dense = (n_in + 1) × n_out</span>
+        <b>+1 คือ bias</b> — ลืมบ่อยที่สุด<br>
+        <b>Pooling / Flatten / Dropout / Activation = 0 พารามิเตอร์</b><br>
+        <b>ตัวอย่าง:</b> Conv2D 32 filters 3×3 บน RGB → (3·3·3+1)×32 = <b>896</b><br>
+        Conv2D 64 filters 3×3 บน input 32 channels → (3·3·32+1)×64 = 289×64 = <b>18,496</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Channels / ความลึก — จุดที่สับสนบ่อย <span class="hot hot-2">⚡</span></div>
+      <div class="cv">Input <span class="math">(H, W, C)</span> · <b>filter แต่ละตัวมีรูปร่าง <span class="math">(F, F, C)</span></b> กินความลึกทั้งหมดในทีเดียว<br>
+        ⇒ <b>filter 1 ตัว ให้ feature map 1 แผ่น</b> ไม่ว่า input จะลึกแค่ไหน<br>
+        ⇒ ชั้นที่มี K filters → output <span class="math">(H′, W′, K)</span> · <b>รูปแบบมาตรฐาน: กว้าง-สูงหด ความลึกเพิ่ม</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">ชั้นไหนมีพารามิเตอร์ ชั้นไหนไม่มี <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><span class="f">มี:    Conv2D · Dense · BatchNorm (γ, β)
+ไม่มี:  Pooling · Flatten · Dropout · ReLU</span></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Pooling — ทำอะไร ทำไม <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>4 เหตุผล:</b> ลดการคำนวณ · ลด overfitting · เพิ่ม translation invariance เฉพาะที่ · ย่อกว้าง-สูงขณะที่ความลึกเพิ่ม<br>
+        <b>Max</b> = ค่ามากสุด (ใช้บ่อยสุด) · <b>Average</b> = ค่าเฉลี่ย (นุ่มกว่า) · <b>GAP</b> = เฉลี่ยทั้งแผ่นเหลือค่าเดียว <span class="math">(H,W,K)→(1,1,K)</span><br>
+        <b>GAP ใช้แทน Flatten+Dense ในโมเดลสมัยใหม่</b> เพราะลดพารามิเตอร์มหาศาล<br>
+        <b>ทำแยกทีละ channel · ความลึกไม่เปลี่ยน · ไม่มีพารามิเตอร์</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">ตัวอย่าง Max Pool ที่ต้องทำได้ <span class="hot hot-3">🔥</span></div>
+      <div class="cv"><span class="f">[[1,3,2,4],        ซ้ายบน  {1,3,5,6} → 6
+ [5,6,1,2],   →    ขวาบน  {2,4,1,2} → 4      [[6, 4],
+ [1,2,3,4],        ซ้ายล่าง {1,2,0,1} → 2       [2, 4]]
+ [0,1,4,3]]        ขวาล่าง {3,4,4,3} → 4</span>
+        <b style="color:var(--yellow)">⚠ สไลด์อาจารย์เขียนช่องซ้ายล่างเป็น 4 ซึ่งไม่ตรงกับการคำนวณ — ควรถามยืนยันก่อนสอบ</b></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">ทำไมต้องมี ReLU คั่นทุกชั้น <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><b>Convolution เป็น linear operation</b> — ซ้อนหลายชั้นโดยไม่มี activation จะ<b>ยุบเหลือ linear ชั้นเดียว</b> ซ้อนไปก็ไม่ได้อะไรเพิ่ม<br>
+        <span class="math">ReLU(x) = max(0, x)</span> เร็ว ไม่เจอ vanishing gradient ฝั่ง x &gt; 0<br>
+        <b>ชั้น output ใช้คนละตัว:</b> Softmax (หลายคลาส) · Sigmoid (binary)</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">เลือก output layer + loss ให้ตรงงาน <span class="hot hot-3">🔥 ออกแน่</span></div>
+      <div class="cv"><span class="f">งาน                  นิวรอน  Activation  Loss
+Binary                 1     Sigmoid     binary_crossentropy
+Multi-class (เดี่ยว)    N     Softmax     sparse_categorical_CE  (label = เลข)
+                                         categorical_CE         (label = one-hot)
+Multi-label            N     Sigmoid     binary_crossentropy
+Regression            1+     Linear      mse / mae</span>
+        <b>กับดัก:</b> label เป็นเลข 0–9 แต่ใช้ <span class="math">categorical_crossentropy</span> (ไม่มี sparse_) → error หรือได้ accuracy แปลก ๆ</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">BatchNorm vs Dropout <span class="hot hot-2">⚡</span></div>
+      <div class="cv"><b>BatchNorm</b> — normalize activation ต่อ batch → เทรนเร็วและเสถียรขึ้น · <b>มีพารามิเตอร์ γ, β</b> · <b>ต้อง batch ≥ 16–32</b><br>
+        <b>Dropout</b> — สุ่มปิดนิวรอนกัน overfitting · <b>ทำงานเฉพาะตอนเทรน ตอน predict ปิดเอง</b> · ไม่มีพารามิเตอร์ · มักวางก่อน/คั่น Dense</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Backprop ผ่าน Conv ต่างจาก Dense ยังไง <span class="hot hot-2">⚡</span></div>
+      <div class="cv">เพราะ weight sharing filter ตัวเดียวถูกใช้หลายตำแหน่ง ⇒ <b>gradient ของ filter = ผลรวมของ gradient จากทุกตำแหน่งที่มันไปวาง</b><br>
+        ต่างจาก Dense ที่ weight แต่ละตัวมี gradient ของตัวเองตัวเดียว</div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">สถาปัตยกรรมคลาสสิก — จำปีกับจุดเด่น <span class="hot hot-2">⚡</span></div>
+      <div class="cv"><span class="f">LeNet-5    1998  CNN ตัวแรกที่ใช้งานจริง
+AlexNet    2012  ReLU + Dropout + GPU  ชนะ ImageNet
+VGGNet     2014  ลึกด้วยการซ้อน conv 3x3
+GoogLeNet  2014  Inception - filter หลายขนาดขนานกัน
+ResNet     2015  Skip connections  ซ้อนลึกเป็นร้อยชั้นได้
+MobileNet  2017  เบา รันบนมือถือ/edge</span></div>
+    </div>
+
+    <div class="cram-row">
+      <div class="ck">Transfer Learning <span class="hot hot-2">⚡</span></div>
+      <div class="cv">ใช้โมเดล pretrained (เช่น ImageNet) → <span class="math">include_top=False</span> ตัดหัวเดิมทิ้ง → <span class="math">base.trainable=False</span> แช่แข็ง → ต่อ <b>GlobalAveragePooling2D + Dense ใหม่</b><br>
+        <b>ใช้เมื่อข้อมูล label น้อย</b> ซึ่งเป็นกรณีปกติของโปรเจกต์นักศึกษา</div>
+    </div>
+
+    <div class="cram-sub" style="margin-top:12px;margin-bottom:0">⚡ <b>เจอโจทย์นับพารามิเตอร์ ให้ไล่แบบนี้:</b>
+      <b>(1)</b> ชั้นนี้เป็น Conv/Dense/BN ไหม — ถ้าไม่ใช่ ตอบ 0 ทันที ·
+      <b>(2)</b> Conv → หา C_in จาก output depth ของชั้นก่อนหน้า ·
+      <b>(3)</b> แทนสูตรแล้ว<b>อย่าลืม +1</b></div>
+  </div>
+
+  <div class="takeaway">3 ประโยคเข้าห้องสอบ: <b>① Conv ใช้ filter ร่วมกันทุกตำแหน่ง จึงลดพารามิเตอร์และได้ translation invariance ② ขนาด = ⌊(N+2P−F)/S⌋+1 · params = (F·F·C+1)·K ③ Pooling/Flatten/Dropout ไม่มีพารามิเตอร์</b></div>
 </section>
 
 <section class="section reveal" id="ex-code" data-week="exam" data-nav="💻 อ่านโค้ด NumPy + LaTeX">
@@ -5337,8 +5465,542 @@ scores = <span class="c-fn">cross_val_score</span>(pipe, X, y, cv=<span class="c
   <div class="takeaway">แกน Week 8 ทั้งหมดใน 1 ประโยค: <b>PCA หา eigenvector ของ covariance เพื่อเก็บ variance ให้มากที่สุดด้วยมิติน้อยที่สุด · ต้อง scale ก่อน · ต้อง fit บน train เท่านั้น · และ t-SNE ใช้ดูอย่างเดียว</b></div>
 </section>
 
+<!-- ══════════════════════ WEEK 9 · CONVOLUTIONAL NEURAL NETWORKS ══════════════════════ -->
+
+<!-- W9 : ทำไมไม่ใช้ MLP -->
+<section class="section reveal" id="w9-why" data-week="9" data-nav="ทำไมภาพต้องใช้ CNN ไม่ใช่ MLP 🔥">
+  <div class="sec-head">
+    <div class="kicker">W9 · Part 1</div>
+    <h3>ทำไมงานภาพถึงใช้ MLP ธรรมดาไม่ได้</h3>
+    <p class="desc">คำถามเปิดของ Week 9 · ถ้าเอาภาพมา <span class="math">Flatten</span> แล้วยัดเข้า Dense เหมือน MNIST ที่ทำใน Assignment 04 จะเจอปัญหา <b>3 อย่างพร้อมกัน</b></p>
+  </div>
+
+  <div class="grid2">
+    <div class="card tone-red">
+      <h4><span class="ic">💥</span>ปัญหาที่ 1 — พารามิเตอร์ระเบิด</h4>
+      <ul>
+        <li>ภาพ RGB ขนาด <span class="math">224 × 224</span> = <b>224 × 224 × 3 = 150,528</b> ค่า input</li>
+        <li>ต่อ Dense เพียง <b>1,000 นิวรอน</b> → <span class="math">150,528 × 1,000 ≈ <b>150 ล้านพารามิเตอร์</b></span> ในชั้นเดียว</li>
+        <li>เทียบกับ MNIST 28×28 ที่ได้แค่ 100,480 — ต่างกัน <b>1,500 เท่า</b></li>
+        <li>เทรนไม่ไหว กิน memory มหาศาล และ overfit แน่นอน</li>
+      </ul>
+    </div>
+    <div class="card tone-yellow">
+      <h4><span class="ic">✂️</span>ปัญหาที่ 2 — Flatten ทำลายโครงสร้าง 2 มิติ</h4>
+      <ul>
+        <li>พิกเซลที่อยู่<b>ติดกันในแนวตั้ง</b> พอ flatten แล้วห่างกัน 224 ตำแหน่ง</li>
+        <li>โมเดลไม่รู้เลยว่าพิกเซลไหนอยู่ใกล้พิกเซลไหน — <b>ข้อมูลเชิงพื้นที่หายหมด</b></li>
+        <li>สลับตำแหน่งพิกเซลแบบสุ่ม (แต่สลับเหมือนกันทุกภาพ) MLP จะได้ผลเท่าเดิมเป๊ะ — พิสูจน์ว่ามันไม่ได้ใช้ความเป็นภาพเลย</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card tone-purple" style="margin-top:14px">
+    <h4><span class="ic">🔁</span>ปัญหาที่ 3 — ไม่มี Translation Invariance</h4>
+    <ul>
+      <li>แมวอยู่มุมซ้ายบน กับแมวตัวเดียวกันอยู่มุมขวาล่าง → <b>MLP มองเป็นคนละ pattern</b></li>
+      <li>ต้อง<b>เรียนรู้รูปแมวใหม่ทุกตำแหน่ง</b> ที่มันอาจโผล่มา</li>
+      <li>แปลว่าต้องมีข้อมูลเทรนมหาศาลเพื่อครอบคลุมทุกตำแหน่ง ซึ่งไม่สมเหตุสมผล</li>
+    </ul>
+  </div>
+
+  <div class="note">➡️ เราต้องการเครือข่ายที่ <b>เคารพโครงสร้างเชิงพื้นที่</b> และ <b>ใช้พารามิเตอร์ร่วมกัน (share parameters)</b> — นั่นคือ CNN</div>
+
+  <h4 style="margin:24px 0 10px;font-size:16.5px">3 แนวคิดหลักของ CNN — ออกสอบแน่</h4>
+  <div class="steps">
+    <div class="step"><div class="s-t">① Local Connectivity</div><div class="s-x">นิวรอนแต่ละตัว<b>มองเห็นแค่บริเวณเล็ก ๆ</b> ของภาพ เรียกว่า <b>receptive field</b> ไม่ใช่เห็นทั้งภาพเหมือน Dense</div></div>
+    <div class="step"><div class="s-t">② Weight Sharing</div><div class="s-x"><b>filter ตัวเดียวกันเลื่อนไปทั่วทั้งภาพ</b> — นี่คือสิ่งที่ทำให้พารามิเตอร์ลดฮวบ และได้ translation invariance มาฟรี ๆ</div></div>
+    <div class="step"><div class="s-t">③ Hierarchical Features</div><div class="s-x">เรียนรู้เป็นลำดับชั้น: <b>ขอบ → พื้นผิว → ชิ้นส่วน → วัตถุ</b> ชั้นตื้นจับของง่าย ชั้นลึกประกอบเป็นของซับซ้อน</div></div>
+  </div>
+
+  <div class="takeaway"><b>อุปมาที่อาจารย์ให้ไว้:</b> filter คือ <b>"ตราปั๊ม"</b> ที่คอยถามว่า <i>"ลายแบบนี้โผล่ตรงนี้ไหม?"</i> แล้ว<b>เอาตราปั๊มอันเดิมไปปั๊มซ้ำทุกตำแหน่ง</b> — ไม่ต้องแกะตราใหม่ทุกจุด นั่นคือ weight sharing</div>
+</section>
+
+<!-- W9 : Convolution -->
+<section class="section reveal" id="w9-conv" data-week="9" data-nav="Convolution ทำงานยังไง 🔥">
+  <div class="sec-head">
+    <div class="kicker">W9 · Part 3</div>
+    <h3>การดำเนินการ Convolution</h3>
+    <p class="desc">เลื่อน <b>kernel (filter)</b> ไปทั่ว input · ที่แต่ละตำแหน่งทำ <b>คูณทีละช่องแล้วบวกรวม</b> (element-wise multiply + sum) ได้ออกมา 1 ตัวเลข</p>
+  </div>
+
+  <div class="demo">
+    <div class="demo-title">🎬 Convolution ทีละตำแหน่ง <span class="live">ANIMATED</span></div>
+    <div class="demo-sub">โจทย์จากสไลด์หน้า 8 — input <span class="math">5×5</span> กับ kernel <span class="math">3×3</span> · กดดูทีละช่องว่าเลขในช่องนั้นมาจากไหน</div>
+    <canvas id="cvConv" height="330"></canvas>
+    <div class="ctrl">
+      <button class="btn primary" id="cvStep">⏭ ช่องถัดไป</button>
+      <button class="btn" id="cvAuto">▶ เล่นอัตโนมัติ</button>
+      <button class="btn" id="cvRst">↺ เริ่มใหม่</button>
+      <span class="readout" id="cvInfo"></span>
+    </div>
+    <div class="hint">ช่องสีฟ้าคือหน้าต่างที่ kernel ครอบอยู่ · ตัวเลขด้านล่างคือการคูณทีละคู่แล้วบวกกัน</div>
+  </div>
+
+  <div class="worked">
+    <div class="wq"><span class="qn">โจทย์คำนวณ · CONVOLUTION</span>
+      คำนวณ feature map จาก input <span class="math">5×5</span> กับ kernel <span class="math">3×3</span> (stride 1, ไม่มี padding)<br>
+      <span class="math" style="display:inline-block;margin-top:6px;line-height:1.5">
+      Input&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kernel<br>
+      1 1 1 0 0&nbsp;&nbsp;&nbsp;&nbsp;1 0 1<br>
+      0 1 1 1 0&nbsp;&nbsp;&nbsp;&nbsp;0 1 0<br>
+      0 0 1 1 1&nbsp;&nbsp;&nbsp;&nbsp;1 0 1<br>
+      0 0 1 1 0<br>
+      0 1 1 0 0</span></div>
+    <button class="wtoggle">👁 ดูเฉลย</button>
+    <div class="wans">
+      <div class="step"><b>ขั้น 1 — หาขนาด output ก่อน:</b> <span class="math">(5 − 3)/1 + 1 = 3</span> ⇒ feature map เป็น <span class="math">3×3</span> = ต้องคำนวณ 9 ช่อง</div>
+      <div class="step"><b>ขั้น 2 — ช่อง (0,0):</b> ครอบแถว 0–2 คอลัมน์ 0–2<br>
+        <span class="math">[1 1 1 / 0 1 1 / 0 0 1] ⊙ [1 0 1 / 0 1 0 / 1 0 1]</span><br>
+        <span class="math">= (1·1 + 1·0 + 1·1) + (0·0 + 1·1 + 1·0) + (0·1 + 0·0 + 1·1)</span><br>
+        <span class="math">= 2 + 1 + 1 = <b>4</b></span></div>
+      <div class="step"><b>ขั้น 3 — ช่อง (1,1) กลางภาพ:</b> ครอบแถว 1–3 คอลัมน์ 1–3<br>
+        <span class="math">[1 1 1 / 0 1 1 / 0 1 1] ⊙ kernel = 2 + 1 + 1 = <b>4</b></span></div>
+      <div class="step"><b>ขั้น 4 — ทำครบทั้ง 9 ช่องแบบเดียวกัน</b> (เลื่อนทีละ 1 ช่อง ไปขวาจนสุดแล้วลงแถวใหม่)</div>
+      <div class="final">Feature map <span class="math">3×3</span> =<br>
+        <span class="math" style="display:inline-block;line-height:1.55;margin-top:4px">4&nbsp; 3&nbsp; 4<br>2&nbsp; 4&nbsp; 3<br>2&nbsp; 3&nbsp; 4</span></div>
+    </div>
+    <div class="wtip">เทคนิคทำให้เร็ว: kernel นี้เป็นลาย <b>X (มุมทั้งสี่ + กลาง = 1)</b> จึงแค่<b>บวกค่าที่ตำแหน่ง 4 มุมกับตรงกลาง</b>ของหน้าต่าง ไม่ต้องคูณทั้ง 9 ช่อง · <b>output เล็กลงเสมอ</b>ถ้าไม่ใส่ padding เพราะหน้าต่าง 3×3 วางได้แค่ 3×3 = 9 ตำแหน่ง</div>
+  </div>
+
+  <div class="takeaway">Convolution = <b>คูณทีละช่อง บวกรวม เลื่อน ทำซ้ำ</b> · ตัวเลขที่ได้บอกว่า <b>"ลายที่ filter มองหา ปรากฏตรงนี้แรงแค่ไหน"</b></div>
+</section>
+
+<!-- W9 : Hyperparameters -->
+<section class="section reveal" id="w9-hyper" data-week="9" data-nav="F, S, P, K + สูตรขนาด output 🔥">
+  <div class="sec-head">
+    <div class="kicker">W9 · Part 3 (ต่อ)</div>
+    <h3>Hyperparameters และสูตรคำนวณขนาด Output</h3>
+    <p class="desc"><b>สูตรนี้ออกสอบแน่นอน</b> — ต้องคำนวณได้ด้วยมือ และใช้ตรวจ <code class="inline">model.summary()</code> ว่าที่ต่อไว้ถูกหรือเปล่า</p>
+  </div>
+
+  <div class="ftable-wrap">
+  <table class="ftable">
+    <thead><tr><th style="width:150px">พารามิเตอร์</th><th style="width:210px">ความหมาย</th><th>ผลที่เกิด</th></tr></thead>
+    <tbody>
+      <tr><td><b>Kernel size (F)</b></td><td>ขนาด filter เช่น <span class="math">3×3</span></td><td>ใหญ่ขึ้น = <b>receptive field กว้างขึ้น</b> แต่พารามิเตอร์เยอะขึ้นตามกำลังสอง</td></tr>
+      <tr><td><b>Stride (S)</b></td><td>ก้าวละกี่ช่องตอนเลื่อน</td><td>ใหญ่ขึ้น = <b>output เล็กลง</b> และคำนวณน้อยลง</td></tr>
+      <tr><td><b>Padding (P)</b></td><td>เติมขอบรอบ input</td><td><span class="math">valid</span> = ไม่เติม <b>ขนาดหด</b> · <span class="math">same</span> = เติมพอดีให้ <b>ขนาดเท่าเดิม</b></td></tr>
+      <tr><td><b>Filters (K)</b></td><td>จำนวน filter ที่ต่างกัน</td><td><b>ความลึกของ output = K</b> → ได้ K feature maps ซ้อนกัน</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="card tone-cyan" style="margin-top:16px">
+    <h4><span class="ic">🧮</span>สูตรหลัก — ท่องให้ได้</h4>
+    <ul>
+      <li style="font-size:18px;margin:8px 0"><span class="math"><b>Output = ⌊ (N + 2P − F) / S ⌋ + 1</b></span></li>
+      <li><span class="math">N</span> = ขนาดด้านกว้างหรือสูงของ input · คำนวณแยกกันได้ถ้าภาพไม่จัตุรัส</li>
+      <li><b>⌊ ⌋ คือปัดลง</b> — อย่าลืม ถ้าหารไม่ลงตัวต้องปัดลงเสมอ</li>
+      <li><b>ทางลัดที่ใช้บ่อย:</b> <span class="math">padding='same'</span> กับ <span class="math">S=1</span> ⇒ output = input เป๊ะ ไม่ต้องคำนวณ</li>
+    </ul>
+  </div>
+
+  <div class="demo">
+    <div class="demo-title">📐 เครื่องคิดเลขขนาด Output <span class="live">INTERACTIVE</span></div>
+    <div class="demo-sub">เลื่อนค่าแล้วดูทั้ง<b>สูตรที่แทนค่าแล้ว</b>และ<b>ภาพขนาดจริง</b>ของ input กับ output</div>
+    <canvas id="cvShape" height="300"></canvas>
+    <div class="ctrl">
+      <span class="readout">N</span><input type="range" id="shN" min="5" max="32" value="32" step="1">
+      <span class="readout">F</span><input type="range" id="shF" min="1" max="7" value="3" step="2">
+      <span class="readout">S</span><input type="range" id="shS" min="1" max="4" value="1" step="1">
+      <span class="readout">P</span><input type="range" id="shP" min="0" max="3" value="1" step="1">
+      <button class="btn" id="shSame">⚡ ตั้งเป็น same</button>
+    </div>
+    <div class="hint" id="shInfo"></div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card tone-blue">
+      <h4><span class="ic">📚</span>ความลึก (Channels) — จุดที่คนสับสนที่สุด</h4>
+      <ul>
+        <li>Input มีรูปร่าง <span class="math">(H, W, C)</span> เช่น RGB = <span class="math">(224, 224, 3)</span></li>
+        <li><b>filter แต่ละตัวมีรูปร่าง <span class="math">(F, F, C)</span></b> — กินความลึก<b>ทั้งหมด</b>ในทีเดียว ไม่ได้แยกทำทีละ channel</li>
+        <li>filter 1 ตัว ไม่ว่า input ลึกเท่าไหร่ → ให้ feature map <b>2 มิติ 1 แผ่น</b></li>
+        <li>ชั้นที่มี <span class="math">K</span> filters → output <span class="math">(H′, W′, K)</span></li>
+      </ul>
+    </div>
+    <div class="card tone-green">
+      <h4><span class="ic">🔢</span>สูตรนับพารามิเตอร์</h4>
+      <ul>
+        <li><span class="math"><b>Conv2D = (F × F × C_in + 1) × K</b></span></li>
+        <li><span class="math"><b>Dense = (n_in + 1) × n_out</b></span></li>
+        <li><b>+1 คือ bias</b> ของแต่ละ filter/นิวรอน — ลืมบ่อยมาก</li>
+        <li><b>Pooling / Flatten / Dropout = 0 พารามิเตอร์</b> เพราะไม่มีอะไรให้เรียนรู้</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note"><b>ตัวอย่างที่ต้องคิดได้ในหัว:</b> Conv2D 32 filters ขนาด <span class="math">3×3</span> รับ input RGB (C=3)<br>
+    → <span class="math">(3 × 3 × 3 + 1) × 32 = (27 + 1) × 32 = 28 × 32 = <b>896</b></span> พารามิเตอร์<br>
+    ถ้าชั้นถัดไปเป็น Conv2D 32 filters <span class="math">3×3</span> อีกชั้น (คราวนี้ C=32) → <span class="math">(3 × 3 × 32 + 1) × 32 = 289 × 32 = <b>9,248</b></span></div>
+
+  <div class="takeaway">จำ 2 สูตร: <b>ขนาด = ⌊(N + 2P − F)/S⌋ + 1</b> และ <b>params = (F·F·C_in + 1)·K</b> — ใช้ตรวจ <code class="inline">model.summary()</code> ได้ทุกบรรทัด</div>
+</section>
+
+<!-- W9 : Feature Maps + ReLU -->
+<section class="section reveal" id="w9-feature" data-week="9" data-nav="Feature Map, Receptive Field, ReLU">
+  <div class="sec-head">
+    <div class="kicker">W9 · Part 4–5</div>
+    <h3>Feature Map · Receptive Field · Activation</h3>
+    <p class="desc">ผลลัพธ์ของ filter 1 ตัวที่เลื่อนทั่วภาพ = <b>feature map 1 แผ่น</b> ซึ่งบอกว่า <b>ลายนั้นถูกตรวจเจอที่ไหน และแรงแค่ไหน</b></p>
+  </div>
+
+  <div class="demo">
+    <div class="demo-title">🔍 filter ต่างกัน เห็นคนละอย่าง <span class="live">INTERACTIVE</span></div>
+    <div class="demo-sub">ภาพเดียวกัน ผ่าน kernel คนละตัว → ได้ feature map คนละแบบ · นี่คือเหตุผลที่ชั้นหนึ่งต้องมีหลาย filter</div>
+    <canvas id="cvKernel" height="300"></canvas>
+    <div class="ctrl">
+      <button class="btn primary" data-kn="vert">ขอบแนวตั้ง</button>
+      <button class="btn" data-kn="horz">ขอบแนวนอน</button>
+      <button class="btn" data-kn="edge">ขอบทุกทิศ</button>
+      <button class="btn" data-kn="blur">เบลอ</button>
+      <button class="btn" data-kn="sharp">คมชัด</button>
+      <span class="readout" id="knInfo"></span>
+    </div>
+    <div class="hint">สีสว่าง = ตรวจเจอลายนั้นแรง · สีเข้ม = ไม่เจอ · <b>CNN ไม่ได้ตั้ง kernel เอง มันเรียนรู้ค่าพวกนี้เองจากข้อมูล</b></div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card tone-purple">
+      <h4><span class="ic">🗺️</span>ชั้นไหนเห็นอะไร</h4>
+      <ul>
+        <li><b>ชั้นตื้น (early layers)</b> — ขอบ มุม หย่อมสี</li>
+        <li><b>ชั้นลึก (deeper layers)</b> — พื้นผิว ชิ้นส่วนของวัตถุ จนถึงวัตถุทั้งชิ้น</li>
+        <li><span class="math">K</span> filters → <span class="math">K</span> feature maps ซ้อนกันเป็น tensor 3 มิติ</li>
+      </ul>
+    </div>
+    <div class="card tone-cyan">
+      <h4><span class="ic">👁️</span>Receptive Field</h4>
+      <ul>
+        <li>คือ<b>บริเวณของภาพต้นฉบับ</b>ที่มีผลต่อค่าของนิวรอน 1 ตัว</li>
+        <li><b>ยิ่งซ้อน conv layer ยิ่งโต</b> — ชั้น 1 เห็น 3×3 · ชั้น 2 เห็น 5×5 · ชั้น 3 เห็น 7×7</li>
+        <li>นิวรอนชั้นลึกจึง <b>"เห็น" ภาพเป็นบริเวณกว้าง</b> ทั้งที่แต่ละชั้นมองแค่ 3×3</li>
+        <li>นี่คือกลไกที่ทำให้ CNN สร้างความเข้าใจจาก <b>local → global</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card tone-yellow" style="margin-top:14px">
+    <h4><span class="ic">⚡</span>ทำไมต้องมี ReLU หลัง Conv ทุกชั้น</h4>
+    <ul>
+      <li><b>Convolution เป็น linear operation</b> — ถ้าซ้อน conv หลายชั้นโดยไม่มี activation จะ<b>ยุบเหลือ linear function ชั้นเดียว</b> ซ้อนไปก็ไร้ประโยชน์</li>
+      <li><span class="math">ReLU(x) = max(0, x)</span> — เร็ว และไม่เจอ vanishing gradient ฝั่ง <span class="math">x &gt; 0</span></li>
+      <li>เป็น<b>ตัวเลือกมาตรฐานหลัง Conv ทุกชั้น</b></li>
+      <li><b>ชั้น output ใช้คนละตัว:</b> <span class="math">Softmax</span> สำหรับหลายคลาส · <span class="math">Sigmoid</span> สำหรับ binary</li>
+    </ul>
+  </div>
+
+  <div class="note">🔗 <b>เชื่อมกับ Assignment 04:</b> เหตุผลเดียวกับที่ MLP ต้องมี ReLU ระหว่าง Dense — และ <span class="math">ReLU′(z) = 1</span> เมื่อ <span class="math">z &gt; 0</span> คือสิ่งที่ใช้ตอนไล่ backprop ด้วยมือ</div>
+  <div class="takeaway">1 filter = 1 feature map · <b>K filters = K feature maps</b> · และ <b>ต้องมี ReLU คั่น ไม่งั้นซ้อนชั้นแล้วไม่ได้อะไรเพิ่ม</b></div>
+</section>
+
+<!-- W9 : Pooling -->
+<section class="section reveal" id="w9-pool" data-week="9" data-nav="Pooling: Max, Average, GAP 🔥">
+  <div class="sec-head">
+    <div class="kicker">W9 · Part 6</div>
+    <h3>Pooling Layer — ย่อขนาด เพิ่มความทนทาน</h3>
+    <p class="desc">ลดขนาด feature map ลง <b>ทำแยกทีละ channel</b> (per-channel) · <b>ไม่มีพารามิเตอร์ให้เรียนรู้เลย</b> — ข้อนี้ออกสอบบ่อย</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card tone-blue">
+      <h4><span class="ic">🎯</span>ทำไปทำไม — 4 เหตุผล</h4>
+      <ul>
+        <li><b>ลดการคำนวณและพารามิเตอร์</b>ของชั้นถัด ๆ ไป</li>
+        <li><b>ลด overfitting</b> เพราะลดความจุของโมเดล</li>
+        <li><b>เพิ่ม translation invariance เฉพาะที่</b> — ขยับภาพนิดหน่อยผลไม่เปลี่ยน</li>
+        <li><b>ย่อด้านกว้าง-สูง ขณะที่ความลึกเพิ่มขึ้น</b> — เป็นรูปแบบมาตรฐานของ CNN</li>
+      </ul>
+    </div>
+    <div class="card tone-green">
+      <h4><span class="ic">🔧</span>3 แบบที่ต้องรู้</h4>
+      <ul>
+        <li><b>Max Pooling</b> — เอาค่า<b>มากสุด</b>ในหน้าต่าง · <b>ใช้บ่อยที่สุด</b> เก็บสัญญาณที่แรงที่สุดไว้</li>
+        <li><b>Average Pooling</b> — เอา<b>ค่าเฉลี่ย</b> · ผลออกมานุ่มนวลกว่า</li>
+        <li><b>Global Average Pooling (GAP)</b> — เฉลี่ย<b>ทั้งแผ่นเหลือค่าเดียว</b> <span class="math">(H,W,K) → (1,1,K)</span><br>
+          <b>ใช้แทน Flatten + Dense ในโมเดลสมัยใหม่</b> เพราะลดพารามิเตอร์มหาศาล</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="demo">
+    <div class="demo-title">🔲 Max vs Average Pooling <span class="live">INTERACTIVE</span></div>
+    <div class="demo-sub">โจทย์จากสไลด์หน้า 16 — <span class="math">4×4</span> ทำ pooling <span class="math">2×2</span> stride 2 · กดสลับดูว่าสองแบบให้ผลต่างกันยังไง</div>
+    <canvas id="cvPool" height="290"></canvas>
+    <div class="ctrl">
+      <button class="btn primary" data-pl="max">Max Pooling</button>
+      <button class="btn" data-pl="avg">Average Pooling</button>
+      <button class="btn" id="plStep">⏭ ทีละหน้าต่าง</button>
+      <span class="readout" id="plInfo"></span>
+    </div>
+    <div class="hint">หน้าต่าง <span class="math">2×2</span> stride 2 = <b>ไม่ทับกันเลย</b> · <span class="math">4×4</span> จึงถูกย่อเหลือ <span class="math">2×2</span> พอดี (พื้นที่ลดลง 4 เท่า)</div>
+  </div>
+
+  <div class="worked">
+    <div class="wq"><span class="qn">โจทย์คำนวณ · POOLING</span>
+      Max Pool <span class="math">2×2</span> stride 2 ของ<br>
+      <span class="math" style="display:inline-block;margin-top:6px;line-height:1.5">
+      1&nbsp; 3&nbsp; 2&nbsp; 4<br>5&nbsp; 6&nbsp; 1&nbsp; 2<br>1&nbsp; 2&nbsp; 3&nbsp; 4<br>0&nbsp; 1&nbsp; 4&nbsp; 3</span></div>
+    <button class="wtoggle">👁 ดูเฉลย</button>
+    <div class="wans">
+      <div class="step"><b>ขนาด output:</b> <span class="math">(4 − 2)/2 + 1 = 2</span> ⇒ ได้ <span class="math">2×2</span> = 4 ช่อง · หน้าต่างไม่ทับกัน</div>
+      <div class="step"><b>ซ้ายบน</b> — แถว 0–1 คอลัมน์ 0–1 = <span class="math">{1, 3, 5, 6}</span> ⇒ max = <b>6</b></div>
+      <div class="step"><b>ขวาบน</b> — แถว 0–1 คอลัมน์ 2–3 = <span class="math">{2, 4, 1, 2}</span> ⇒ max = <b>4</b></div>
+      <div class="step"><b>ซ้ายล่าง</b> — แถว 2–3 คอลัมน์ 0–1 = <span class="math">{1, 2, 0, 1}</span> ⇒ max = <b>2</b></div>
+      <div class="step"><b>ขวาล่าง</b> — แถว 2–3 คอลัมน์ 2–3 = <span class="math">{3, 4, 4, 3}</span> ⇒ max = <b>4</b></div>
+      <div class="final">Max Pool = <span class="math" style="display:inline-block;line-height:1.55;margin-top:4px">6&nbsp; 4<br>2&nbsp; 4</span><br><br>
+        Average Pool ของโจทย์เดียวกัน = <span class="math" style="display:inline-block;line-height:1.55;margin-top:4px">3.75&nbsp; 2.25<br>1.00&nbsp; 3.50</span></div>
+    </div>
+    <div class="wtip">เช็คตัวเองก่อนตอบ: <b>หน้าต่างแต่ละอันต้องไม่ทับกัน</b>เมื่อ stride = ขนาดหน้าต่าง · และ <b>pooling ทำแยกทีละ channel</b> ความลึกไม่เปลี่ยน มีแต่กว้าง-สูงที่หด</div>
+  </div>
+
+  <div class="note" style="border-left-color:var(--yellow);background:rgba(251,191,36,.07)">
+    ⚠️ <b>เจอข้อผิดพลาดในสไลด์ — ต้องรู้ไว้</b><br>
+    สไลด์หน้า 16 เขียนคำตอบเป็น <span class="math">[[6, 4], [<b style="color:var(--red)">4</b>, 4]]</span> แต่ช่อง<b>ซ้ายล่าง</b>ที่ถูกต้องคือ <b>2</b> ไม่ใช่ 4
+    เพราะหน้าต่างนั้นคือ <span class="math">{1, 2, 0, 1}</span> ซึ่งค่ามากสุดคือ 2 (เลข 4 ที่อยู่แถวล่างสุดอยู่ในคอลัมน์ที่ 2 ซึ่งเป็นของหน้าต่างขวาล่าง)<br>
+    ผมตรวจด้วย NumPy แล้วยืนยันว่าเป็น <span class="math">[[6, 4], [2, 4]]</span> — <b>แนะนำให้ถามอาจารย์ก่อนสอบ</b> เผื่อข้อสอบใช้ตัวเลขตามสไลด์
+  </div>
+
+  <div class="takeaway"><b>Pooling ไม่มีพารามิเตอร์ · ทำทีละ channel · ความลึกไม่เปลี่ยน</b> — และ <b>GAP ใช้แทน Flatten ได้เพื่อลดพารามิเตอร์</b></div>
+</section>
+
+<!-- W9 : สถาปัตยกรรม -->
+<section class="section reveal" id="w9-arch" data-week="9" data-nav="BatchNorm, Dropout, FC & นับ params 🔥">
+  <div class="sec-head">
+    <div class="kicker">W9 · Part 7–9</div>
+    <h3>ชั้นเสริม · Fully Connected · สถาปัตยกรรมเต็ม</h3>
+    <p class="desc">CNN แบ่งเป็น <b>2 ช่วงชัดเจน: Feature Extraction</b> (Conv + Pool ซ้ำ ๆ) แล้วต่อด้วย <b>Classification</b> (Flatten + Dense)</p>
+  </div>
+
+  <div class="ftable-wrap">
+  <table class="ftable">
+    <thead><tr><th style="width:170px">ชั้น</th><th style="width:250px">หน้าที่</th><th style="width:120px">มีพารามิเตอร์?</th><th>หมายเหตุ</th></tr></thead>
+    <tbody>
+      <tr><td><b>Conv2D</b></td><td>ดึง feature เฉพาะที่ → feature maps</td><td class="fm"><b>มี ✓</b></td><td><span class="math">(F·F·C+1)·K</span></td></tr>
+      <tr><td><b>Activation (ReLU)</b></td><td>เพิ่มความไม่เชิงเส้น</td><td class="fm">ไม่มี</td><td>ขาดไม่ได้ ไม่งั้นซ้อนชั้นไร้ผล</td></tr>
+      <tr><td><b>Pooling</b></td><td>ย่อขนาด เพิ่มความทนทาน</td><td class="fm">ไม่มี</td><td>ทำทีละ channel</td></tr>
+      <tr><td><b>BatchNorm</b></td><td>ทำให้การเทรนเสถียร</td><td class="fm"><b>มี ✓</b></td><td>เรียน <span class="math">γ</span> (scale) และ <span class="math">β</span> (shift)</td></tr>
+      <tr><td><b>Dropout</b></td><td>กัน overfitting</td><td class="fm">ไม่มี</td><td><b>ทำงานเฉพาะตอนเทรน</b></td></tr>
+      <tr><td><b>Flatten</b></td><td>แปลง 3 มิติ → 1 มิติ</td><td class="fm">ไม่มี</td><td>แค่เปลี่ยนรูปร่าง</td></tr>
+      <tr><td><b>Dense (FC)</b></td><td>รวมข้อมูลทั้งภาพ → ตัดสินใจ</td><td class="fm"><b>มี ✓</b></td><td><span class="math">(n_in+1)·n_out</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="grid2" style="margin-top:18px">
+    <div class="card tone-cyan">
+      <h4><span class="ic">📊</span>Batch Normalization</h4>
+      <ul>
+        <li>ปรับค่า activation ให้เป็นมาตรฐาน<b>ภายในแต่ละ batch</b></li>
+        <li>ผล: <b>เทรนเร็วขึ้นและเสถียรขึ้น</b> ทนต่อ learning rate ที่สูงกว่าเดิม</li>
+        <li>มีพารามิเตอร์ที่เรียนรู้ได้ 2 ตัวคือ <span class="math">γ</span> (scale) กับ <span class="math">β</span> (shift)</li>
+        <li><b>ต้องใช้ batch ≥ 16–32</b> ไม่งั้นค่าสถิติต่อ batch มั่วและ BN จะทำงานแย่ลง</li>
+      </ul>
+    </div>
+    <div class="card tone-red">
+      <h4><span class="ic">🎲</span>Dropout</h4>
+      <ul>
+        <li>สุ่มทำให้ activation บางตัวเป็น <b>0 ระหว่างเทรนเท่านั้น</b></li>
+        <li><b>ตอน predict จะปิดตัวเองอัตโนมัติ</b> — ไม่ต้องทำอะไรเพิ่ม</li>
+        <li>เป็นตัวกัน overfitting ที่แรงและง่ายที่สุด</li>
+        <li>มักวาง <b>ก่อนหรือคั่นระหว่างชั้น Dense</b> · หลัง pool ใช้ค่าน้อย (0.25) หลัง Dense ใช้ค่ามาก (0.5)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h4 style="margin:22px 0 10px;font-size:16.5px">เลือกชั้น Output ยังไง — ตารางนี้ออกสอบ</h4>
+  <div class="ftable-wrap">
+  <table class="ftable">
+    <thead><tr><th style="width:230px">ประเภทงาน</th><th style="width:150px">จำนวนนิวรอน</th><th style="width:140px">Activation</th><th>Loss ที่คู่กัน</th></tr></thead>
+    <tbody>
+      <tr><td>Binary classification</td><td class="fm">1</td><td class="fm">Sigmoid</td><td class="fm">binary_crossentropy</td></tr>
+      <tr><td>Multi-class (เลือกได้อันเดียว)</td><td class="fm">N</td><td class="fm">Softmax</td><td class="fm">sparse_categorical_crossentropy (label เป็นเลข)<br>categorical_crossentropy (label เป็น one-hot)</td></tr>
+      <tr><td>Multi-label (เลือกได้หลายอัน)</td><td class="fm">N</td><td class="fm">Sigmoid</td><td class="fm">binary_crossentropy</td></tr>
+      <tr><td>Regression</td><td class="fm">1 ขึ้นไป</td><td class="fm">Linear (ไม่ใส่)</td><td class="fm">mse / mae</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note"><b>กับดักที่เจอบ่อยที่สุดตอนเขียนโค้ด:</b> เลือก loss ไม่ตรงกับรูปแบบ label — label เป็นเลข <span class="math">0–9</span> ต้องใช้ <b>sparse_</b>categorical_crossentropy · ถ้าเป็น one-hot ต้องใช้ categorical_crossentropy เฉย ๆ · ใส่ผิดจะ error หรือได้ accuracy แปลก ๆ</div>
+
+  <h4 style="margin:24px 0 10px;font-size:16.5px">🔢 นับพารามิเตอร์ทั้งโมเดล — โจทย์ที่อาจารย์บอกว่าจะให้ทำในห้อง</h4>
+  <p style="color:var(--muted);font-size:14.5px;margin-bottom:10px">โมเดลจากสไลด์หน้า 23 · input <span class="math">(32, 32, 3)</span> · <span class="math">padding='same'</span> ทุกชั้น conv</p>
+  <div class="ftable-wrap">
+  <table class="ftable">
+    <thead><tr><th style="width:190px">ชั้น</th><th style="width:150px">Output shape</th><th style="width:210px">วิธีคิด</th><th>พารามิเตอร์</th></tr></thead>
+    <tbody>
+      <tr><td class="fm">Conv2D(32, 3×3)</td><td class="fm">32×32×32</td><td class="fm">(3·3·3 + 1) × 32</td><td class="fm">896</td></tr>
+      <tr><td class="fm">Conv2D(32, 3×3)</td><td class="fm">32×32×32</td><td class="fm">(3·3·32 + 1) × 32</td><td class="fm">9,248</td></tr>
+      <tr><td class="fm">MaxPooling2D(2×2)</td><td class="fm">16×16×32</td><td class="fm">—</td><td class="fm">0</td></tr>
+      <tr><td class="fm">Dropout(0.25)</td><td class="fm">16×16×32</td><td class="fm">—</td><td class="fm">0</td></tr>
+      <tr><td class="fm">Conv2D(64, 3×3)</td><td class="fm">16×16×64</td><td class="fm">(3·3·32 + 1) × 64</td><td class="fm">18,496</td></tr>
+      <tr><td class="fm">Conv2D(64, 3×3)</td><td class="fm">16×16×64</td><td class="fm">(3·3·64 + 1) × 64</td><td class="fm">36,928</td></tr>
+      <tr><td class="fm">MaxPooling2D(2×2)</td><td class="fm">8×8×64</td><td class="fm">—</td><td class="fm">0</td></tr>
+      <tr><td class="fm">Flatten</td><td class="fm">4096</td><td class="fm">8 × 8 × 64</td><td class="fm">0</td></tr>
+      <tr><td class="fm"><b>Dense(128)</b></td><td class="fm">128</td><td class="fm">(4096 + 1) × 128</td><td class="fm"><b>524,416</b></td></tr>
+      <tr><td class="fm">Dropout(0.5)</td><td class="fm">128</td><td class="fm">—</td><td class="fm">0</td></tr>
+      <tr><td class="fm">Dense(10)</td><td class="fm">10</td><td class="fm">(128 + 1) × 10</td><td class="fm">1,290</td></tr>
+      <tr><td><b>รวม</b></td><td class="fm">—</td><td class="fm">—</td><td class="fm"><b>591,274</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note"><b>สังเกตจุดที่น่าสนใจมาก:</b> ชั้น <span class="math">Dense(128)</span> ชั้นเดียวกินไป <b>524,416 พารามิเตอร์ = 88.7% ของทั้งโมเดล</b>
+    ขณะที่ conv ทั้ง 4 ชั้นรวมกันแค่ 65,568 (11%)<br>
+    <b>นี่คือเหตุผลที่โมเดลสมัยใหม่เปลี่ยนไปใช้ GlobalAveragePooling2D แทน Flatten</b> — ถ้าเปลี่ยน Flatten เป็น GAP จะเหลือ input 64 ตัวแทน 4096 ทำให้ Dense(128) เหลือแค่ <span class="math">(64+1)×128 = 8,320</span> พารามิเตอร์ ลดลง <b>63 เท่า</b></div>
+
+  <div class="takeaway">โครงมาตรฐาน: <b>[Conv → ReLU → Conv → ReLU → Pool → Dropout] × N → Flatten → Dense → Dropout → Dense(output)</b> · จำว่า <b>กว้าง-สูงหด ความลึกเพิ่ม</b> ไปเรื่อย ๆ</div>
+</section>
+
+<!-- W9 : Keras + สรุป -->
+<section class="section reveal" id="w9-keras" data-week="9" data-nav="Keras, Transfer Learning + Quiz 🔥">
+  <div class="sec-head">
+    <div class="kicker">W9 · Part 11–14</div>
+    <h3>เขียนจริงด้วย TensorFlow / Keras</h3>
+    <p class="desc">ต่อยอดจาก Assignment 04 ที่ทำ MLP บน MNIST — คราวนี้เปลี่ยนเป็น CNN บนภาพสี <span class="math">32×32×3</span></p>
+  </div>
+
+  <div class="codebox">
+    <div class="cb-head"><span class="lang">python · ประกอบโมเดล CNN</span><button class="copy">คัดลอก</button></div>
+    <pre><span class="c-kw">from</span> tensorflow.keras <span class="c-kw">import</span> layers, models
+
+model = models.<span class="c-fn">Sequential</span>([
+    layers.<span class="c-fn">Input</span>(shape=(<span class="c-num">32</span>, <span class="c-num">32</span>, <span class="c-num">3</span>)),
+
+    <span class="c-cm"># ---- Block 1 : 32 filters ----</span>
+    layers.<span class="c-fn">Conv2D</span>(<span class="c-num">32</span>, (<span class="c-num">3</span>,<span class="c-num">3</span>), padding=<span class="c-str">'same'</span>, activation=<span class="c-str">'relu'</span>),
+    layers.<span class="c-fn">Conv2D</span>(<span class="c-num">32</span>, (<span class="c-num">3</span>,<span class="c-num">3</span>), padding=<span class="c-str">'same'</span>, activation=<span class="c-str">'relu'</span>),
+    layers.<span class="c-fn">MaxPooling2D</span>((<span class="c-num">2</span>,<span class="c-num">2</span>)),          <span class="c-cm"># 32x32 -> 16x16</span>
+    layers.<span class="c-fn">Dropout</span>(<span class="c-num">0.25</span>),
+
+    <span class="c-cm"># ---- Block 2 : 64 filters (ลึกขึ้น กว้างลดลง) ----</span>
+    layers.<span class="c-fn">Conv2D</span>(<span class="c-num">64</span>, (<span class="c-num">3</span>,<span class="c-num">3</span>), padding=<span class="c-str">'same'</span>, activation=<span class="c-str">'relu'</span>),
+    layers.<span class="c-fn">Conv2D</span>(<span class="c-num">64</span>, (<span class="c-num">3</span>,<span class="c-num">3</span>), padding=<span class="c-str">'same'</span>, activation=<span class="c-str">'relu'</span>),
+    layers.<span class="c-fn">MaxPooling2D</span>((<span class="c-num">2</span>,<span class="c-num">2</span>)),          <span class="c-cm"># 16x16 -> 8x8</span>
+    layers.<span class="c-fn">Dropout</span>(<span class="c-num">0.25</span>),
+
+    <span class="c-cm"># ---- Classification ----</span>
+    layers.<span class="c-fn">Flatten</span>(),                       <span class="c-cm"># 8*8*64 = 4096</span>
+    layers.<span class="c-fn">Dense</span>(<span class="c-num">128</span>, activation=<span class="c-str">'relu'</span>),
+    layers.<span class="c-fn">Dropout</span>(<span class="c-num">0.5</span>),
+    layers.<span class="c-fn">Dense</span>(<span class="c-num">10</span>, activation=<span class="c-str">'softmax'</span>),
+])
+
+model.<span class="c-fn">summary</span>()   <span class="c-cm"># ตรวจ shape กับจำนวน params ด้วยมือทุกครั้ง</span></pre>
+  </div>
+
+  <div class="codebox">
+    <div class="cb-head"><span class="lang">python · compile และเทรน</span><button class="copy">คัดลอก</button></div>
+    <pre>model.<span class="c-fn">compile</span>(
+    optimizer=<span class="c-str">'adam'</span>,                              <span class="c-cm"># ค่าเริ่มต้นที่ดีเกือบทุกงาน</span>
+    loss=<span class="c-str">'sparse_categorical_crossentropy'</span>,        <span class="c-cm"># label เป็นเลข 0-9</span>
+    metrics=[<span class="c-str">'accuracy'</span>]
+)
+
+history = model.<span class="c-fn">fit</span>(
+    x_train, y_train,
+    epochs=<span class="c-num">15</span>, batch_size=<span class="c-num">64</span>,
+    validation_split=<span class="c-num">0.2</span>                          <span class="c-cm"># ห้ามใช้ test set</span>
+)
+
+test_loss, test_acc = model.<span class="c-fn">evaluate</span>(x_test, y_test)
+<span class="c-fn">print</span>(<span class="c-str">f"Test accuracy: {test_acc:.4f}"</span>)</pre>
+  </div>
+
+  <div class="note"><b>Backprop ผ่านชั้น Conv ต่างจาก Dense ตรงไหน:</b> เพราะ filter ตัวเดียวถูกใช้ซ้ำทุกตำแหน่ง
+    <b>gradient ของ filter นั้นจึงเป็นผลรวมของ gradient จากทุกตำแหน่งที่มันไปวาง</b> — ต่างจาก Dense ที่ weight แต่ละตัวมี gradient ของตัวเองตัวเดียว</div>
+
+  <h4 style="margin:24px 0 10px;font-size:16.5px">สถาปัตยกรรมคลาสสิกที่ควรรู้ชื่อ</h4>
+  <div class="ftable-wrap">
+  <table class="ftable">
+    <thead><tr><th style="width:130px">โมเดล</th><th style="width:80px">ปี</th><th>สิ่งที่มันเปลี่ยนวงการ</th></tr></thead>
+    <tbody>
+      <tr><td><b>LeNet-5</b></td><td class="fm">1998</td><td>CNN ตัวแรกที่ใช้งานได้จริง (อ่านเลขบนเช็ค)</td></tr>
+      <tr><td><b>AlexNet</b></td><td class="fm">2012</td><td><b>ReLU + Dropout + GPU</b> ชนะ ImageNet แบบขาดลอย — จุดจุดติดกระแส deep learning</td></tr>
+      <tr><td><b>VGGNet</b></td><td class="fm">2014</td><td>พิสูจน์ว่า<b>ความลึก</b>สำคัญ โดยซ้อน conv <span class="math">3×3</span> เล็ก ๆ หลายชั้น</td></tr>
+      <tr><td><b>GoogLeNet</b></td><td class="fm">2014</td><td><b>Inception</b> — filter หลายขนาดขนานกันในชั้นเดียว</td></tr>
+      <tr><td><b>ResNet</b></td><td class="fm">2015</td><td><b>Skip connections</b> ทำให้ซ้อนลึกเป็นร้อยชั้นได้โดยไม่พัง</td></tr>
+      <tr><td><b>MobileNet</b></td><td class="fm">2017</td><td>ออกแบบให้<b>เบา รันบนมือถือ/edge</b> ได้</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h4 style="margin:24px 0 10px;font-size:16.5px">Transfer Learning — ของจริงที่จะใช้ตอนทำ capstone</h4>
+  <div class="codebox">
+    <div class="cb-head"><span class="lang">python · ใช้โมเดลที่เทรนมาแล้ว</span><button class="copy">คัดลอก</button></div>
+    <pre>base_model = tf.keras.applications.<span class="c-fn">MobileNetV2</span>(
+    input_shape=(<span class="c-num">160</span>,<span class="c-num">160</span>,<span class="c-num">3</span>),
+    include_top=<span class="c-kw">False</span>,        <span class="c-cm"># ตัดหัว classifier เดิมทิ้ง เอาแต่ตัวดึง feature</span>
+    weights=<span class="c-str">'imagenet'</span>       <span class="c-cm"># ใช้ weight ที่เทรนจาก ImageNet มาแล้ว</span>
+)
+base_model.trainable = <span class="c-kw">False</span>   <span class="c-cm"># แช่แข็งไว้ก่อน เทรนเฉพาะหัวใหม่</span>
+
+model = models.<span class="c-fn">Sequential</span>([
+    base_model,
+    layers.<span class="c-fn">GlobalAveragePooling2D</span>(),   <span class="c-cm"># แทน Flatten ลด params มหาศาล</span>
+    layers.<span class="c-fn">Dense</span>(<span class="c-num">1</span>, activation=<span class="c-str">'sigmoid'</span>)
+])</pre>
+  </div>
+  <div class="note"><b>ใช้เมื่อไหร่:</b> ตอน<b>ข้อมูลที่ label ไว้มีน้อย</b> — ซึ่งเป็นกรณีปกติของโปรเจกต์นักศึกษา (ถ่ายเองได้ไม่กี่ร้อยรูป) · แทนที่จะให้โมเดลเรียนรู้ว่า "ขอบคืออะไร" ใหม่ตั้งแต่ต้น ก็ยืมความรู้จาก ImageNet มาเลย แล้วสอนแค่ชั้นสุดท้าย</div>
+
+  <h4 style="margin:24px 0 10px;font-size:16.5px">⚠️ กับดัก 5 ข้อที่พลาดกันบ่อย</h4>
+  <div class="ftable-wrap">
+  <table class="ftable">
+    <thead><tr><th style="width:300px">พลาดตรงไหน</th><th>แก้ยังไง</th></tr></thead>
+    <tbody>
+      <tr><td>ลืม normalize พิกเซล (ยังเป็น 0–255)</td><td>หารด้วย 255 ให้อยู่ในช่วง <span class="math">[0, 1]</span> — เหตุผลเดียวกับ scaling ใน Week 3 และ 8</td></tr>
+      <tr><td>เลือก loss ไม่ตรงกับรูปแบบ label</td><td>label เป็นเลข → <span class="math">sparse_</span>categorical · one-hot → categorical เฉย ๆ</td></tr>
+      <tr><td>Overfit (train ขึ้น แต่ val ลง)</td><td>เพิ่ม <b>Dropout · data augmentation · early stopping</b></td></tr>
+      <tr><td>Batch เล็กเกินไปแต่ใช้ BatchNorm</td><td>ใช้ <b>batch ≥ 16–32</b> ไม่งั้นค่าสถิติต่อ batch ไม่นิ่ง</td></tr>
+      <tr><td>ไม่เคยดู <code class="inline">model.summary()</code></td><td>ดู<b>ทุกครั้งที่แก้โครงสร้าง</b> เช็ค shape กับ params ด้วยมือ</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h4 style="margin:24px 0 10px;font-size:16.5px">🇹🇭 CNN ใช้ทำอะไรได้บ้างในบริบทไทย</h4>
+  <p style="color:var(--muted);font-size:14.5px;margin-bottom:10px">อาจารย์ยกตัวอย่างเหล่านี้ว่า<b>เป็นขนาดที่ทำเป็น capstone ได้จริงใน 1 เทอม</b> — ข้อมูลไม่กี่ร้อยถึงไม่กี่พันรูป label ด้วย Label Studio แล้วเสิร์ฟผ่าน FastAPI</p>
+  <div class="ftable-wrap">
+  <table class="ftable">
+    <thead><tr><th style="width:120px">ภาคส่วน</th><th style="width:250px">งาน</th><th>Input → Output</th></tr></thead>
+    <tbody>
+      <tr><td>เกษตร</td><td>คัดเกรดความสุกทุเรียน/มะม่วง</td><td>รูปผลไม้ → เกรด A/B/คัดทิ้ง สำหรับ QC ส่งออก</td></tr>
+      <tr><td>เกษตร</td><td>ตรวจโรคและแมลงในใบข้าว</td><td>รูปจากแปลง → ชนิดโรค + ความมั่นใจ</td></tr>
+      <tr><td>โลจิสติกส์</td><td>ตรวจพัสดุเสียหายบนสายพาน</td><td>รูปพัสดุ → เสียหาย / ปกติ</td></tr>
+      <tr><td>โลจิสติกส์</td><td>อ่านป้ายทะเบียนที่ประตูคลัง</td><td>รูปรถ → เลขทะเบียนสำหรับบันทึกเข้า-ออก</td></tr>
+      <tr><td>ท่องเที่ยว</td><td>จำแนกสถานที่สำหรับแอปนักท่องเที่ยว</td><td>รูปที่นักท่องเที่ยวถ่าย → ชื่อสถานที่ + ข้อมูล</td></tr>
+      <tr><td>ชุมชน</td><td>ผู้ช่วยคัดแยกขยะ</td><td>รูปของ → รีไซเคิล / อินทรีย์ / ทั่วไป</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="card tone-yellow" style="margin-top:18px">
+    <h4><span class="ic">📝</span>Lab / Assignment ที่อาจารย์สั่ง</h4>
+    <ul>
+      <li>โหลดและ<b>แสดงตัวอย่างภาพ</b>ก่อนเริ่ม</li>
+      <li>ประกอบ CNN <b>ตามแบบในหัวข้อสถาปัตยกรรมเต็ม</b></li>
+      <li><b>อธิบาย <code class="inline">model.summary()</code> ด้วยมือ</b> — ทุกบรรทัดต้องบอกได้ว่าตัวเลขมาจากไหน</li>
+      <li>เทรน<b>อย่างน้อย 10 epochs</b> แล้วพล็อตกราฟ accuracy/loss</li>
+      <li><b>วาด feature map จากชั้นที่ 1</b> ออกมาดู</li>
+      <li><b>ทดลองเอา pooling ออก / เอา dropout ออก</b> แล้วเขียนว่าเกิดอะไรขึ้น</li>
+    </ul>
+  </div>
+
+  <h4 style="margin:24px 0 10px;font-size:16.5px">📋 Cheat Sheet — 1 บรรทัดต่อชั้น</h4>
+  <div class="steps">
+    <div class="step"><div class="s-t">CONVOLUTION</div><div class="s-x">ดึง feature เฉพาะที่ → ได้ feature maps</div></div>
+    <div class="step"><div class="s-t">ACTIVATION</div><div class="s-x">เพิ่มความไม่เชิงเส้น (ReLU)</div></div>
+    <div class="step"><div class="s-t">POOLING</div><div class="s-x">ย่อขนาด เพิ่มความทนทาน <b>ไม่มีพารามิเตอร์</b></div></div>
+    <div class="step"><div class="s-t">BATCHNORM</div><div class="s-x">ทำให้การเทรนเสถียร</div></div>
+    <div class="step"><div class="s-t">DROPOUT</div><div class="s-x">กัน overfitting (เฉพาะตอนเทรน)</div></div>
+    <div class="step"><div class="s-t">FLATTEN</div><div class="s-x">3 มิติ → 1 มิติ</div></div>
+    <div class="step"><div class="s-t">DENSE (FC)</div><div class="s-x">รวมข้อมูลทั้งภาพ → ตัดสินใจ</div></div>
+  </div>
+
+  <div class="quiz" id="quiz-w9" data-quiz="w9"></div>
+  <div class="takeaway">แกน Week 9 ทั้งหมด: <b>Conv ดึง feature โดยใช้ filter ร่วมกันทุกตำแหน่ง → ReLU เพิ่มความไม่เชิงเส้น → Pool ย่อขนาด → ทำซ้ำให้ลึกขึ้น → Dense ตัดสินใจ</b> · และต้องคำนวณ <b>ขนาด output</b> กับ <b>จำนวนพารามิเตอร์</b> ด้วยมือได้</div>
+</section>
+
 <footer>
-  สร้างจากสไลด์ Week 1–8 · Introduction to AI &amp; ML · Mathematics for ML · Data Preprocessing &amp; EDA · Regression · Classification · Bayesian Networks · Unsupervised Learning &amp; Clustering · Dimensionality Reduction<br>
+  สร้างจากสไลด์ Week 1–9 · Introduction to AI &amp; ML · Mathematics for ML · Data Preprocessing &amp; EDA · Regression · Classification · Bayesian Networks · Unsupervised Learning &amp; Clustering · Dimensionality Reduction · Convolutional Neural Networks<br>
   เสริมเนื้อหาจาก <a href="https://www.geeksforgeeks.org/machine-learning/machine-learning-mathematics/" target="_blank">GeeksforGeeks — Maths for Machine Learning</a> · โครงสร้างรองรับการเพิ่ม Week 4+ (ดู comment ในโค้ด)
 </footer>
 
@@ -5354,8 +6016,8 @@ scores = <span class="c-fn">cross_val_score</span>(pipe, X, y, cv=<span class="c
 
     <div class="pm-lab">1 · เลือกช่วงเนื้อหา</div>
     <div class="pm-opts" id="pmScope">
-      <button class="pm-opt on" data-v="all">📚 ทั้งหมด (Week 1–8 + ติวสอบ)</button>
-      <button class="pm-opt" data-v="lessons">📖 เฉพาะบทเรียน Week 1–8</button>
+      <button class="pm-opt on" data-v="all">📚 ทั้งหมด (Week 1–9 + ติวสอบ)</button>
+      <button class="pm-opt" data-v="lessons">📖 เฉพาะบทเรียน Week 1–9</button>
       <button class="pm-opt" data-v="exam">🎯 เฉพาะโซนติวสอบ</button>
       <button class="pm-opt" data-v="1">W1</button>
       <button class="pm-opt" data-v="2">W2</button>
@@ -5365,6 +6027,7 @@ scores = <span class="c-fn">cross_val_score</span>(pipe, X, y, cv=<span class="c
       <button class="pm-opt" data-v="6">W6</button>
       <button class="pm-opt" data-v="7">W7</button>
       <button class="pm-opt" data-v="8">W8</button>
+      <button class="pm-opt" data-v="9">W9</button>
     </div>
 
     <div class="pm-lab">2 · พื้นที่จดโน้ต</div>
@@ -5437,8 +6100,9 @@ const store = {
 /* ============ sidebar TOC (collapsible weeks) + week switcher ============ */
 const WEEK_TITLES = {exam:'ติวสอบ & Cram Sheet', 1:'Introduction to AI & ML', 2:'Mathematics for ML',
   3:'Data Preprocessing & EDA', 4:'Regression', 5:'Classification', 6:'Bayesian Networks',
-  7:'Unsupervised Learning & Clustering', 8:'Dimensionality Reduction'};
-const WEEK_ICONS  = {exam:'🎯', 1:'W1', 2:'W2', 3:'W3', 4:'W4', 5:'W5', 6:'W6', 7:'W7', 8:'W8'};
+  7:'Unsupervised Learning & Clustering', 8:'Dimensionality Reduction',
+  9:'Convolutional Neural Networks'};
+const WEEK_ICONS  = {exam:'🎯', 1:'W1', 2:'W2', 3:'W3', 4:'W4', 5:'W5', 6:'W6', 7:'W7', 8:'W8', 9:'W9'};
 const wkIcon = wk => WEEK_ICONS[wk] || ('W'+wk);
 const sections = [...document.querySelectorAll('.section[data-nav]')];
 const toc = document.getElementById('toc');
@@ -7550,6 +8214,295 @@ document.querySelectorAll('.worked .wtoggle').forEach(btn=>{
 })();
 
 /* ================================================================
+   WEEK 9 · CNN DEMOS
+================================================================ */
+(function W9(){
+  const BLUE='#4f8cff', PINK='#f472b6', GREEN='#34d399', AMBER='#fbbf24',
+        GRID='rgba(148,163,214,.12)', DIM='#5c6a8a', MUT='#93a1bd', TXT='#e8edf7';
+  function fit(cv,h){
+    if(!cv) return null;
+    const dpr=window.devicePixelRatio||1;
+    const w=cv.clientWidth||(cv.parentElement&&cv.parentElement.clientWidth)||620;
+    cv.width=Math.round(w*dpr); cv.height=Math.round(h*dpr);
+    const x=cv.getContext('2d'); if(!x) return null;
+    x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,w,h);
+    return {x,w,h};
+  }
+  const on=(el,ev,fn)=>{ if(el) el.addEventListener(ev,fn); };
+  /* วาดตารางตัวเลข */
+  function mat(x,M,ox,oy,cell,o={}){
+    const R=M.length, C=M[0].length;
+    for(let i=0;i<R;i++) for(let j=0;j<C;j++){
+      const px=ox+j*cell, py=oy+i*cell;
+      const hi = o.hi && i>=o.hi[0] && i<o.hi[0]+o.hi[2] && j>=o.hi[1] && j<o.hi[1]+o.hi[3];
+      const done = o.done!==undefined && (i*C+j) < o.done;
+      x.fillStyle = hi ? 'rgba(79,140,255,.30)' : (o.fill||'rgba(148,163,214,.05)');
+      if(o.heat){
+        const v=M[i][j], t=(v-o.heat[0])/((o.heat[1]-o.heat[0])||1);
+        x.fillStyle=`rgba(79,140,255,${0.10+0.62*Math.max(0,Math.min(1,t))})`;
+      }
+      if(o.pending && !done) x.fillStyle='rgba(148,163,214,.04)';
+      x.fillRect(px,py,cell,cell);
+      x.strokeStyle=hi?BLUE:GRID; x.lineWidth=hi?1.8:1;
+      x.strokeRect(px,py,cell,cell);
+      const show = o.pending ? done : true;
+      if(show){
+        x.fillStyle = hi? '#fff' : (o.tc||TXT);
+        x.font=`${o.fs||13}px JetBrains Mono, monospace`;
+        x.textAlign='center'; x.textBaseline='middle';
+        const v=M[i][j];
+        x.fillText(typeof v==='number' && !Number.isInteger(v) ? v.toFixed(2) : String(v), px+cell/2, py+cell/2);
+      }
+    }
+    if(o.label){
+      x.fillStyle=o.lc||MUT; x.font='11.5px Sarabun, sans-serif';
+      x.textAlign='left'; x.textBaseline='alphabetic';
+      x.fillText(o.label, ox, oy-8);
+    }
+  }
+
+  /* ---------- 1. convolution ทีละช่อง ---------- */
+  (function(){
+    const cv=document.getElementById('cvConv'); if(!cv) return;
+    const info=document.getElementById('cvInfo');
+    const X=[[1,1,1,0,0],[0,1,1,1,0],[0,0,1,1,1],[0,0,1,1,0],[0,1,1,0,0]];
+    const K=[[1,0,1],[0,1,0],[1,0,1]];
+    const OUT=[[0,0,0],[0,0,0],[0,0,0]];
+    let step=0, timer=null;                    // 0..9  (9 = เสร็จหมด)
+
+    function calc(r,c){
+      let s=0, terms=[];
+      for(let i=0;i<3;i++) for(let j=0;j<3;j++){
+        const a=X[r+i][c+j], b=K[i][j];
+        s+=a*b; if(b) terms.push(`${a}·${b}`);
+      }
+      return {s, terms};
+    }
+    for(let r=0;r<3;r++) for(let c=0;c<3;c++) OUT[r][c]=calc(r,c).s;
+
+    function draw(){
+      const g=fit(cv,330); if(!g) return; const {x,w,h}=g;
+      const cell=Math.min(34,(w-230)/5);
+      const r = step>0 ? Math.floor((step-1)/3) : 0;
+      const c = step>0 ? (step-1)%3 : 0;
+      mat(x,X,20,50,cell,{label:'Input 5×5', hi: step>0?[r,c,3,3]:null});
+      const kx=20+5*cell+34;
+      mat(x,K,kx,50,cell,{label:'Kernel 3×3', fill:'rgba(244,114,182,.09)', tc:'#fbcfe8'});
+      const ox=kx+3*cell+34;
+      mat(x,OUT,ox,50,cell,{label:'Feature map 3×3', pending:true, done:step, tc:'#a7f3d0',
+                            fill:'rgba(52,211,153,.10)'});
+      x.fillStyle=MUT; x.font='16px JetBrains Mono, monospace'; x.textAlign='center'; x.textBaseline='middle';
+      x.fillText('✳', kx-17, 50+1.5*cell);
+      x.fillText('=', ox-17, 50+1.5*cell);
+
+      const by=50+5*cell+30;
+      if(step===0){
+        x.fillStyle=DIM; x.font='13px Sarabun, sans-serif'; x.textAlign='left'; x.textBaseline='alphabetic';
+        x.fillText('กด "ช่องถัดไป" เพื่อเริ่มเลื่อน kernel ทีละตำแหน่ง', 20, by);
+        if(info) info.innerHTML='พร้อมเริ่ม · feature map จะมี <b>3×3 = 9 ช่อง</b>';
+      } else {
+        const {s,terms}=calc(r,c);
+        x.fillStyle='#c6d0e6'; x.font='12.5px JetBrains Mono, monospace'; x.textAlign='left'; x.textBaseline='alphabetic';
+        x.fillText(`ช่อง (${r},${c})  =  ${terms.join('  +  ')}`, 20, by);
+        x.fillStyle=GREEN; x.font='600 14px JetBrains Mono, monospace';
+        x.fillText(`=  ${s}`, 20, by+22);
+        x.fillStyle=DIM; x.font='11.5px Sarabun, sans-serif';
+        x.fillText('(แสดงเฉพาะพจน์ที่ kernel ไม่ใช่ 0 — ที่เหลือคูณ 0 ได้ 0)', 20, by+44);
+        if(info) info.innerHTML=`ช่องที่ <b>${step}/9</b> · ตำแหน่ง (${r},${c}) · ค่า = <b style="color:${GREEN}">${s}</b>`;
+      }
+    }
+    function next(){ step=(step+1)>9?0:step+1; draw(); return step; }
+    on(document.getElementById('cvStep'),'click',()=>{ if(timer){clearInterval(timer);timer=null;} next(); });
+    on(document.getElementById('cvAuto'),'click',()=>{
+      if(timer){ clearInterval(timer); timer=null; return; }
+      timer=setInterval(()=>{ if(next()>=9){ clearInterval(timer); timer=null; } },850);
+    });
+    on(document.getElementById('cvRst'),'click',()=>{ if(timer){clearInterval(timer);timer=null;} step=0; draw(); });
+    draw(); on(window,'resize',draw);
+  })();
+
+  /* ---------- 2. เครื่องคิดเลขขนาด output ---------- */
+  (function(){
+    const cv=document.getElementById('cvShape'); if(!cv) return;
+    const info=document.getElementById('shInfo');
+    const N=document.getElementById('shN'), F=document.getElementById('shF'),
+          S=document.getElementById('shS'), P=document.getElementById('shP');
+    function draw(){
+      const g=fit(cv,300); if(!g) return; const {x,w,h}=g;
+      const n=+N.value, f=+F.value, s=+S.value, p=+P.value;
+      const raw=(n+2*p-f)/s+1, out=Math.floor((n+2*p-f)/s)+1, ok=out>=1;
+      const maxPx=170, sc=maxPx/Math.max(n+2*p, 1);
+      const cx1=w*0.24, cy=140;
+      // input + padding
+      const pin=(n+2*p)*sc, inn=n*sc;
+      x.fillStyle='rgba(251,191,36,.13)'; x.fillRect(cx1-pin/2, cy-pin/2, pin, pin);
+      x.strokeStyle='rgba(251,191,36,.5)'; x.setLineDash([4,3]); x.lineWidth=1.3;
+      x.strokeRect(cx1-pin/2, cy-pin/2, pin, pin); x.setLineDash([]);
+      x.fillStyle='rgba(79,140,255,.20)'; x.fillRect(cx1-inn/2, cy-inn/2, inn, inn);
+      x.strokeStyle=BLUE; x.lineWidth=1.8; x.strokeRect(cx1-inn/2, cy-inn/2, inn, inn);
+      // kernel ตัวอย่างมุมซ้ายบน
+      const kp=f*sc;
+      x.fillStyle='rgba(244,114,182,.28)'; x.fillRect(cx1-pin/2, cy-pin/2, kp, kp);
+      x.strokeStyle=PINK; x.lineWidth=1.6; x.strokeRect(cx1-pin/2, cy-pin/2, kp, kp);
+      x.fillStyle=MUT; x.font='11.5px Sarabun, sans-serif'; x.textAlign='center'; x.textBaseline='alphabetic';
+      x.fillText(`input ${n}×${n}` + (p?`  + padding ${p}`:''), cx1, cy+pin/2+20);
+      x.fillStyle=PINK; x.fillText(`kernel ${f}×${f}`, cx1, cy-pin/2-8);
+      // ลูกศร
+      const ax=w*0.46;
+      x.strokeStyle=DIM; x.lineWidth=2; x.beginPath();
+      x.moveTo(ax-18,cy); x.lineTo(ax+18,cy); x.stroke();
+      x.beginPath(); x.moveTo(ax+18,cy); x.lineTo(ax+9,cy-6); x.lineTo(ax+9,cy+6); x.closePath();
+      x.fillStyle=DIM; x.fill();
+      // output
+      const cx2=w*0.70, op=Math.max(out,0)*sc;
+      if(ok){
+        x.fillStyle='rgba(52,211,153,.22)'; x.fillRect(cx2-op/2, cy-op/2, op, op);
+        x.strokeStyle=GREEN; x.lineWidth=1.8; x.strokeRect(cx2-op/2, cy-op/2, op, op);
+        x.fillStyle=GREEN; x.font='600 12px Sarabun, sans-serif'; x.textAlign='center';
+        x.fillText(`output ${out}×${out}`, cx2, cy+Math.max(op,20)/2+20);
+      } else {
+        x.fillStyle='#f87171'; x.font='600 13px Sarabun, sans-serif'; x.textAlign='center';
+        x.fillText('output < 1 — kernel ใหญ่เกิน input', cx2, cy);
+      }
+      // สูตร
+      x.textAlign='left'; x.textBaseline='alphabetic';
+      x.fillStyle='#c6d0e6'; x.font='13.5px JetBrains Mono, monospace';
+      x.fillText(`⌊ (${n} + 2·${p} − ${f}) / ${s} ⌋ + 1  =  ⌊ ${(n+2*p-f)}/${s} ⌋ + 1  =  ⌊ ${raw===Math.floor(raw)?(n+2*p-f)/s:((n+2*p-f)/s).toFixed(2)} ⌋ + 1  =  ${ok?out:'—'}`, 20, 40);
+      const same = (p === Math.floor((f-1)/2)) && s===1;
+      if(info) info.innerHTML = ok
+        ? `พื้นที่ <b>${n*n}</b> → <b>${out*out}</b> พิกเซล (${(out*out/(n*n)*100).toFixed(0)}%)` +
+          (same?' · <b style="color:'+GREEN+'">นี่คือ padding=\'same\' พอดี ขนาดไม่เปลี่ยน</b>':'') +
+          (raw!==Math.floor(raw)?' · <b style="color:'+AMBER+'">หารไม่ลงตัว ต้องปัดลง</b>':'')
+        : '<b style="color:#f87171">ค่าที่ตั้งไว้ใช้ไม่ได้</b> — ต้องลด F หรือเพิ่ม P';
+    }
+    [N,F,S,P].forEach(el=>on(el,'input',draw));
+    on(document.getElementById('shSame'),'click',()=>{
+      P.value=Math.floor((+F.value-1)/2); S.value=1; draw();
+    });
+    draw(); on(window,'resize',draw);
+  })();
+
+  /* ---------- 3. kernel gallery / feature map ---------- */
+  (function(){
+    const cv=document.getElementById('cvKernel'); if(!cv) return;
+    const info=document.getElementById('knInfo');
+    const NN=30;
+    const IMG=(function(){
+      const a=[]; for(let i=0;i<NN;i++){ const row=[];
+        for(let j=0;j<NN;j++){
+          let v=22;
+          if(i>5&&i<24&&j>5&&j<14) v=205;                               // แท่งตั้ง
+          if(i>9&&i<15&&j>13&&j<25) v=170;                              // แท่งนอน
+          const dx=i-20, dy=j-21; if(dx*dx+dy*dy<20) v=240;             // จุดกลม
+          row.push(v);
+        } a.push(row); } return a;
+    })();
+    const KS={
+      vert :{k:[[-1,0,1],[-2,0,2],[-1,0,1]], n:'Sobel X — ขอบแนวตั้ง', abs:true},
+      horz :{k:[[-1,-2,-1],[0,0,0],[1,2,1]], n:'Sobel Y — ขอบแนวนอน', abs:true},
+      edge :{k:[[0,-1,0],[-1,4,-1],[0,-1,0]], n:'Laplacian — ขอบทุกทิศ', abs:true},
+      blur :{k:[[1,1,1],[1,1,1],[1,1,1]].map(r=>r.map(v=>v/9)), n:'Box blur — เฉลี่ยเพื่อนบ้าน', abs:false},
+      sharp:{k:[[0,-1,0],[-1,5,-1],[0,-1,0]], n:'Sharpen — เน้นความต่าง', abs:false},
+    };
+    let cur='vert';
+    function conv(kk,abs){
+      const M=NN-2, o=[];
+      for(let i=0;i<M;i++){ const row=[];
+        for(let j=0;j<M;j++){ let s=0;
+          for(let a=0;a<3;a++) for(let b=0;b<3;b++) s+=IMG[i+a][j+b]*kk[a][b];
+          row.push(abs?Math.abs(s):s);
+        } o.push(row);
+      } return o;
+    }
+    function blit(x,M,ox,oy,px,lo,hi,label){
+      for(let i=0;i<M.length;i++) for(let j=0;j<M[0].length;j++){
+        const t=Math.max(0,Math.min(1,(M[i][j]-lo)/((hi-lo)||1)));
+        const g=Math.round(t*255);
+        x.fillStyle=`rgb(${g},${g},${g})`;
+        x.fillRect(ox+j*px, oy+i*px, px+0.5, px+0.5);
+      }
+      x.strokeStyle='rgba(148,163,214,.28)'; x.lineWidth=1;
+      x.strokeRect(ox,oy,M[0].length*px,M.length*px);
+      x.fillStyle=MUT; x.font='11.5px Sarabun, sans-serif'; x.textAlign='center'; x.textBaseline='alphabetic';
+      x.fillText(label, ox+M[0].length*px/2, oy+M.length*px+17);
+    }
+    function draw(){
+      const g=fit(cv,300); if(!g) return; const {x,w,h}=g;
+      const px=Math.min(6.4,(w-140)/(2*NN));
+      const K=KS[cur], out=conv(K.k,K.abs);
+      let lo=Infinity, hi=-Infinity;
+      out.forEach(r=>r.forEach(v=>{ if(v<lo)lo=v; if(v>hi)hi=v; }));
+      const w1=NN*px, w2=(NN-2)*px, gap=78, tot=w1+gap+w2, ox=(w-tot)/2, oy=42;
+      blit(x,IMG,ox,oy,px,0,255,'ภาพต้นฉบับ');
+      blit(x,out,ox+w1+gap,oy,px,lo,hi,'feature map');
+      // kernel ตรงกลาง
+      const kc=19, kx=ox+w1+(gap-3*kc)/2, ky=oy+w1/2-1.5*kc;
+      const disp=K.k.map(r=>r.map(v=>Math.round(v*100)/100));
+      mat(x,disp,kx,ky,kc,{fill:'rgba(244,114,182,.12)', tc:'#fbcfe8', fs:9.5});
+      x.fillStyle=PINK; x.font='10.5px Sarabun, sans-serif'; x.textAlign='center'; x.textBaseline='alphabetic';
+      x.fillText('kernel', kx+1.5*kc, ky-7);
+      x.fillStyle=DIM; x.font='11px JetBrains Mono, monospace';
+      x.fillText(`${NN}×${NN} → ${NN-2}×${NN-2}`, w/2, oy+w1+42);
+      if(info) info.innerHTML=`<b>${K.n}</b>${K.abs?' · แสดงค่าสัมบูรณ์':''}`;
+    }
+    document.querySelectorAll('[data-kn]').forEach(b=>on(b,'click',()=>{
+      cur=b.dataset.kn;
+      document.querySelectorAll('[data-kn]').forEach(o=>o.classList.toggle('primary',o===b));
+      draw();
+    }));
+    draw(); on(window,'resize',draw);
+  })();
+
+  /* ---------- 4. pooling ---------- */
+  (function(){
+    const cv=document.getElementById('cvPool'); if(!cv) return;
+    const info=document.getElementById('plInfo');
+    const P=[[1,3,2,4],[5,6,1,2],[1,2,3,4],[0,1,4,3]];
+    let mode='max', step=0;                    // 0 = โชว์ครบ, 1..4 = ทีละหน้าต่าง
+    const win=i=>[[0,0],[0,2],[2,0],[2,2]][i];
+    function val(r,c){
+      const v=[P[r][c],P[r][c+1],P[r+1][c],P[r+1][c+1]];
+      return mode==='max' ? Math.max(...v) : v.reduce((a,b)=>a+b,0)/4;
+    }
+    function draw(){
+      const g=fit(cv,290); if(!g) return; const {x,w,h}=g;
+      const cell=Math.min(42,(w-200)/4);
+      const OUT=[[val(0,0),val(0,2)],[val(2,0),val(2,2)]];
+      const hi = step>0 ? win(step-1) : null;
+      mat(x,P,20,52,cell,{label:'Input 4×4', hi: hi?[hi[0],hi[1],2,2]:null});
+      const ox=20+4*cell+70;
+      mat(x,OUT,ox,52+cell/2,cell,{label:`${mode==='max'?'Max':'Average'} Pool 2×2 · stride 2`,
+        pending: step>0, done: step, fill:'rgba(52,211,153,.12)', tc:'#a7f3d0'});
+      x.fillStyle=MUT; x.font='16px JetBrains Mono, monospace'; x.textAlign='center'; x.textBaseline='middle';
+      x.fillText('→', 20+4*cell+35, 52+2*cell);
+      const by=52+4*cell+28;
+      x.textAlign='left'; x.textBaseline='alphabetic';
+      if(step>0){
+        const [r,c]=hi;
+        const vs=[P[r][c],P[r][c+1],P[r+1][c],P[r+1][c+1]];
+        const nm=['ซ้ายบน','ขวาบน','ซ้ายล่าง','ขวาล่าง'][step-1];
+        x.fillStyle='#c6d0e6'; x.font='12.5px JetBrains Mono, monospace';
+        x.fillText(`${nm}: {${vs.join(', ')}}  →  ${mode==='max'?'max':'avg'} = ${val(r,c)}`, 20, by);
+        if(info) info.innerHTML=`หน้าต่างที่ <b>${step}/4</b> (${nm}) → <b style="color:${GREEN}">${val(r,c)}</b>`;
+      } else {
+        x.fillStyle=DIM; x.font='12.5px Sarabun, sans-serif';
+        x.fillText('หน้าต่าง 2×2 stride 2 → ไม่ทับกัน · พื้นที่ลดลง 4 เท่า', 20, by);
+        if(info) info.innerHTML = mode==='max'
+          ? 'Max = <b>[[6, 4], [2, 4]]</b>  <span style="color:#fbbf24">(สไลด์เขียน 4 ที่ช่องซ้ายล่าง — ผิด)</span>'
+          : 'Average = <b>[[3.75, 2.25], [1.00, 3.50]]</b>';
+      }
+    }
+    document.querySelectorAll('[data-pl]').forEach(b=>on(b,'click',()=>{
+      mode=b.dataset.pl; step=0;
+      document.querySelectorAll('[data-pl]').forEach(o=>o.classList.toggle('primary',o===b));
+      draw();
+    }));
+    on(document.getElementById('plStep'),'click',()=>{ step=(step+1)>4?0:step+1; draw(); });
+    draw(); on(window,'resize',draw);
+  })();
+})();
+
+/* ================================================================
    QUIZ ENGINE + DATA
    เพิ่ม quiz week ใหม่: เพิ่ม key ใน QUIZ_DATA แล้ววาง
    <div class="quiz" data-quiz="w3"></div> ใน section ของ week นั้น
@@ -7860,6 +8813,53 @@ w8:{title:'Quiz Week 8 · Dimensionality Reduction', qs:[
  {q:'ต้องการลดมิติเพื่อนำ feature ไปเข้า model ใน production ควรเลือกอะไรระหว่าง PCA กับ t-SNE?',
   o:['t-SNE เพราะแยกกลุ่มสวยกว่า','PCA เพราะ transform ข้อมูลใหม่ได้และเป็น mapping ที่คงที่','ใช้ได้ทั้งคู่เหมือนกัน','ไม่ต้องลดมิติเลย'],a:1,
   x:'PCA เรียน mapping ไว้แล้ว transform ข้อมูลใหม่ได้ทันที · t-SNE เป็นการจัดวางจุดเฉพาะชุดข้อมูลนั้น ไม่มี transform สำหรับข้อมูลใหม่ และผลเปลี่ยนตาม seed จึงใช้ดูอย่างเดียว'},
+]},
+w9:{title:'Quiz Week 9 · Convolutional Neural Networks', qs:[
+ {q:'ภาพ RGB ขนาด 224×224 ต่อเข้า Dense 1,000 นิวรอน จะมีพารามิเตอร์ประมาณเท่าไหร่?',
+  o:['ประมาณ 150,000','ประมาณ 1.5 ล้าน','ประมาณ 150 ล้าน','ประมาณ 15,000'],a:2,
+  x:'224×224×3 = 150,528 ค่า input × 1,000 นิวรอน ≈ 150 ล้านพารามิเตอร์ในชั้นเดียว — เทรนไม่ไหวและ overfit แน่นอน นี่คือเหตุผลข้อแรกที่ต้องใช้ CNN'},
+ {q:'ข้อใด NOT ใช่แนวคิดหลักของ CNN?',
+  o:['Local connectivity — นิวรอนเห็นแค่บริเวณเล็ก ๆ','Weight sharing — filter เดียวเลื่อนทั่วภาพ','Hierarchical features — ขอบ → พื้นผิว → วัตถุ','Full connectivity — ทุกนิวรอนเชื่อมทุกพิกเซล'],a:3,
+  x:'Full connectivity คือลักษณะของ MLP ซึ่งเป็นสิ่งที่ CNN ตั้งใจเลี่ยง · 3 แนวคิดหลักของ CNN คือ local connectivity, weight sharing และ hierarchical features'},
+ {q:'ทำไม weight sharing ถึงให้ translation invariance มาด้วย?',
+  o:['เพราะใช้ pooling','เพราะ filter ตัวเดียวกันถูกใช้ตรวจทุกตำแหน่ง ลายเดียวกันอยู่ตรงไหนก็ตรวจเจอ','เพราะมี Dropout','เพราะใช้ ReLU'],a:1,
+  x:'filter เป็นเหมือนตราปั๊มที่เอาไปปั๊มทุกตำแหน่ง จึงไม่ต้องเรียนรู้ลายเดิมซ้ำที่ตำแหน่งอื่น — ต่างจาก MLP ที่ต้องเรียนใหม่ทุกจุด'},
+ {q:'input 5×5 ทำ convolution กับ kernel 3×3 stride 1 ไม่มี padding ได้ output ขนาดเท่าไหร่?',
+  o:['5×5','4×4','3×3','2×2'],a:2,
+  x:'⌊(5 + 2·0 − 3)/1⌋ + 1 = ⌊2⌋ + 1 = 3 → output 3×3 · หน้าต่าง 3×3 วางบน 5×5 ได้แค่ 3 ตำแหน่งต่อแกน'},
+ {q:'input 32×32 kernel 3×3 stride 1 ต้องใส่ padding เท่าไหร่ให้ output เท่าเดิม (same)?',
+  o:['P = 0','P = 1','P = 2','P = 3'],a:1,
+  x:'⌊(32 + 2·1 − 3)/1⌋ + 1 = ⌊31⌋ + 1 = 32 ✓ · สูตรทั่วไปสำหรับ same เมื่อ stride = 1 คือ P = (F−1)/2'},
+ {q:'Conv2D 64 filters ขนาด 3×3 รับ input ที่มี 32 channels มีพารามิเตอร์กี่ตัว?',
+  o:['18,432','18,496','2,048','36,928'],a:1,
+  x:'(F·F·C_in + 1) × K = (3·3·32 + 1) × 64 = (288 + 1) × 64 = 289 × 64 = 18,496 · อย่าลืม +1 ที่เป็น bias ของแต่ละ filter'},
+ {q:'filter 1 ตัวที่ทำ convolution บน input (224, 224, 3) ให้ output กี่แผ่น?',
+  o:['3 แผ่น (แผ่นละ channel)','1 แผ่น','9 แผ่น','224 แผ่น'],a:1,
+  x:'filter มีรูปร่าง (F, F, C) คือกินความลึกทั้งหมดในทีเดียว จึงให้ feature map 2 มิติ 1 แผ่น · ถ้าอยากได้ K แผ่นต้องมี K filters'},
+ {q:'ทำไมต้องมี ReLU คั่นหลัง Conv ทุกชั้น?',
+  o:['เพื่อลดขนาด feature map','เพราะ convolution เป็น linear การซ้อนหลายชั้นโดยไม่มี activation จะยุบเหลือ linear ชั้นเดียว','เพื่อกัน overfitting','เพื่อเพิ่มจำนวนพารามิเตอร์'],a:1,
+  x:'ฟังก์ชันเชิงเส้นซ้อนกันยังคงเป็นฟังก์ชันเชิงเส้น ต้องมี non-linearity คั่นถึงจะได้ความสามารถเพิ่มจากการซ้อนชั้น — เหตุผลเดียวกับใน MLP'},
+ {q:'Max Pool 2×2 stride 2 ของ [[1,3,2,4],[5,6,1,2],[1,2,3,4],[0,1,4,3]] ได้อะไร?',
+  o:['[[6,4],[4,4]]','[[6,4],[2,4]]','[[6,2],[2,4]]','[[5,4],[1,4]]'],a:1,
+  x:'ซ้ายบน {1,3,5,6}→6 · ขวาบน {2,4,1,2}→4 · ซ้ายล่าง {1,2,0,1}→2 · ขวาล่าง {3,4,4,3}→4 · ระวัง: สไลด์ของอาจารย์เขียนช่องซ้ายล่างเป็น 4 ซึ่งคำนวณแล้วไม่ตรง ควรถามยืนยันก่อนสอบ'},
+ {q:'ข้อใดถูกต้องเกี่ยวกับ Pooling layer?',
+  o:['มีพารามิเตอร์ที่เรียนรู้ได้เหมือน Conv','ไม่มีพารามิเตอร์เลย และทำแยกทีละ channel ความลึกไม่เปลี่ยน','ทำให้ความลึกลดลง','ใช้แทน activation function ได้'],a:1,
+  x:'Pooling แค่เลือกค่า (max) หรือเฉลี่ย (avg) ไม่มีอะไรให้เรียนรู้ · ทำแยกทีละ channel จึงลดแค่กว้าง-สูง ความลึกคงเดิม'},
+ {q:'Global Average Pooling ต่างจาก Flatten ยังไง และดียังไง?',
+  o:['GAP เร็วกว่าแต่ได้ผลแย่กว่าเสมอ','GAP เฉลี่ยทั้งแผ่นเหลือค่าเดียวต่อ channel ทำให้ Dense ถัดไปมีพารามิเตอร์น้อยลงมหาศาล','GAP เพิ่มความลึกให้ feature map','ไม่ต่างกันเลย'],a:1,
+  x:'Flatten ให้เวกเตอร์ H×W×K (เช่น 8·8·64 = 4096) แต่ GAP ให้แค่ K ค่า (64) · Dense(128) ที่ตามมาจึงลดจาก 524,416 เหลือ 8,320 พารามิเตอร์ = ลด 63 เท่า และ overfit น้อยลง'},
+ {q:'Dropout ทำงานตอนไหน?',
+  o:['ทั้งตอนเทรนและตอน predict','เฉพาะตอนเทรนเท่านั้น ตอน predict ปิดตัวเองอัตโนมัติ','เฉพาะตอน predict','เฉพาะ epoch แรก'],a:1,
+  x:'ถ้า Dropout ทำงานตอน predict ด้วย ผลทำนายจะสุ่มเปลี่ยนทุกครั้ง · Keras จัดการสลับโหมดให้เองผ่าน training flag ไม่ต้องเขียนเพิ่ม'},
+ {q:'งาน multi-class ที่ label เป็นเลข 0–9 ควรใช้ activation และ loss อะไรที่ชั้น output?',
+  o:['Sigmoid + binary_crossentropy','Softmax + categorical_crossentropy','Softmax + sparse_categorical_crossentropy','Linear + mse'],a:2,
+  x:'Softmax เพราะเลือกได้คลาสเดียว · sparse_ เพราะ label เป็นจำนวนเต็มไม่ใช่ one-hot · ถ้า label เป็น one-hot ถึงจะใช้ categorical_crossentropy เฉย ๆ'},
+ {q:'Backpropagation ผ่านชั้น Conv ต่างจาก Dense ตรงไหน?',
+  o:['ไม่ต่างกันเลย','gradient ของ filter ที่ใช้ร่วมกันต้องรวม (sum) จากทุกตำแหน่งที่มันถูกนำไปวาง','Conv ไม่ต้องทำ backprop','Conv ใช้ chain rule ไม่ได้'],a:1,
+  x:'เพราะ weight sharing filter ตัวเดียวมีส่วนร่วมในหลายตำแหน่ง gradient จึงต้องสะสมจากทุกตำแหน่ง ต่างจาก Dense ที่ weight แต่ละตัวมี gradient เดียว'},
+ {q:'มีรูปทุเรียนติด label แค่ 400 รูป ต้องการทำโมเดลคัดเกรด ควรใช้วิธีไหน?',
+  o:['เทรน CNN ลึก ๆ จากศูนย์','Transfer learning — ใช้โมเดล pretrained แล้วแช่แข็ง base เทรนเฉพาะหัวใหม่','ใช้ MLP แทน CNN','ไม่ต้อง normalize ภาพ'],a:1,
+  x:'ข้อมูล label น้อยเป็นกรณีปกติของโปรเจกต์นักศึกษา · transfer learning ยืมความรู้เรื่องขอบ/พื้นผิวจาก ImageNet มาใช้เลย แล้วสอนแค่ชั้นสุดท้าย ได้ผลดีกว่าเทรนใหม่จากศูนย์มาก'},
 ]}};
 
 /* ================================================================
@@ -7867,7 +8867,7 @@ w8:{title:'Quiz Week 8 · Dimensionality Reduction', qs:[
 ================================================================ */
 (function(){
   const box=document.getElementById('examSim'); if(!box) return;
-  const SRC={w1:'Week 1',w2:'Week 2',w2x:'Week 2 · เสริม',w3:'Week 3',w456:'Week 4–6',w7:'Week 7',w8:'Week 8'};
+  const SRC={w1:'Week 1',w2:'Week 2',w2x:'Week 2 · เสริม',w3:'Week 3',w456:'Week 4–6',w7:'Week 7',w8:'Week 8',w9:'Week 9'};
   // scope หนึ่งอาจครอบหลายชุด (Week 2 = ชุดหลัก + ชุดเสริมจาก cram sheet)
   const SCOPE_KEYS={w2:['w2','w2x']};
   // สร้างคลังข้อสอบจาก QUIZ_DATA ทุกชุด
